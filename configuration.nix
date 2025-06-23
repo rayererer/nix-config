@@ -45,6 +45,7 @@
     vim
     git
     hyprland
+    gh
   ];
 
   # List services that you want to enable:
