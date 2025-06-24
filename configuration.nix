@@ -7,7 +7,7 @@
       ./nixosModules/applications/neovim.nix
     ];
 
-    neovim.enable = false;
+    neovim.enable = true;
     neovim.makeDefault = true;
 
   # Use the systemd-boot EFI boot loader.
