@@ -1,21 +1,27 @@
 {
-  description = "My flake"
+  description = "NixOS config flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
+    # use "nixos", or your hostname as the name of the configuration
+    # it's a better practice than "default" shown in the video
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+
       system = "x86_64-linux";
 
-      specialArgs = { inherit inputs; };
-
-      modules = [ ./configuration.nix ];
+      modules = [
+        ./configuration.nix
+        inputs.home-manager.nixosModules.default
+      ];
     };
   };
 }
-
