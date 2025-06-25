@@ -12,7 +12,7 @@ options = {
     }
     (lib.mkIf config.neovim.makeDefault {
       programs.neovim.defaultEditor = true;
-      environment.variables = {
+      home.sessionVariables = {
         EDITOR = "nvim";
         VISUAL = "nvim";
       };

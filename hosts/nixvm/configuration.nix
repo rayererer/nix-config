@@ -4,10 +4,11 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      ../../nixosModules/default.nix
     ];
   
   home-manager.enable = true;
+
+  home-manager.users.rayer = import ./home.nix { inherit pkgs config; };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

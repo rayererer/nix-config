@@ -8,13 +8,10 @@
 
   config = lib.mkIf config.home-manager.enable
   {
-    home-manager."rayer" = {
-      extraSpecialArgs = { inherit inputs; };
-      modules = [
-        ../hosts/nixvm/home.nix
-        inputs.self.outputs.homeManagerModules.default
-      ];
+    home-manager.sharedModules = [
+      inputs.self.outputs.homeManagerModules.default
+    ];
 
-    };
+    home-manager.extraSpecialArgs = { inherit inputs; };
   };
 }
