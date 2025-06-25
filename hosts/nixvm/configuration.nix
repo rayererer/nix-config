@@ -4,17 +4,16 @@
   imports =
     [ 
       ./hardware-configuration.nix
-      ./nixosModules/applications/neovim.nix
+      ../../nixosModules/default.nix
     ];
-
-    neovim.enable = true;
-    neovim.makeDefault = true;
+  
+  home-manager.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nixvm"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -40,8 +39,6 @@
     ];
   };
 
-  programs.firefox.enable = true;
-
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
@@ -55,10 +52,10 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  system.stateVersion = "25.05"; # Don't change this.
-
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
+
+  system.stateVersion = "25.05"; # Don't change this.
 }
 

@@ -1,1 +1,19 @@
+# Build outputs
 result
+result-*
+*.drv
+
+# Editor temp files
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Backup files
+*.bak
+*.tmp
+
+# Secrets
+secrets.nix
+*.secret
+local-override.nix
