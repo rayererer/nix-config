@@ -2,5 +2,6 @@
 
   imports = [
     ./cliPrograms/neovim.nix
+    ./homeManagerCLI.nix
   ];
 }

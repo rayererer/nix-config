@@ -5,9 +5,7 @@
   home.username = "rayer"; 
   home.homeDirectory = "/home/rayer";
 
-  home.packages = with pkgs; [
-    neofetch
-  ];
+  home-manager-cli.enable = true;
 
   neovim = { 
     enable = true;

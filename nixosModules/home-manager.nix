@@ -1,10 +1,6 @@
 { pkgs, inputs, lib, config, ... }: {
 
-  options = {
-    home-manager = {
-      enable = lib.mkEnableOption "Enable the home-manager integration module";
-    };
-  };
+  options.home-manager.enable = lib.mkEnableOption "Enable the home-manager integration module";
 
   config = lib.mkIf config.home-manager.enable
   {

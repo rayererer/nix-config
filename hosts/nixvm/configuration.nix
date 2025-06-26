@@ -7,8 +7,9 @@
     ];
   
   home-manager.enable = true;
-
   home-manager.users.rayer = import ./home.nix { inherit pkgs config; };
+
+  my.desktops.hyprland.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
