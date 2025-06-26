@@ -9,6 +9,8 @@
   home-manager.enable = true;
   home-manager.users.rayer = import ./home.nix { inherit pkgs config; };
 
+  my.services.ly.enable = true;
+
   my.desktops.hyprland.enable = true;
 
   # Use the systemd-boot EFI boot loader.

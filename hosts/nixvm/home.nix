@@ -7,6 +7,8 @@
 
   home-manager-cli.enable = true;
 
+  my.desktops.hyprland.enable = true;
+
   neovim = { 
     enable = true;
     makeDefault = true;
