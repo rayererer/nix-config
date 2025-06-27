@@ -15,6 +15,8 @@
       pkgs.kitty # Required for the default Hyprland config
     ];
 
+    systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
+
     xdg.portal = {
       enable = true;
       extraPortals = [

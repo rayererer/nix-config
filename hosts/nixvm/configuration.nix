@@ -9,7 +9,8 @@
   home-manager.enable = true;
   home-manager.users.rayer = import ./home.nix { inherit pkgs config; };
 
-  my.services.greetd-tuigreet.enable = true;
+  # my.services.greetd-tuigreet.enable = true;
+  my.services.ly.enable = true;
 
   my.desktops.hyprland.enable = true;
 
