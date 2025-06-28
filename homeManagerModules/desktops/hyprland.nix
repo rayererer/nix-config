@@ -1,40 +1,53 @@
 { pkgs, lib, config, ... }: {
-  
-  options = {
-    my.desktops.hyprland.enable = lib.mkEnableOption "Enable Hyprland.";
+
+  options.my.desktops.hyprland = {
+    enable = lib.mkEnableOption "Enable Hyprland.";
+    withUWSM = lib.mkEnableOption "Configure Hyprland to work well with UWSM.";
   };
 
-  config = lib.mkIf config.my.desktops.hyprland.enable {
+  let
+    cfg = config.my.desktops.hyprland;
+  in {
+
+  config = lib.mkIf cfg.enable {
+    lib.mkMerge [
+    (
     wayland.windowManager.hyprland = {
       enable = true;
       package = null;
       portalPackage = null;
 
-      # Disable systemd integration because of conflict with uwsm 
-      # (maybe turn this (and other options specific to uwsm) into option in the future.)
-      systemd.enable = false;
+      settings = {
+        "$mainMod" = "SUPER";
+
+        bind = [
+          "$mainMod,RETURN,exec,kitty"
+          # "$mainMod,BACKSPACE,exec,exit"
+
+	  # This for uwsm, that avoids causing issues on close.
+          # "$mainMod,BACKSPACE,exec,uwsm stop"
+        ];
+      };
     };
-    
+    );
 
-    home.file = {
-      ".config/uwsm/env-hyprland".text = ''
-	# This is to "regive" control of this env var,
-	# which is needed to avoid warning if externally set before,
-	# which is needed to make sure ly can actually start hyprland.
-        export XDG_CURRENT_DESKTOP=Hyprland
-      '';
-    };
+    (
+    let 
+      importModule = name: import (./directory + "/" + name + ".nix") { inherit config lib pkgs; };
 
-    wayland.windowManager.hyprland.settings = {
-     "$mainMod" = "SUPER";
-
-      bind = [
-        "$mainMod,RETURN,exec,kitty"
-        # "$mainMod,BACKSPACE,exec,exit"
-
-	# This for uwsm, that avoids causing issues on close.
-        "$mainMod,BACKSPACE,exec,uwsm stop"
+      modules = [
+        { name = "uwsmIntegration"; enabled = cfg.withUWSM.enable; }
       ];
+
+      imports = lib.concatLists (map (mod:
+        lib.optional mod.enabled (importModule mod.name)
+      ) modules);
+    in
+    {
+    imports = imports;
     };
+    );
+    ];
+  };
   };
 }
