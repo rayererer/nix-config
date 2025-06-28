@@ -7,7 +7,10 @@
 
   home-manager-cli.enable = true;
 
-  my.desktops.hyprland.enable = true;
+  my.desktops.hyprland = { 
+    enable = true;
+    withUWSM = true;
+  };
 
   neovim = { 
     enable = true;
