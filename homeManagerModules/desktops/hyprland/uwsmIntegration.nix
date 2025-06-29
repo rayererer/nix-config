@@ -55,7 +55,7 @@ BEGIN {
   print "# This config has been wrapped by a script to put all exec-once commands in the"
   print "# uwsm start file (~/.config/uwsm/start) and to wrap all binds to apps with"
   print "# (uwsm app -- appHere) to ensure recommended start with uwsm."
-  print "# -------------------------------------------------------------"
+  print "# -------------------------------------------------------------\n"
 }
 function ltrim(s)  { sub(/^[ \t\r\n]+/, "", s); return s }
 function rtrim(s)  { sub(/[ \t\r\n]+$/, "", s); return s }

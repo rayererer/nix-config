@@ -5,7 +5,6 @@ let
 in
 {
   # Import all hyprland modules here and enable them at the bottom.
-  # Keep uwsmIntegration last as it will wrap all needed commands.
   imports = [
     ./hyprland/core.nix
     ./hyprland/uwsmIntegration.nix
@@ -21,14 +20,11 @@ in
       enable = true;
       package = null;
       portalPackage = null;
-      settings = {
-
-      };
     };
 
     # Enable the hyprland modules here and import them up top.
+    # Core is enabled by default.
     my.desktops.hyprland.moduleCfg = {
-      core.enable = true;
       uwsmIntegration.enable = cfg.withUWSM;
     };
   };
