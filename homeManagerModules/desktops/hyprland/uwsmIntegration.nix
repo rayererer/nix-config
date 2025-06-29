@@ -21,7 +21,7 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
 
       # This is to make sure uwsm config file is used,
       # which is necessary if the wrapping of e.g. binds should work.
-      export HYPRLAND_CONFIG_PATH = "$HOME/.config/hypr/hyprland-uwsm.conf";
+      export HYPRLAND_CONFIG="$HOME/.config/hypr/hyprland-uwsm.conf"
     '';
 
     ".config/hypr/hyprland/uwsm-command-wrap.sh" = {
@@ -46,7 +46,7 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
       if (cmd ~ /exit$/) {
         print "exec-once = uwsm stop"
       } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
-        print "exec-once = uwsm --app " cmd
+        print "exec-once = uwsm app -- " cmd
       } else {
         print "exec-once = " cmd
       }
@@ -54,12 +54,14 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
     }
 
     /^bind\s*=\s*.*exec,/ {
-      split($0, parts, ",")
+      line = $0
+      sub(/^bind\s*=\s*/, "", line)
+      split(line, parts, ",")
       cmd = parts[length(parts)]
       if (cmd == "exit") {
         parts[length(parts)] = "uwsm stop"
       } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
-        parts[length(parts)] = "uwsm --app " cmd
+        parts[length(parts)] = "uwsm app -- " cmd
       }
       out = parts[1]
       for (i = 2; i <= length(parts); ++i) {

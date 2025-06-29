@@ -12,7 +12,7 @@
     };
 
     environment.systemPackages = [
-      # pkgs.kitty # Required for the default Hyprland config
+      pkgs.kitty # Required for the default Hyprland config
     ];
 
     xdg.portal = {

@@ -25,7 +25,6 @@ in
 
         bind = [
           "$mainMod,RETURN,exec,kitty"
-	  "$mainMod,BACKSPACE,exec,exit"
 	];
       };
     };
