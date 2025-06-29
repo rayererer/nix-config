@@ -1,21 +1,21 @@
 { pkgs, lib, config, ... }:
 
 let
-  moduleName = "placeHolderModuleNameHere"
+  moduleName = "placeHolderModuleNameHere";
   cfg = config.my.desktops.hyprland;
 in
 {
 
 options.my.desktops.hyprland = {
   moduleCfg.${moduleName} = {
-    enable = lib.mkEnableOption = {
+    enable = lib.mkEnableOption {
       description = "Enable ${moduleName} module. (default is true).";
       default = false;
-    }
+    };
   };
 
   mainModKey = {
-    type = types.str;
+    type = lib.types.str;
     description = "String of the key to use as mainMod (default is 'SUPER').";
     default = "SUPER";
   };
