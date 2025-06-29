@@ -1,27 +1,25 @@
 { pkgs, lib, config, ... }:
 
 let
-  moduleName = "core";
   cfg = config.my.desktops.hyprland;
 in
 {
 
 options.my.desktops.hyprland = {
-  moduleCfg.${moduleName} = {
+  moduleCfg.core = {
     enable = lib.mkEnableOption {
-      description = "Enable ${moduleName} module. (default is true).";
-      default = true;
+      description = "Enable core module.";
     };
   };
 
-  mainModKey = {
+  mainModKey = lib.mkOption {
     type = lib.types.str;
     description = "String of the key to use as mainMod (default is 'SUPER').";
     default = "SUPER";
   };
 };
 
-config = lib.mkIf cfg.moduleCfg.${moduleName}.enable {
+config = lib.mkIf cfg.moduleCfg.core.enable {
   wayland.windowManager.hyprland = {
     settings = {
      "$mainMod" = cfg.mainModKey;
