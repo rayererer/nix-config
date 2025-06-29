@@ -6,13 +6,15 @@
       ./hardware-configuration.nix
     ];
   
-  home-manager.enable = true;
-  home-manager.users.rayer = import ./home.nix { inherit pkgs config; };
+  home-manager = {
+    enable = true;
+    users.rayer = import ./home.nix { inherit pkgs config; };
+  };
 
-  # my.services.greetd-tuigreet.enable = true;
-  my.services.ly.enable = true;
-
-  my.desktops.hyprland.enable = true;
+  myOs = {
+    services.ly.enable = true;
+    desktops.hyprland.enable = true;
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

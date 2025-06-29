@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }: {
   
   options = {
-    my.desktops.hyprland.enable = lib.mkEnableOption "Enable Hyprland.";
+    myOs.desktops.hyprland.enable = lib.mkEnableOption "Enable Hyprland.";
   };
 
-  config = lib.mkIf config.my.desktops.hyprland.enable {
+  config = lib.mkIf config.myOs.desktops.hyprland.enable {
     
     programs.hyprland = { 
       enable = true;
@@ -12,10 +12,8 @@
     };
 
     environment.systemPackages = [
-      pkgs.kitty # Required for the default Hyprland config
+      # pkgs.kitty # Required for the default Hyprland config
     ];
-
-    systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
 
     xdg.portal = {
       enable = true;
@@ -30,9 +28,9 @@
 
     environment.sessionVariables = {
       # Optional, hint Electron apps to use Wayland.
-      NIXOS_OZONE_WL = "1";
+      # NIXOS_OZONE_WL = "1";
       # Optional, workaraound for GPU/driver issues with hardware cursors.
-      WLR_NO_HARDWARE_CURSORS = "1";
+      # WLR_NO_HARDWARE_CURSORS = "1";
     };
   };
 }

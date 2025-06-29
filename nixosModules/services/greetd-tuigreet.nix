@@ -1,10 +1,10 @@
 { pkgs, lib, config, ... }: {
   
-  options = {
-    my.services.greetd-tuigreet.enable = lib.mkEnableOption "Enable Ly Display Manager.";
+  options.myOs.services = {
+    greetd-tuigreet.enable = lib.mkEnableOption "Enable Ly Display Manager.";
   };
 
-  config = lib.mkIf config.my.services.greetd-tuigreet.enable {
+  config = lib.mkIf config.myOs.services.greetd-tuigreet.enable {
 
     users.users.greeter = {
       isSystemUser = true;
