@@ -23,9 +23,6 @@ in
       portalPackage = null;
       settings = {
 
-        bind = [
-          "$mainMod,RETURN,exec,kitty"
-	];
       };
     };
 

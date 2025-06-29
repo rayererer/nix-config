@@ -24,57 +24,81 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
       export HYPRLAND_CONFIG="$HOME/.config/hypr/hyprland-uwsm.conf"
     '';
 
+    # This script takes all binds that are for apps and wraps them in their appropriate
+    # uwsm start way. It also takes exec-once and throws all of them in to a uwsm start file instead.
     ".config/hypr/hyprland/uwsm-command-wrap.sh" = {
     executable = true;
     text = ''
- #! /usr/bin/env nix-shell
- #! nix-shell -i bash -p gawk coreutils
+#!/usr/bin/env nix-shell
+#! nix-shell -i bash -p gawk coreutils
 
-    configFile="$HOME/.config/hypr/hyprland.conf"
-    outputFile="$HOME/.config/hypr/hyprland-uwsm.conf"
-    tmpFile="$outputFile.tmp"
+configFile="$HOME/.config/hypr/hyprland.conf"
+outputFile="$HOME/.config/hypr/hyprland-uwsm.conf"
+tmpFile="$outputFile.tmp"
+uwsmStartFile="$HOME/.config/uwsm/start"
 
-    if [ ! -s "$configFile" ]; then
-      echo "Skipping wrapping because $configFile is empty or missing."
-      exit 0
-    fi
+# Skip if config missing or empty
+if [ ! -s "$configFile" ]; then
+  echo "Skipping wrapping because $configFile is empty or missing."
+  exit 0
+fi
 
-    awk '
-    /^exec-once\s*=/ {
-      sub(/^exec-once\s*=\s*/, "")
-      cmd = $0
-      if (cmd ~ /exit$/) {
-        print "exec-once = uwsm stop"
-      } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
-        print "exec-once = uwsm app -- " cmd
-      } else {
-        print "exec-once = " cmd
-      }
-      next
-    }
+# Clear uwsm start file for fresh app list
+: > "$uwsmStartFile"
 
-    /^bind\s*=\s*.*exec,/ {
-      line = $0
-      sub(/^bind\s*=\s*/, "", line)
-      split(line, parts, ",")
-      cmd = parts[length(parts)]
-      if (cmd == "exit") {
-        parts[length(parts)] = "uwsm stop"
-      } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
-        parts[length(parts)] = "uwsm app -- " cmd
-      }
-      out = parts[1]
-      for (i = 2; i <= length(parts); ++i) {
-        out = out "," parts[i]
-      }
-      print "bind = " out
-      next
-    }
+# Temp file to store collected apps
+appsTmpFile="$(mktemp)"
 
-    { print }
-    ' "$configFile" > "$tmpFile"
+awk -v appsTmpFile="$appsTmpFile" '
+BEGIN {
+  print "# -------------------------------------------------------------"
+  print "# This config has been wrapped by a script to put all exec-once commands in the"
+  print "# uwsm start file (~/.config/uwsm/start) and to wrap all binds to apps with"
+  print "# (uwsm app -- appHere) to ensure recommended start with uwsm."
+  print "# -------------------------------------------------------------"
+}
+function ltrim(s)  { sub(/^[ \t\r\n]+/, "", s); return s }
+function rtrim(s)  { sub(/[ \t\r\n]+$/, "", s); return s }
+function trim(s)   { return rtrim(ltrim(s)) }
 
-    mv "$tmpFile" "$outputFile"
+/^exec-once\s*=/ {
+  sub(/^exec-once\s*=\s*/, "")
+  cmd = trim($0)
+
+  # Collect the app for uwsm start
+  print cmd >> appsTmpFile
+
+  # Remove this line from output by skipping print
+  next
+}
+
+/^bind\s*=\s*.*exec,/ {
+  line = $0
+  sub(/^bind\s*=\s*/, "", line)
+  split(line, parts, ",")
+
+  cmd = trim(parts[length(parts)])
+  # Wrap bare commands with uwsm app --
+  if (cmd !~ /^[\/\.]/ && cmd !~ /\.sh|\.py|bash|zsh/) {
+    parts[length(parts)] = "uwsm app -- " cmd
+  }
+
+  out = "bind = " parts[1]
+  for (i = 2; i <= length(parts); ++i) {
+    out = out "," parts[i]
+  }
+  print out
+  next
+}
+
+{ print }
+' "$configFile" > "$tmpFile"
+
+# Deduplicate and append collected apps to uwsm start file
+sort -u "$appsTmpFile" >> "$uwsmStartFile"
+rm "$appsTmpFile"
+
+mv "$tmpFile" "$outputFile"
     '';
     };
   };
@@ -87,4 +111,3 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
   };
   };
 }
-

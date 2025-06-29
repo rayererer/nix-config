@@ -10,6 +10,7 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.core.enable {
      "$mainMod" = "SUPER";
 
       bind = [
+        "$mainMod,RETURN,exec,kitty"
       ];
     };
   };
