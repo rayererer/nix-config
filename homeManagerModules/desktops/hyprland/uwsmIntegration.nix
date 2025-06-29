@@ -1,70 +1,88 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, ... }: {
 
-let
-  origSettings = config.wayland.windowManager.hyrland.settings or {};
-  traceSettings = builtins.trace origSettings "Tracing origSettings";
-in
-{
-  options = {
-    my.desktops.hyprland.moduleCfg.uwsmIntegration.enable = lib.mkEnableOption "Enable uwsmIntegration module that changes some settings and also wraps all needed commands.";
+options.my.desktops.hyprland.moduleCfg.uwsmIntegration = {
+  enable = lib.mkEnableOption "Enable uwsmIntegration module that changes some settings and also wraps all needed commands.";
+};
+
+config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
+
+  wayland.windowManager.hyprland = {
+    systemd.enable = false;
   };
 
-  config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable (let
+  home = { 
 
-    isScript = cmd:
-      let
-        lower = lib.strings.toLower cmd;
-        hasShellPrefix = lib.any (p: lib.strings.hasPrefix p lower) [
-          "/" "~" "bash " "sh " "zsh " "./"
-        ];
-        hasScriptSuffix = lib.any (s: lib.strings.hasSuffix s lower) [
-          ".sh" ".bash" ".zsh" ".py" ".pl" ".rb"
-        ];
-        hasPath = lib.strings.hasInfix "/" lower;
-      in hasShellPrefix || hasScriptSuffix || hasPath;
+  file = {
+    ".config/uwsm/env-hyprland".text = ''
+      # This is to "regive" control of this env var,
+      # which is needed to avoid warning if externally set before,
+      # which is needed to make sure ly can actually start hyprland.
+      export XDG_CURRENT_DESKTOP=Hyprland
 
-    wrapUwsm = cmd:
-      "testing testing";
-      # if cmd == "exit" then
-        # "uwsm stop"
-        # else if !isScript cmd then 
-        # "uwsm --app ${cmd}"
-      # else 
-        # cmd;
+      # This is to make sure uwsm config file is used,
+      # which is necessary if the wrapping of e.g. binds should work.
+      export HYPRLAND_CONFIG_PATH = "$HOME/.config/hypr/hyprland-uwsm.conf";
+    '';
 
-    wrapExecOnceList = list: map wrapUwsm list;
+    ".config/hypr/hyprland/uwsm-command-wrap.sh" = {
+    executable = true;
+    text = ''
+ #! /usr/bin/env nix-shell
+ #! nix-shell -i bash -p gawk coreutils
 
-    wrapBindList = list: map (
-      line:
-        if lib.strings.hasPrefix "exec," line then
-          let parts = lib.strings.splitString "," line;
-          in lib.concatStringsSep "," (
-            lib.init parts ++ [ wrapUwsm (lib.last parts) ]
-          )
-        else line
-    ) list;
+    configFile="$HOME/.config/hypr/hyprland.conf"
+    outputFile="$HOME/.config/hypr/hyprland-uwsm.conf"
+    tmpFile="$outputFile.tmp"
 
-  in {
+    if [ ! -s "$configFile" ]; then
+      echo "Skipping wrapping because $configFile is empty or missing."
+      exit 0
+    fi
 
-    wayland.windowManager.hyprland = {
-      systemd.enable = false;
+    awk '
+    /^exec-once\s*=/ {
+      sub(/^exec-once\s*=\s*/, "")
+      cmd = $0
+      if (cmd ~ /exit$/) {
+        print "exec-once = uwsm stop"
+      } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
+        print "exec-once = uwsm --app " cmd
+      } else {
+        print "exec-once = " cmd
+      }
+      next
+    }
+
+    /^bind\s*=\s*.*exec,/ {
+      split($0, parts, ",")
+      cmd = parts[length(parts)]
+      if (cmd == "exit") {
+        parts[length(parts)] = "uwsm stop"
+      } else if (cmd !~ /[\/\.]|\.sh|\.py|bash|zsh/) {
+        parts[length(parts)] = "uwsm --app " cmd
+      }
+      out = parts[1]
+      for (i = 2; i <= length(parts); ++i) {
+        out = out "," parts[i]
+      }
+      print "bind = " out
+      next
+    }
+
+    { print }
+    ' "$configFile" > "$tmpFile"
+
+    mv "$tmpFile" "$outputFile"
+    '';
     };
+  };
 
-    home.file = {
-      ".config/uwsm/env-hyprland".text = ''
-        # This is to "regive" control of this env var,
-        # which is needed to avoid warning if externally set before,
-        # which is needed to make sure ly can actually start hyprland.
-        export XDG_CURRENT_DESKTOP=Hyprland
-      '';
-
-      ".config/hypr/hyprland/uwsm-wrapped.conf".text = ''
-        ${lib.concatStringsSep "\n" (map (cmd: "exec-once = ${cmd}") (wrapExecOnceList (traceSettings.exec-once or [])))}
-
-        ${lib.concatStringsSep "\n" (wrapBindList (traceSettings.bind or []))}
-      '';
-    };
-  });
-
+  activation.uwsmWrappingScript = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      verboseEcho "Running UWSM hyprland config wrapping..."
+      run $HOME/.config/hypr/hyprland/uwsm-command-wrap.sh
+      verboseEcho "UWSM wrapping applied."
+    '';
+  };
+  };
 }
 

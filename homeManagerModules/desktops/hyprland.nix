@@ -25,14 +25,8 @@ in
 
         bind = [
           "$mainMod,RETURN,exec,kitty"
-	  # This for uwsm, that avoids causing issues on close.
-        ] ++ (if cfg.withUWSM then 
-	  [
-            "$mainMod,BACKSPACE,exec,uwsm stop"
-	  ] else
-	  [
-	    "$mainMod,BACKSPACE,exec,exit"
-	  ]);
+	  "$mainMod,BACKSPACE,exec,exit"
+	];
       };
     };
 
