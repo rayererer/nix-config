@@ -5,7 +5,8 @@
     [ 
       ./hardware-configuration.nix
     ];
-  
+
+
   home-manager = {
     enable = true;
     users.rayer = import ./home.nix { inherit pkgs config; };

@@ -7,6 +7,16 @@
 
   home-manager-cli.enable = true;
 
+  wayland.windowManager.hyprland = {
+    settings = {
+     "$mainMod" = "SUPER";
+
+      bind = [
+        "$mainMod,RETURN,exec,neofetch"
+      ];
+    };
+  };
+
   my.desktops.hyprland = { 
     enable = true;
     withUWSM = true;
