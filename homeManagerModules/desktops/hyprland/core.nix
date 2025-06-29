@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  moduleName = "placeHolderModuleNameHere";
+  moduleName = "core";
   cfg = config.my.desktops.hyprland;
 in
 {
