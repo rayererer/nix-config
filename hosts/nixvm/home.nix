@@ -7,14 +7,18 @@
 
   home-manager-cli.enable = true;
 
-  my.desktops.hyprland = { 
-    enable = true;
-    withUWSM = true;
-  };
+  my = {
+    desktops.hyprland = { 
+      enable = true;
+      withUWSM = true;
+    };
 
-  neovim = { 
-    enable = true;
-    makeDefault = true;
+    cliPrograms = {
+      neovim = { 
+        enable = true;
+        makeDefault = true;
+      };
+    };
   };
 
   home.stateVersion = "25.05"; # Don't change this.
