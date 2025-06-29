@@ -10,7 +10,7 @@ options.my.desktops.hyprland = {
   moduleCfg.${moduleName} = {
     enable = lib.mkEnableOption {
       description = "Enable ${moduleName} module. (default is true).";
-      default = false;
+      default = true;
     };
   };
 
