@@ -16,7 +16,7 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
     ".config/uwsm/env-hyprland".text = ''
       # This is to "regive" control of this env var,
       # which is needed to avoid warning if externally set before,
-      # which is needed to make sure ly can actually start hyprland.
+      # which is needed to make sure ly can actually start hyprland with Ly.
       export XDG_CURRENT_DESKTOP=Hyprland
 
       # This is to make sure uwsm config file is used,
