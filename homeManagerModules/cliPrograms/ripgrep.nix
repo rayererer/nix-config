@@ -10,8 +10,8 @@ options.my.cliPrograms.ripgrep = {
 };
 
 config = lib.mkIf cfg.enable {
-  home.packages = [
-    ripgrep
-  ];
+  programs.ripgrep = {
+    enable = true;
+  };
 };
 }

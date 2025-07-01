@@ -22,8 +22,9 @@ options.my.desktops.hyprland = {
 config = lib.mkIf cfg.moduleCfg.core.enable {
   wayland.windowManager.hyprland = {
     settings = {
-     "$mainMod" = cfg.mainModKey;
 
+     "$mainMod" = cfg.mainModKey;
+      
       bind = [
         "$mainMod,RETURN,exec,kitty"
       ];

@@ -23,6 +23,6 @@
     if desc == null || desc == "" then
       ""
     else
-      "# ${desc}\n";
+      "# ${desc}";
 }
 

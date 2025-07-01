@@ -5,18 +5,30 @@
   home.username = "rayer"; 
   home.homeDirectory = "/home/rayer";
 
-  home-manager-cli.enable = true;
-
   my = {
-    desktops.hyprland = { 
+    desktops = {
+
       enable = true;
-      withUWSM = true;
+
+      hyprland = { 
+        enable = true;
+        withUWSM = true;
+      };
     };
 
     cliPrograms = {
+
+      homeManagerCLI = {
+        enable = true;
+      };
+
       neovim = { 
         enable = true;
         makeDefault = true;
+      };
+
+      ripgrep = {
+        enable = true;
       };
     };
   };

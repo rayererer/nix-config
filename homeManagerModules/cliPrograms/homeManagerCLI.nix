@@ -1,13 +1,15 @@
-{ inputs, pkgs, lib, config, ... }: {
+{ inputs, pkgs, lib, config, ... }:
 
-  options = {
-    home-manager-cli = { 
-      enable = lib.mkEnableOption "Include the home-manager CLI as a user package"; 
-    };
+let
+  cfg = config.my.cliPrograms.homeManagerCLI;
+in
+{
+  options.my.cliPrograms.homeManagerCLI = { 
+      enable = lib.mkEnableOption "Include the Home Manager CLI as a user package"; 
   };
 
-  config = {
-    home.packages = lib.mkIf config.home-manager-cli.enable [
+  config = lib.mkIf cfg.enable {
+    home.packages = [
       inputs.home-manager.packages.${pkgs.system}.home-manager
     ];
   };

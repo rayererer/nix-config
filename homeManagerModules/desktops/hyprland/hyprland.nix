@@ -4,27 +4,35 @@ let
   cfg = config.my.desktops.hyprland;
 in
 {
-  # Import all hyprland modules here and enable them at the bottom.
-  imports = [
-    ./hyprland/default.nix
+options.my.desktops.hyprland = {
+  enable = lib.mkEnableOption "Enable Hyprland.";
+  withUWSM = lib.mkEnableOption "Configure Hyprland to work well with UWSM.";
+};
+
+config = lib.mkIf cfg.enable {
+
+
+  assertions = [
+    {
+    assertion = config.my.desktops.enable;
+    message = "Cannot set 'config.my.desktops.hyprland.enable' to true "
+    + "if 'config.my.desktops.enable' is false";
+    }
   ];
 
-  options.my.desktops.hyprland = {
-    enable = lib.mkEnableOption "Enable Hyprland.";
-    withUWSM = lib.mkEnableOption "Configure Hyprland to work well with UWSM.";
+  wayland.windowManager.hyprland = {
+     enable = true;
+     package = null;
+     portalPackage = null;
   };
 
-  config = lib.mkIf cfg.enable {
-    wayland.windowManager.hyprland = {
-      enable = true;
-      package = null;
-      portalPackage = null;
-    };
-
-    # Enable the Hyprland modules here.
-    # Core is enabled by default.
-    my.desktops.hyprland.moduleCfg = {
-      uwsmIntegration.enable = cfg.withUWSM;
-    };
+  # Enable the Hyprland modules here.
+  # They are imported in './default.nix'
+  my.desktops.hyprland.moduleCfg = {
+    core.enable = true;
+    envVarAggregator.enable = true;
+    uwsmIntegration.enable = cfg.withUWSM;
   };
+};
+
 }

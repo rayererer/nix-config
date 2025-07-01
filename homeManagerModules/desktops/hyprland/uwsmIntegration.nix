@@ -10,19 +10,30 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
     systemd.enable = false;
   };
 
+  my.desktops.hyprland.envVars = [
+    [ "XDG_CURRENT_DESKTOP" "Hyprland" "This is to 'regive' control of this env var,
+      which is needed to avoid warning if externally set before,
+      which is needed to make sure ly can actually start hyprland with Ly." 
+    ]
+    [
+      "HYPRLAND_CONFIG" "$HOME/.config/hypr/hyprland-uwsm.conf" "This is to make sure uwsm config file is used,
+      which is necessary if the wrapping of e.g. binds should work."
+    ]
+  ];
+
   home = { 
 
   file = {
-    ".config/uwsm/env-hyprland".text = ''
-      # This is to "regive" control of this env var,
-      # which is needed to avoid warning if externally set before,
-      # which is needed to make sure ly can actually start hyprland with Ly.
-      export XDG_CURRENT_DESKTOP=Hyprland
+    # ".config/uwsm/env-hyprland".text = ''
+      # # This is to "regive" control of this env var,
+      # # which is needed to avoid warning if externally set before,
+      # # which is needed to make sure ly can actually start hyprland with Ly.
+      # export XDG_CURRENT_DESKTOP=Hyprland
 
-      # This is to make sure uwsm config file is used,
-      # which is necessary if the wrapping of e.g. binds should work.
-      export HYPRLAND_CONFIG="$HOME/.config/hypr/hyprland-uwsm.conf"
-    '';
+      # # This is to make sure uwsm config file is used,
+      # # which is necessary if the wrapping of e.g. binds should work.
+      # export HYPRLAND_CONFIG="$HOME/.config/hypr/hyprland-uwsm.conf"
+    # '';
 
     # This script takes all binds that are for apps and wraps them in their appropriate
     # uwsm start way. It also takes exec-once and throws all of them in to a uwsm start file instead.

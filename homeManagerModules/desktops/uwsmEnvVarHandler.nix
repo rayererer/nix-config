@@ -1,23 +1,70 @@
-{ config, lib, compositorName, compositorEnvVars, ... }:
+{ config, lib, ... }:
 
 let
+  cfg = config.my.desktops.uwsmEnvVarHandler;
+
   envUtils = import ../helpers/envVarUtils.nix { inherit lib; };
-
-  # Parse env vars from option, default empty list if none set
-  envList = compositorEnvVars or [];
-
-  parsed = envUtils.parseEnvVars envList;
-
-  fileName = if compositorName == "default" then "env" else "env-" + compositorName;
+  envLists = cfg.uwsmCompositorEnvVarLists or [];
+  desktopEnvList = config.my.desktops.envVars or [];
+  desktopParsed = envUtils.parseEnvVars desktopEnvList;
 
   # Helper to format env var block with optional comment
-  formatVar = v:
-    "${envUtils.formatDescription v.description}export ${v.name}=${lib.escapeShellArg v.value}";
+  formatEnvLine = v:
+    "${envUtils.formatDescription v.description}\nexport ${v.name}=${lib.escapeShellArg v.value}";
+
+  makeEnvVarFile = envListsEntry:
+    let
+      compositorName = builtins.elemAt envListsEntry 0;
+      envList = builtins.elemAt envListsEntry 1;
+      fileName = "env-${compositorName}";
+      vars = envUtils.parseEnvVars envList;
+      text = lib.concatStringsSep "\n\n" (map formatEnvLine vars);
+    in {
+      name = "\".config/uwsm/${fileName}\"";
+      value = {
+        text = text;
+      };
+    };
 in
 {
-  # Optionally enable only if env vars are set:
-  config = lib.mkIf (envList != []) {
-    home.file.".config/uwsm/${fileName}".text = lib.concatStringsSep "\n\n" (map formatVar parsed);
+  options.my.desktops.uwsmEnvVarHandler = {
+    enable = lib.mkEnableOption "Enable uwsmEnvVarHandler.";
+
+    uwsmCompositorEnvVarLists = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.tupleOf [
+          lib.types.str                      # Compositor Name 
+          envUtils.envVarListType            # Env Var list.
+        ]
+      );
+      default = [];
+      description = "Lists of compositor specific env vars for uwsm to handle.";
+    };
+  };
+
+  config = lib.mkIf cfg.enable 
+  {
+    home.file = {
+      ".config/uwsm/env".text = lib.concatStringsSep "\n\n" (map formatEnvLine desktopParsed);
+          }  // builtins.listToAttrs (map makeEnvVarFile envLists);
   };
 }
+
+uwsmCompositorEnvVarLists = lib.mkOption {
+  type = lib.types.listOf (lib.types.submodule {
+    options = {
+      compositor = lib.mkOption {
+        type = lib.types.str;
+        description = "Name of the compositor.";
+      };
+
+      envVars = lib.mkOption {
+        type = envUtils.envVarListType;
+        description = "Environment variables for the compositor.";
+      };
+    };
+  });
+  default = [];
+  description = "Lists of compositor-specific env vars for uwsm to handle.";
+};
 
