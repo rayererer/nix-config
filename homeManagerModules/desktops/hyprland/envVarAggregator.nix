@@ -18,16 +18,14 @@ options.my.desktops.hyprland = {
 };
 
 config = lib.mkIf cfg.moduleCfg.envVarAggregator.enable {
-  # Pseudo code:
-  # If withUWSM:
-  # Enable uwsmHandler and pass env vars.
-  # Else:
-  # Enable inlineHandler option.
     
   my.desktops.uwsmEnvVarHandler = lib.mkIf cfg.withUWSM {
     enable = true;
     uwsmCompositorEnvVarLists = [
-      [ "hyprland" cfg.envVars ] 
+      {
+        compositorName = "hyprland";
+        envVarsList = cfg.envVars;
+      }
     ];
   };
 

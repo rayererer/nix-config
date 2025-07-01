@@ -1,28 +1,45 @@
 { lib }:
 
-{
-  # A reusable env var option type
-  envVarListType = lib.types.listOf (
-    lib.types.tupleOf [
-      lib.types.str                      # Name
-      lib.types.str                      # Value
-      (lib.types.nullOr lib.types.str)   # Optional description
-    ]
-  );
+let
+  envVarType = lib.types.coercedTo
+    (lib.types.listOf lib.types.str)
+    (lst:
+      let
+        name = builtins.elemAt lst 0;
+        value = builtins.elemAt lst 1;
+        description = if builtins.length lst > 2 then builtins.elemAt lst 2 else null;
+      in {
+        varName = name;
+        varValue = value;
+        varDescription = description;
+      })
+    (lib.types.submodule {
+      options = {
+        varName = lib.mkOption {
+          type = lib.types.str;
+          description = "Which variable to set.";
+        };
+        varValue = lib.mkOption {
+          type = lib.types.str;
+          description = "What value to set the var to.";
+        };
+        varDescription = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          default = null;
+          description = "A description for the variable (optional)";
+        };
+      };
+    });
 
-  # Turns list-of-tuples into a list-of-attrs
-  parseEnvVars = vars:
-    map (v: {
-      name = builtins.elemAt v 0;
-      value = builtins.elemAt v 1;
-      description = builtins.elemAt v 2;
-    }) vars;
+  envVarListType = lib.types.listOf envVarType;
 
-  # Formats the description as a shell comment or empty string if none
   formatDescription = desc:
-    if desc == null || desc == "" then
-      ""
-    else
-      "# ${desc}";
+    if desc == null || desc == "" then "" else "# ${desc}";
+
+  formatEnvLine = v:
+    "${formatDescription v.varDescription}\nexport ${v.varName}=${lib.escapeShellArg v.varValue}";
+
+in {
+  inherit envVarListType formatDescription formatEnvLine;
 }
 

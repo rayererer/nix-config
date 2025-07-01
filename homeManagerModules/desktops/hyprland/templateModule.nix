@@ -6,7 +6,7 @@ in
 {
 
 options.my.desktops.hyprland = {
-  moduleCfg.templateModuleNameHere
+  moduleCfg.templateModuleNameHere = {
     enable = lib.mkEnableOption "Enable templateModuleNameHere module.";
   };
 };

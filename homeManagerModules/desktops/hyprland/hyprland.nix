@@ -32,6 +32,9 @@ config = lib.mkIf cfg.enable {
     core.enable = true;
     envVarAggregator.enable = true;
     uwsmIntegration.enable = cfg.withUWSM;
+
+    # TODO, fix actual check here:
+    lyIntegration.enable = true;
   };
 };
 
