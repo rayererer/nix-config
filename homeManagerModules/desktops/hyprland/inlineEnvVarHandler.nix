@@ -8,8 +8,8 @@ let
 
   formatEnvLine = var:
     let
-      comment = envUtils.formatDescription var.varDescription;
-      line = "${var.varName},${var.varValue}";
+      comment = envUtils.formatDescription var.description;
+      line = "${var.name},${var.value}";
     in
       if comment == "" then line else "${line} ${comment}";
 in

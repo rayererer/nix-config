@@ -15,12 +15,5 @@ config = lib.mkIf cfg.moduleCfg.lyIntegration.enable {
   my.desktops.hyprland.envVars = [
     [ "XDG_CURRENT_DESKTOP" "Hyprland" "'Regiving' control after needed ly integration override." ]
   ];
-
-  wayland.windowManager.hyprland = {
-    settings = {
-
-
-    };
-  };
 };
 }

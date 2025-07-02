@@ -1,6 +1,6 @@
 
 
-{ pkgs, ... }: {
+{ pkgs, osConfig, ... }: {
 
   home.username = "rayer"; 
   home.homeDirectory = "/home/rayer";
@@ -11,15 +11,14 @@
       enable = true;
 
       hyprland = { 
-        enable = true;
-        withUWSM = true;
+        enable = false;
       };
     };
 
     cliPrograms = {
 
       homeManagerCLI = {
-        enable = true;
+        # enable = true;
       };
 
       neovim = { 

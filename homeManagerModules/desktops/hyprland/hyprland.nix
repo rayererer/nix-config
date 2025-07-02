@@ -1,24 +1,42 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, osConfig, ... }:
 
 let
   cfg = config.my.desktops.hyprland;
+  osCfg = osConfig.myOs.desktops.hyprland;
 in
 {
 options.my.desktops.hyprland = {
   enable = lib.mkEnableOption "Enable Hyprland.";
-  withUWSM = lib.mkEnableOption "Configure Hyprland to work well with UWSM.";
+  useUWSM = lib.mkOption {
+    type = lib.types.mkBool;
+    default = osCfg.useUWSM;
+    description = "Configure Hyprland to work well with UWSM.";
+  };
 };
 
 config = lib.mkIf cfg.enable {
 
-
   assertions = [
     {
-    assertion = config.my.desktops.enable;
-    message = "Cannot set 'config.my.desktops.hyprland.enable' to true "
-    + "if 'config.my.desktops.enable' is false";
+      assertion = config.my.desktops.enable;
+      message = ''Cannot set 'config.my.desktops.hyprland.enable' to true
+                  if 'config.my.desktops.enable' is false'';
+    }
+    {
+      assertion = osConfig.myOs.desktops.hyprland.enable;
+      message = ''Cannot set 'config.my.desktops.hyprland.enable' to true
+                  if 'osConfig.myOs.desktops.hyprland.enable' is false
+                  since system-level support is needed.'';
     }
   ];
+
+  warnings = 
+    if cfg.useUWSM != osCfg.useUWSM then
+      [ ''Manually setting 'config.my.desktops.hyprland.useUWSM' is
+          not recommended as it follows 'config.myOs.desktops.hyprland.useUWSM',
+	  overriding to true is especially discouraged.
+      '' ]
+    else [];
 
   wayland.windowManager.hyprland = {
      enable = true;
@@ -31,10 +49,8 @@ config = lib.mkIf cfg.enable {
   my.desktops.hyprland.moduleCfg = {
     core.enable = true;
     envVarAggregator.enable = true;
-    uwsmIntegration.enable = cfg.withUWSM;
-
-    # TODO, fix actual check here:
-    lyIntegration.enable = true;
+    uwsmIntegration.enable = cfg.useUWSM;
+    lyIntegration.enable = osConfig.myOs.services.ly.enable;
   };
 };
 

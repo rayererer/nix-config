@@ -8,10 +8,9 @@ let
   compositorEnvLists = cfg.uwsmCompositorEnvVarLists or [];
   genericEnvList = config.my.desktops.envVars or [];
 
-  # Format a single env var as a shell export with optional comment
   formatEnvLine = var:
-    # "${envUtils.formatDescription var.varDescription}\nexport ${var.varName}=${lib.escapeShellArg var.varValue}";
-    "export ${var.varName}=${lib.escapeShellArg var.varValue}";
+    envUtils.formatExportEnvLine var;
+    # "export ${var.name}=${lib.escapeShellArg var.value}";
 
   # Convert compositor env var lists into attrset entries for home.file
   compositorEnvFiles = builtins.listToAttrs (map (entry: {

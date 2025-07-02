@@ -8,6 +8,8 @@
       inputs.self.outputs.homeManagerModules.default
     ];
 
-    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.extraSpecialArgs = { 
+      inherit inputs; 
+    };
   };
 }

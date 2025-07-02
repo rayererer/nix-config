@@ -1,14 +1,26 @@
-{ pkgs, lib, config, ... }: {
-  
-  options = {
-    myOs.desktops.hyprland.enable = lib.mkEnableOption "Enable Hyprland.";
+{ pkgs, lib, config, ... }: 
+
+let
+  cfg = config.myOs.desktops.hyprland;
+in
+{
+  options.myOs.desktops.hyprland = { 
+    enable = lib.mkEnableOption "Enable Hyprland.";
+    useUWSM = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Enable Hyprland with UWSM, default is true 
+        because of it being recommended by Hyprland itself.
+      '';
+    };
   };
 
-  config = lib.mkIf config.myOs.desktops.hyprland.enable {
+  config = lib.mkIf cfg.enable {
     
     programs.hyprland = { 
       enable = true;
-      withUWSM = true;
+      withUWSM = cfg.useUWSM;
     };
 
     environment.systemPackages = [

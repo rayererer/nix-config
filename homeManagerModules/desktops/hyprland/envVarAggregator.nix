@@ -19,7 +19,7 @@ options.my.desktops.hyprland = {
 
 config = lib.mkIf cfg.moduleCfg.envVarAggregator.enable {
     
-  my.desktops.uwsmEnvVarHandler = lib.mkIf cfg.withUWSM {
+  my.desktops.uwsmEnvVarHandler = lib.mkIf cfg.useUWSM {
     enable = true;
     uwsmCompositorEnvVarLists = [
       {
@@ -29,7 +29,7 @@ config = lib.mkIf cfg.moduleCfg.envVarAggregator.enable {
     ];
   };
 
-  my.desktops.hyprland.inlineEnvVarHandler = lib.mkIf (!cfg.withUWSM) {
+  my.desktops.hyprland.inlineEnvVarHandler = lib.mkIf (!cfg.useUWSM) {
     enable = true;
   };
 };
