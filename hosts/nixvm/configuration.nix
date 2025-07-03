@@ -1,18 +1,22 @@
 { pkgs, lib, config, ... }:
 
+let
+  cfg = config.myOs;
+in
 {
-  imports =
-    [ 
-      ./hardware-configuration.nix
-    ];
+  imports = [ 
+    ./hardware-configuration.nix
+  ];
 
 
-  home-manager = lib.mkIf config.myOs.home-manager.enable { 
+  home-manager = lib.mkIf cfg.home-manager.enable { 
     users.rayer = import ./home.nix;
   };
 
   myOs = {
     home-manager.enable = true;
+    locale.enable = true;
+
     services.ly.enable = true;
     desktops.hyprland = { 
       enable = true;
@@ -26,13 +30,8 @@
   networking.hostName = "nixvm"; # Define your hostname.
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/Stockholm";
-
-  i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "sv-latin1";
   };
 
   # Enable sound.
@@ -54,7 +53,6 @@
   environment.systemPackages = with pkgs; [
     vim
     git
-    hyprland
     gh
   ];
 
