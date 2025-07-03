@@ -11,7 +11,7 @@
       enable = true;
 
       hyprland = { 
-        enable = false;
+        enable = true;
       };
     };
 
