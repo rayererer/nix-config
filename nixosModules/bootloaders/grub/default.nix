@@ -1,6 +1,8 @@
 { pkgs, lib, ... }: {
 
   imports = [
-    ./systemdBoot.nix
+    ./grub.nix
+    ./biosIntegration.nix
+    ./uefiIntegration.nix
   ];
 }

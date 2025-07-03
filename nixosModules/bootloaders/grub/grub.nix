@@ -2,37 +2,27 @@
 
 let
   bootCfg = config.myOs.bootloaders;
-  cfg = bootCfg.systemdBoot;
+  cfg = bootCfg.grub;
 in
 {
 options.myOs.bootloaders = {
-  systemdBoot = {
-    enable = lib.mkEnableOption "Enable systemd-boot as the bootloader.";
+  grub = {
+    enable = lib.mkEnableOption "Enable grub as the bootloader.";
   };
 };
 
 config = lib.mkIf cfg.enable {
   
-  myOs.bootloaders.bootloader = "systemd-boot";
+  myOs.bootloaders.bootloader = "grub";
 
   boot.loader.grub = {
     enable = true;
-    # TODO: Add more options here, and move into modules for better configuration.
-    # Basically like the hyprland module config.
-    efiSupport = bootCfg.isUEFI;
-
   };
 
-  assertions = [
-    {
-      assertion = bootCfg.isUEFI;
-      message = ''
-        'config.myOs.bootloaders.systemdBoot.enable' cannot be true 
-	without 'config.myOs.bootloaders.isUEFI' also being true
-	since systemd-boot only works on UEFI.
-      '';
-    }
-  ];
+  myOs.bootloaders.grub.moduleCfg = {
+    uefiIntegration.enable = bootCfg.firmwareType == "UEFI";
+    biosIntegration.enable = bootCfg.firmwareType == "BIOS";
+  };
 };
 
 }

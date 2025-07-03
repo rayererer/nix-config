@@ -16,7 +16,9 @@ in
 
     bootloaders = {
       enable = true;
-      systemdBoot.enable = true;
+      firmwareType = "UEFI";
+      # systemdBoot.enable = true;
+      grub.enable = true;
     };
 
     home-manager.enable = true;
@@ -45,8 +47,6 @@ in
   users.users.rayer = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-    ];
   };
 
   # List packages installed in system profile.

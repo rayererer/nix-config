@@ -21,7 +21,7 @@ config = lib.mkIf cfg.enable {
 
   assertions = [
     {
-      assertion = bootCfg.isUEFI;
+      assertion = bootCfg.firmwareType == "UEFI";
       message = ''
         'config.myOs.bootloaders.systemdBoot.enable' cannot be true 
 	without 'config.myOs.bootloaders.isUEFI' also being true

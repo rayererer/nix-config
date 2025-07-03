@@ -3,37 +3,60 @@
 let
   cfg = config.myOs.bootloaders;
   allowedBootLoaders = [ "grub" "systemd-boot" ];
+  firmwareTypes = [ "UEFI" "BIOS" ];
 in
 {
 options.myOs = {
   bootloaders = {
-    enable = lib.mkEnableOption "Enable boot loader stuff.";
+    enable = lib.mkEnableOption "Enable bootloader stuff.";
     bootloader = lib.mkOption {
       type = lib.types.nullOr ( lib.types.enum allowedBootLoaders );
       default = null;
+      example = "grub";
       description = ''
-        Which bootloader to use, bootloader modules should add themselves
+        Which bootloader to use, bootloader modules MUST add themselves
 	to this list.
       '';
     };
-    isUEFI = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "If the boot loader is for UEFI (default is true)";
+    firmwareType = lib.mkOption {
+      type = lib.types.enum firmwareTypes;
+      example = "UEFI";
+      description = "Choose which firmware type the bootloader should use (Probably 'UEFI').";
     };
   };
 };
 
-config = lib.mkIf cfg.enable {
+config = lib.mkMerge [
 
+(lib.mkIf (!cfg.enable) {
+  assertions = [
+    {
+      assertion = cfg.bootloader == null;
+      message = ''
+        A bootloader (${cfg.bootloader}) has been enabled even though the main
+        'config.myOs.bootloaders.enable' is false.
+      '';
+    }
+  ];
+})
+
+(lib.mkIf cfg.enable {
   assertions = [
     {
       assertion = cfg.bootloader != null;
-      message = ''If bootloaders is enabled, a bootloader is required to also be set.'';
+      message = ''
+        If bootloaders is enabled, a bootloader is required to also be set.
+      '';
     }
   ];
 
-  boot.loader.efi.canTouchEfiVariables = cfg.isUEFI;
-};
+  # Since only one option is set for global UEFI integration
+  # no own module exists.
+  boot.loader.efi.canTouchEfiVariables = cfg.firmwareType == "UEFI";
+  myOs.bootloaders.moduleCfg = {
+    biosIntegration.enable = cfg.firmwareType == "BIOS";
+  };
+})
 
+];
 }
