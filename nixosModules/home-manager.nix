@@ -5,7 +5,7 @@
   config = lib.mkIf config.myOs.home-manager.enable
   {
     home-manager.sharedModules = [
-      (import inputs.self.outputs.homeManagerModules.default { inherit lib pkgs config; })
+      inputs.self.outputs.homeManagerModules.default
     ];
 
     home-manager.extraSpecialArgs = { 

@@ -18,11 +18,6 @@ config = lib.mkIf cfg.enable {
 
   assertions = [
     {
-      # Unclear if this is actually checking what it should.
-      assertion = lib.isAttrs osConfig;
-      message = ''Os Config cannot be detected, it is probably not properly imported'';
-    }
-    {
       assertion = config.my.desktops.enable;
       message = ''Cannot set 'config.my.desktops.hyprland.enable' to true
                   if 'config.my.desktops.enable' is false'';
@@ -53,6 +48,7 @@ config = lib.mkIf cfg.enable {
   # They are imported in './default.nix'
   my.desktops.hyprland.moduleCfg = {
     core.enable = true;
+    locale.enable = true;
     envVarAggregator.enable = true;
     uwsmIntegration.enable = cfg.useUWSM;
     lyIntegration.enable = osConfig.myOs.services.ly.enable;

@@ -7,6 +7,7 @@ in
   imports = [
     ./hyprland.nix
     ./core.nix
+    ./locale.nix
     ./envVarAggregator.nix
     ./inlineEnvVarHandler.nix
     ./lyIntegration.nix

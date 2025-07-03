@@ -1,7 +1,8 @@
-{ pkgs, lib, config, ... }: 
+{ inputs, pkgs, lib, config, ... }: 
 
 let
   cfg = config.myOs.desktops.hyprland;
+  hyprlandPkgs = inputs.self.outputs.hyprlandPackages;
 in
 {
   options.myOs.desktops.hyprland = { 
@@ -21,22 +22,24 @@ in
     programs.hyprland = { 
       enable = true;
       withUWSM = cfg.useUWSM;
+      package = hyprlandPkgs.hyprland;
+      portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
     };
 
     environment.systemPackages = [
       pkgs.kitty # Required for the default Hyprland config
     ];
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = [
-        pkgs.xdg-desktop-portal-hyprland # Probably necessary for stuff:
-	# pkgs.xdg-desktop-portal-gtk # Keeping it here if necessary
-      ];
+    # xdg.portal = {
+      # enable = true;
+      # extraPortals = [
+        # pkgs.xdg-desktop-portal-hyprland # Probably necessary for stuff:
+	# # pkgs.xdg-desktop-portal-gtk # Keeping it here if necessary
+      # ];
 
-      # Set default in case multiple backends are installed:
-      config.common.default = "xdg-desktop-portal-hyprland";
-    };
+      # # Set default in case multiple backends are installed:
+      # config.common.default = "xdg-desktop-portal-hyprland";
+    # };
 
     environment.sessionVariables = {
       # Optional, hint Electron apps to use Wayland.

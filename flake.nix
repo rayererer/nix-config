@@ -10,11 +10,21 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
-    nixosConfigurations.nixvm = nixpkgs.lib.nixosSystem {
+  outputs = { nixpkgs, ... }@inputs: 
+
+    let
       system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+  {
+    inherit pkgs system;
+    nixosConfigurations.nixvm = nixpkgs.lib.nixosSystem {
+
+
       specialArgs = {inherit inputs; };
 
       modules = [
@@ -22,8 +32,10 @@
         ./nixosModules
 	inputs.home-manager.nixosModules.home-manager
       ];
+
     };
 
+    hyprlandPackages = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
     homeManagerModules.default = ./homeManagerModules;
   };
 }
