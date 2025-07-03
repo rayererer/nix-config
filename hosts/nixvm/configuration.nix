@@ -8,12 +8,17 @@ in
     ./hardware-configuration.nix
   ];
 
-
   home-manager = lib.mkIf cfg.home-manager.enable { 
     users.rayer = import ./home.nix;
   };
 
   myOs = {
+
+    bootloaders = {
+      enable = true;
+      systemdBoot.enable = true;
+    };
+
     home-manager.enable = true;
     locale.enable = true;
 
@@ -22,10 +27,6 @@ in
       enable = true;
     };
   };
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixvm"; # Define your hostname.
   networking.networkmanager.enable = true;

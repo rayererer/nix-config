@@ -1,7 +1,8 @@
 { pkgs, lib, config, osConfig, ... }:
 
 let
-  cfg = config.my.desktops.hyprland;
+  deskCfg = config.my.desktops;
+  cfg = deskCfg.hyprland;
   osCfg = osConfig.myOs.desktops.hyprland;
 in
 {
@@ -16,14 +17,18 @@ options.my.desktops.hyprland = {
 
 config = lib.mkIf cfg.enable {
 
+  my.desktops.desktops = [
+    "hyprland"
+  ];
+
   assertions = [
     {
-      assertion = config.my.desktops.enable;
+      assertion = deskCfg.enable;
       message = ''Cannot set 'config.my.desktops.hyprland.enable' to true
                   if 'config.my.desktops.enable' is false'';
     }
     {
-      assertion = osConfig.myOs.desktops.hyprland.enable;
+      assertion = osCfg.enable;
       message = ''Cannot set 'config.my.desktops.hyprland.enable' to true
                   if 'osConfig.myOs.desktops.hyprland.enable' is false
                   since system-level support is needed.'';
