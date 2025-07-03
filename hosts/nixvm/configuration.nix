@@ -7,13 +7,13 @@
     ];
 
 
-  home-manager = {
-    enable = true;
+  home-manager = lib.mkIf config.myOs.home-manager.enable { 
     users.rayer = import ./home.nix;
   };
 
   myOs = {
-    services.ly.enable = false;
+    home-manager.enable = true;
+    services.ly.enable = true;
     desktops.hyprland = { 
       enable = true;
     };

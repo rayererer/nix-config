@@ -8,7 +8,7 @@ in
 options.my.desktops.hyprland = {
   enable = lib.mkEnableOption "Enable Hyprland.";
   useUWSM = lib.mkOption {
-    type = lib.types.mkBool;
+    type = lib.types.bool;
     default = osCfg.useUWSM;
     description = "Configure Hyprland to work well with UWSM.";
   };
@@ -17,6 +17,11 @@ options.my.desktops.hyprland = {
 config = lib.mkIf cfg.enable {
 
   assertions = [
+    {
+      # Unclear if this is actually checking what it should.
+      assertion = lib.isAttrs osConfig;
+      message = ''Os Config cannot be detected, it is probably not properly imported'';
+    }
     {
       assertion = config.my.desktops.enable;
       message = ''Cannot set 'config.my.desktops.hyprland.enable' to true

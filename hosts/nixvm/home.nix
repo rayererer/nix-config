@@ -1,6 +1,6 @@
 
 
-{ pkgs, osConfig, ... }: {
+{ pkgs, ... }: {
 
   home.username = "rayer"; 
   home.homeDirectory = "/home/rayer";
