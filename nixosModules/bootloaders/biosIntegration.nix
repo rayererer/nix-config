@@ -12,7 +12,7 @@ options.myOs.bootloaders = {
 
   bios = {
     bootDevice = lib.mkOption {
-      type = lib.nullOr lib.types.path;
+      type = lib.nullOr lib.types.str;
       default = null;
       description = "The device to install the bootloader while on BIOS";
     };

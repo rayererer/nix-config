@@ -8,6 +8,8 @@ in
     ./hardware-configuration.nix
   ];
 
+  networking.hostName = "nixvm"; # Define your hostname.
+
   home-manager = lib.mkIf cfg.home-manager.enable { 
     users.rayer = import ./home.nix;
   };
@@ -17,9 +19,10 @@ in
     bootloaders = {
       enable = true;
       firmwareType = "UEFI";
-      # systemdBoot.enable = true;
       grub.enable = true;
     };
+
+    networking.enable = true;
 
     home-manager.enable = true;
     locale.enable = true;
@@ -28,19 +31,12 @@ in
     desktops.hyprland = { 
       enable = true;
     };
-  };
 
-  networking.hostName = "nixvm"; # Define your hostname.
-  networking.networkmanager.enable = true;
+    sound.enable = true;
+  };
 
   console = {
     font = "Lat2-Terminus16";
-  };
-
-  # Enable sound.
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
