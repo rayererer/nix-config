@@ -14,9 +14,7 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
     [ 
       "HYPRLAND_CONFIG"
       "${config.home.homeDirectory}/.config/hypr/hyprland-uwsm.conf"
-      ''Use UWSM config file, which is necessary for UWSM integration. 
-      (Will be deprecated and unnecessary soon hopefully (maybe not, 
-      since good solution is hard)).'' 
+      "Use UWSM config file, which is necessary for UWSM integration. (Will be deprecated and unnecessary soon hopefully (maybe not,since good solution is hard))."
     ]
   ];
 
