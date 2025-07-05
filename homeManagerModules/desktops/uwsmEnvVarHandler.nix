@@ -1,12 +1,12 @@
-{ config, lib, ... }:
+{ config, lib, helpers, ... }:
 
 let
   cfg = config.my.desktops.uwsmEnvVarHandler;
-  envUtils = import ../helpers/envVarUtils.nix { inherit lib; };
 
   # Lists from config or empty defaults
   compositorEnvLists = cfg.uwsmCompositorEnvVarLists or [];
   genericEnvList = config.my.desktops.envVars or [];
+  envUtils = helpers.envVars.envVarUtils;
 
   formatEnvLine = var:
     envUtils.formatExportEnvLine var;

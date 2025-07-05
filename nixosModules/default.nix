@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
 
   imports = [
-    ./home-manager.nix
+    ./homeManager.nix
     ./locale.nix
     ./bootloaders
     ./networking.nix

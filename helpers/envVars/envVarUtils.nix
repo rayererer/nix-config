@@ -1,4 +1,4 @@
-{ lib }:
+{ lib, ... }:
 
 let
   # Splits the string on the first '=' but not more to ensure proper

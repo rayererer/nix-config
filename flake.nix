@@ -1,5 +1,5 @@
 {
-  description = "NixOS config flake";
+  description = "NixOS and Home Manager config flake";
 
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
@@ -16,26 +16,27 @@
 
   outputs = { nixpkgs, ... }@inputs: 
 
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
+  let
+    # system = "x86_64-linux";
+    # pkgs = nixpkgs.legacyPackages.${system};
+    lib = nixpkgs.lib;
+
+    helpers = import ./helpers { inherit lib; };
+
+    # makeHostConfig = name: lib.{ }
+  in
   {
-    inherit pkgs system;
     nixosConfigurations.nixvm = nixpkgs.lib.nixosSystem {
 
-
-      specialArgs = {inherit inputs; };
+      specialArgs = { inherit inputs helpers; };
 
       modules = [
         ./hosts/nixvm/configuration.nix
         ./nixosModules
 	inputs.home-manager.nixosModules.home-manager
       ];
-
     };
 
-    hyprlandPackages = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
     homeManagerModules.default = ./homeManagerModules;
   };
 }

@@ -1,8 +1,8 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, helpers, ... }:
 
 let
   cfg = config.my.desktops.hyprland;
-  envUtils = import ../../helpers/envVarUtils.nix { inherit lib; };
+  envUtils = helpers.envVars.envVarUtils;
 in
 {
 

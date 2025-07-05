@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, helpers, ... }:
 
 let
-  envUtils = import ../../helpers/envVarUtils.nix { inherit lib; };
+  envUtils = helpers.envVars.envVarUtils;
 
   hyprEnvList = config.my.desktops.hyprland.envVars or [];
   desktopEnvList = config.my.desktops.envVars or [];

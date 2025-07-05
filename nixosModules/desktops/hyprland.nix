@@ -2,7 +2,7 @@
 
 let
   cfg = config.myOs.desktops.hyprland;
-  hyprlandPkgs = inputs.self.outputs.hyprlandPackages;
+  hyprlandPkgs = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
   options.myOs.desktops.hyprland = { 
