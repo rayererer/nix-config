@@ -2,8 +2,11 @@
 
 ## TODO:
 
+ - [ ] Expand ssh module.
+ - [ ] Fix font stuff.
+ - [ ] Add author info to git, and perhaps centralize it.
  - [ ] Rename repo to nix-config.
- - [ ] Create a makeUser Helper.
+ - [ ] Create a makeUser Helper. # Unclear if a good idea.
  - [x] Make defining hosts in flake super easy.
 
 ## Rebuilding the system

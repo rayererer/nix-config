@@ -34,6 +34,11 @@ in
 
     networking.enable = true;
 
+    git = {
+      enable = true;
+      withGh = true;
+    };
+
     homeManager.enable = true;
     locale.enable = true;
 
@@ -48,14 +53,6 @@ in
   console = {
     font = "Lat2-Terminus16";
   };
-
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  environment.systemPackages = with pkgs; [
-    vim
-    git
-    gh
-  ];
 
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
