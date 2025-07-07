@@ -1,8 +1,9 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, lib, config, helpers, ... }:
 
 let
   cfg = config.myOs;
   userName = "rayer";
+  # userAttrs = helpers.users.userAttrs;
 in
 {
   imports = [ 
@@ -18,22 +19,18 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${userName}" = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # "wheel" is sudo.
   };
 
   myOs = {
+
+    flakes.enable = true;
 
     bootloaders = {
       enable = true;
       firmwareType = "UEFI";
       grub.enable = true;
     };
-
-    #users = { 
-      # "${userName}" = {
-        
-      # };
-    # };
 
     networking.enable = true;
 
@@ -63,10 +60,6 @@ in
   # List services that you want to enable:
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  nix.extraOptions = ''
-    experimental-features = nix-command flakes
-  '';
 
   system.stateVersion = "25.05"; # Don't change this.
 }
