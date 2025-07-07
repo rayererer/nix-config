@@ -18,24 +18,25 @@
 
   let
     # system = "x86_64-linux";
-    # pkgs = nixpkgs.legacyPackages.${system};
     lib = nixpkgs.lib;
 
     helpers = import ./helpers { inherit lib; };
 
-    # makeHostConfig = name: lib.{ }
-  in
-  {
-    nixosConfigurations.nixvm = nixpkgs.lib.nixosSystem {
-
+    # Helper function to extremely easily make new hosts.
+    makeHostConfig = name: lib.nixosSystem { 
       specialArgs = { inherit inputs helpers; };
 
       modules = [
-        ./hosts/nixvm/configuration.nix
+        ./hosts/${name}/configuration.nix
         ./nixosModules
 	inputs.home-manager.nixosModules.home-manager
       ];
     };
+
+  in
+  {
+    # Generate hosts by just putting the hostname in the list.
+    nixosConfigurations = lib.genAttrs [ "nixvm" ] (name: makeHostConfig name);
 
     homeManagerModules.default = ./homeManagerModules;
   };

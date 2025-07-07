@@ -4,7 +4,7 @@
 
  - [ ] Rename repo to nix-config.
  - [ ] Create a makeUser Helper.
- - [ ] Make defining hosts in flake super easy.
+ - [x] Make defining hosts in flake super easy.
 
 ## Rebuilding the system
 
