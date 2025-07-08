@@ -1,11 +1,11 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.myOs.git;
+  cfg = config.my.cliPrograms.git;
 in
 {
 
-options.myOs = {
+options.my.cliPrograms = {
   git = {
     enable = lib.mkEnableOption "Enable git module.";
     withGh = lib.mkEnableOption ''
@@ -19,12 +19,12 @@ config = lib.mkIf cfg.enable {
   programs.git = {
     enable = true;
 
-    config = {
+    extraConfig = {
       init.defaultBranch = "main";
     };
   };
 
-  environment.systemPackages = lib.mkIf cfg.withGh [
+  home.packages = lib.mkIf cfg.withGh [
     pkgs.gh
   ];
 };

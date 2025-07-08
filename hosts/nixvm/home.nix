@@ -17,6 +17,11 @@
 
     cliPrograms = {
 
+      git = {
+        enable = true;
+        withGh = true;
+      };
+
       homeManagerCLI = {
         # enable = true;
       };

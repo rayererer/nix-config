@@ -34,11 +34,6 @@ in
 
     networking.enable = true;
 
-    git = {
-      enable = true;
-      withGh = true;
-    };
-
     homeManager.enable = true;
     locale.enable = true;
 
