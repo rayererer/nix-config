@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }: {
 
   imports = [
-    ./cliPrograms
-    ./desktops
-    ./browsers
+    ./zen.nix
   ];
 }

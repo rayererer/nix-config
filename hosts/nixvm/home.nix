@@ -15,6 +15,10 @@
       };
     };
 
+    browsers = {
+      zen.enable = true;
+    };
+
     cliPrograms = {
 
       git = {
