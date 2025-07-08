@@ -2,6 +2,8 @@
 
 ## TODO:
 
+ - [ ] Move stuff into services, and all around put modules into directories.
+ - [ ] Move ly out of services.
  - [ ] Expand ssh module.
  - [ ] Fix font stuff.
  - [ ] Add author info to git, and perhaps centralize it.

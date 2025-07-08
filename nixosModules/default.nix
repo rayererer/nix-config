@@ -6,6 +6,7 @@
     ./locale.nix
     ./bootloaders
     ./networking.nix
-    ./sound.nix
+    ./services
     ./desktops
+  ];
 }

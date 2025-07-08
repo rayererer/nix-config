@@ -37,12 +37,15 @@ in
     homeManager.enable = true;
     locale.enable = true;
 
-    services.ly.enable = true;
-    desktops.hyprland = { 
-      enable = true;
+    services = {
+      ly.enable = true;
+      sound.enable = true;
     };
 
-    sound.enable = true;
+    desktops.hyprland = { 
+      enable = true;
+      withFlake = true;
+    };
   };
 
   console = {

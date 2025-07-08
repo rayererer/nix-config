@@ -4,5 +4,6 @@
     ./ly.nix
     ./greetd-tuigreet.nix
     ./ssh.nix
+    ./sound.nix
   ];
 }

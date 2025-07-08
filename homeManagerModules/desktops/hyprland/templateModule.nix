@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.my.desktops.hyprland;
+  hyprCfg = config.my.desktops.hyprland;
 in
 {
 
@@ -11,7 +11,7 @@ options.my.desktops.hyprland = {
   };
 };
 
-config = lib.mkIf cfg.moduleCfg.templateModuleNameHere.enable {
+config = lib.mkIf hyprCfg.moduleCfg.templateModuleNameHere.enable {
   wayland.windowManager.hyprland = {
     settings = {
 

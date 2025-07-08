@@ -15,15 +15,35 @@ in
         because of it being recommended by Hyprland itself.
       '';
     };
+    withFlake = lib.mkEnableOption ''
+      Enable usage of flake for Hyprland config, which means latest
+      git version, also enables caching with cachix in that case.
+    '';
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable (
+  lib.mkMerge [
+
+  (lib.mkIf cfg.withFlake {
     
+    # Enable cachix so that the Hyprland package can take advantage of
+    # caching so that building Hyprland on your own is not required.
+    nix.settings = {
+      substituters = [ "https://hyprland.cachix.org" ];
+      trusted-substituters = [ "https://hyprland.cachix.org" ];
+      trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    };
+    
+    programs.hyprland = {
+      package = hyprlandPkgs.hyprland;
+      portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
+    };
+  })
+
+  ({
     programs.hyprland = { 
       enable = true;
       withUWSM = cfg.useUWSM;
-      package = hyprlandPkgs.hyprland;
-      portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
     };
 
     environment.systemPackages = [
@@ -47,5 +67,7 @@ in
       # Optional, workaraound for GPU/driver issues with hardware cursors.
       # WLR_NO_HARDWARE_CURSORS = "1";
     };
-  };
+  })
+
+]);
 }

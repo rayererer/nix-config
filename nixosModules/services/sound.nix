@@ -1,11 +1,11 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.myOs.sound;
+  cfg = config.myOs.services.sound;
 in
 {
 
-options.myOs = {
+options.myOs.services = {
   sound = {
     enable = lib.mkEnableOption "Enable sound module.";
   };

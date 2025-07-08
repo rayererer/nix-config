@@ -53,6 +53,7 @@ config = lib.mkIf cfg.enable {
   # They are imported in './default.nix'
   my.desktops.hyprland.moduleCfg = {
     core.enable = true;
+    monitors.enable = builtins.length cfg.monitors > 0;
     locale.enable = true;
     envVarAggregator.enable = true;
     uwsmIntegration.enable = cfg.useUWSM;
