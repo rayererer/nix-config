@@ -49,10 +49,6 @@ in
     font = "Lat2-Terminus16";
   };
 
-  # List services that you want to enable:
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   system.stateVersion = "25.05"; # Don't change this.
 }
 
