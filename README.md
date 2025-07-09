@@ -2,7 +2,7 @@
 
 ## TODO:
 
- - [ ] Move stuff into services, and all around put modules into directories.
+ - [x] Move stuff into services, and all around put modules into directories.
  - [x] Move ly out of services. # NVM, it is definitely a service.
  - [ ] Expand ssh module.
  - [ ] Fix font stuff.
