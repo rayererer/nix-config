@@ -79,7 +79,7 @@ function trim(s)   { return rtrim(ltrim(s)) }
     parts[length(parts)] = "uwsm app -- " cmd
   }
 
-  out = "bind = " parts[1]
+  out = "bind=" parts[1]
   for (i = 2; i <= length(parts); ++i) {
     out = out "," parts[i]
   }
