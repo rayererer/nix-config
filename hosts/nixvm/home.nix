@@ -11,8 +11,8 @@
       hyprland = { 
         enable = true;
 	monitors = [
-	  "homeSamsung"
-	  "homeROG"
+	  "homeVmSamsung"
+	  #"homeVmROG"
 	];
       };
     };
