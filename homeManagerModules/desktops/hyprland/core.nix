@@ -30,17 +30,23 @@ config = lib.mkIf cfg.enable {
   wayland.windowManager.hyprland = {
     settings = {
 
-     "$mainMod" = hyprCfg.mainModKey;
-     "$terminal" = hyprCfg.terminal;
+      "$mainMod" = hyprCfg.mainModKey;
+      "$terminal" = hyprCfg.terminal;
 
-     exec-once = [
-       "app2unit kitty"
-     ];
+      # Testing:
+      #exec-once = [
+        #"app2unit kitty"
+      #];
       
       bind = [
         "$mainMod,RETURN,exec,$terminal"
         "$mainMod,Q,killactive,"
         "$mainMod,BACKSPACE,exit,"
+      ];
+
+      bindm = [
+        "$mainMod,mouse:272,movewindow"
+        "$mainMod,mouse:273,resizewindow"
       ];
     };
   };
