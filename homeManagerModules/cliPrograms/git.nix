@@ -16,17 +16,18 @@ options.my.cliPrograms = {
 };
 
 config = lib.mkIf cfg.enable {
-  programs.git = {
-    enable = true;
+  programs = {
+    git = {
+      enable = true;
 
-    extraConfig = {
-      init.defaultBranch = "main";
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
+    };
+    gh = lib.mkIf cfg.withGh {
+      enable = true;
     };
   };
-
-  home.packages = lib.mkIf cfg.withGh [
-    pkgs.gh
-  ];
 };
 
 }
