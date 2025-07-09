@@ -1,7 +1,8 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.my.desktops.hyprland;
+  hyprCfg = config.my.desktops.hyprland;
+  cfg = hyprCfg.moduleCfg.core;
 in
 {
 
@@ -17,16 +18,24 @@ options.my.desktops.hyprland = {
     description = "String of the key to use as mainMod (default is 'SUPER').";
     default = "SUPER";
   };
+
+  terminal = lib.mkOption {
+    type = lib.types.str;
+    description = "Terminal used by default in Hyprland as a string";
+    default = "kitty";
+  };
 };
 
-config = lib.mkIf cfg.moduleCfg.core.enable {
+config = lib.mkIf cfg.enable {
   wayland.windowManager.hyprland = {
     settings = {
 
-     "$mainMod" = cfg.mainModKey;
+     "$mainMod" = hyprCfg.mainModKey;
+     "$terminal" = hyprCfg.terminal;
       
       bind = [
-        "$mainMod,RETURN,exec,kitty"
+        "$mainMod,RETURN,exec,$terminal"
+        "$mainMod,Q,killactive"
       ];
     };
   };
