@@ -34,7 +34,8 @@
 
       neovim = { 
         enable = true;
-        makeDefault = true;
+        # makeDefault = true;
+	useNvf = true;
       };
 
       ripgrep = {

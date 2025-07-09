@@ -3,7 +3,7 @@
   imports = [
     ./homeManagerCLI.nix
     ./git.nix
-    ./neovim.nix
+    ./neovim
     ./ripgrep.nix
   ];
 }

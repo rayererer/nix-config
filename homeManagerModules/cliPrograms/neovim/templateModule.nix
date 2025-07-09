@@ -1,22 +1,17 @@
 { pkgs, lib, config, ... }:
 
 let
-  hyprCfg = config.my.desktops.hyprland;
-  cfg = hyprCfg.moduleCfg.templateModuleNameHere;
+  nvimCfg = config.my.cliPrograms.neovim;
+  cfg = nvimCfg.moduleCfg.templateModuleNameHere;
 in
 {
 
-options.my.desktops.hyprland = {
+options.my.cliPrograms.neovim = {
   moduleCfg.templateModuleNameHere = {
     enable = lib.mkEnableOption "Enable templateModuleNameHere module.";
   };
 };
 
 config = lib.mkIf cfg.enable {
-  wayland.windowManager.hyprland = {
-    settings = {
-
-    };
-  };
 };
 }
