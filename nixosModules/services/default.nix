@@ -5,5 +5,7 @@
     ./greetd-tuigreet.nix
     ./ssh.nix
     ./sound.nix
+    ./vmGuest.nix
+    ./networking.nix
   ];
 }

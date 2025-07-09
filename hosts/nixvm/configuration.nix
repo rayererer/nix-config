@@ -24,7 +24,6 @@ in
 
   myOs = {
 
-    vm.enable = true;
     flakes.enable = true;
 
     bootloaders = {
@@ -33,14 +32,14 @@ in
       grub.enable = true;
     };
 
-    networking.enable = true;
-
     homeManager.enable = true;
     locale.enable = true;
 
     services = {
       ly.enable = true;
+      networking.enable = true;
       sound.enable = true;
+      vmGuest.enable = true;
     };
 
     desktops.hyprland = { 

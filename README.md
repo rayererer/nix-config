@@ -3,7 +3,7 @@
 ## TODO:
 
  - [ ] Move stuff into services, and all around put modules into directories.
- - [ ] Move ly out of services.
+ - [x] Move ly out of services. # NVM, it is definitely a service.
  - [ ] Expand ssh module.
  - [ ] Fix font stuff.
  - [ ] Add author info to git, and perhaps centralize it.

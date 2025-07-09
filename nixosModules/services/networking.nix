@@ -1,11 +1,11 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.myOs.networking;
+  cfg = config.myOs.services.networking;
 in
 {
 
-options.myOs = {
+options.myOs.services = {
   networking = {
     enable = lib.mkEnableOption "Enable networking module.";
   };
