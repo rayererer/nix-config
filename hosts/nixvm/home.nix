@@ -1,5 +1,3 @@
-
-
 { pkgs, ... }: {
 
   home.username = "rayer"; 
@@ -12,6 +10,10 @@
 
       hyprland = { 
         enable = true;
+	monitors = [
+	  "homeSamsung"
+	  "homeROG"
+	];
       };
     };
 

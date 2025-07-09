@@ -3,7 +3,10 @@
 let
   hyprCfg = config.my.desktops.hyprland;
   cfg = hyprCfg.moduleCfg.monitors;
-  availableMonitors = [ "homeROG" "homeSamsung" ];
+  availableMonitors = { 
+    homeSamsung = "DP-1,2560x1440@240,auto,1";
+    homeROG = "DP-2,2560x1440@144,auto,1";
+  };
 in
 {
 
@@ -13,7 +16,7 @@ options.my.desktops.hyprland = {
   };
 
   monitors = lib.mkOption { 
-    type = lib.types.listOf (lib.types.enum availableMonitors);
+    type = lib.types.listOf (lib.types.enum (builtins.attrNames availableMonitors));
     default = [];
     description = ''
       List of monitors you want to enable, defined by name, to add
@@ -26,7 +29,7 @@ config = lib.mkIf cfg.enable {
 
   wayland.windowManager.hyprland = {
     settings = {
-
+      monitor = map (name: availableMonitors.${name}) hyprCfg.monitors;
     };
   };
 };
