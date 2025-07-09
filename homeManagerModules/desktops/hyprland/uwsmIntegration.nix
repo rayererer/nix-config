@@ -1,14 +1,35 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, ... }: 
 
-options.my.desktops.hyprland.moduleCfg.uwsmIntegration = {
-  enable = lib.mkEnableOption "Enable uwsmIntegration module that changes some settings and also wraps all needed commands.";
+let
+  hyprCfg = config.my.desktops.hyprland;
+  cfg = hyprCfg.moduleCfg.uwsmIntegration;
+  launcherCommand = if cfg.useApp2unit then
+    "app2unit"
+  else 
+    "uwsm app --";
+    
+in
+{
+options.my.desktops.hyprland = {
+  moduleCfg.uwsmIntegration = {
+    enable = lib.mkEnableOption "Enable uwsmIntegration module that changes some settings and also wraps all needed commands.";
+    useApp2unit = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Option to set if app2unit should be used as the app launcher, recommended because of its faster nature.";
+    };
+  };
 };
 
-config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
+config = lib.mkIf cfg.enable {
 
   wayland.windowManager.hyprland = {
     systemd.enable = false;
   };
+
+  home.packages = lib.mkIf cfg.useApp2unit [
+    pkgs.app2unit
+  ];
 
   my.desktops.hyprland.envVars = [
     [ 
@@ -16,7 +37,12 @@ config = lib.mkIf config.my.desktops.hyprland.moduleCfg.uwsmIntegration.enable {
       "${config.home.homeDirectory}/.config/hypr/hyprland-uwsm.conf"
       "Use UWSM config file, which is necessary for UWSM integration. (Will be deprecated and unnecessary soon hopefully (maybe not,since good solution is hard))."
     ]
-  ];
+  ] ++ lib.optional cfg.useApp2unit
+    [
+      "APP2UNIT_SLICES"
+      "a=app-graphical.slice b=background-graphical.slice s=session-graphical.slice"
+      "Make app2unit a drop-in replacement for uwsm app launcher."
+    ];
 
   home = { 
 
@@ -50,7 +76,7 @@ BEGIN {
   print "# -------------------------------------------------------------"
   print "# This config has been wrapped by a script to put all exec-once commands in the"
   print "# uwsm start file (~/.config/uwsm/start) and to wrap all binds to apps with"
-  print "# (uwsm app -- appHere) to ensure recommended start with uwsm."
+  print "# (uwsm app -- appHere) (or app2unit) to ensure recommended start with uwsm."
   print "# -------------------------------------------------------------\n"
 }
 function ltrim(s)  { sub(/^[ \t\r\n]+/, "", s); return s }
@@ -74,9 +100,9 @@ function trim(s)   { return rtrim(ltrim(s)) }
   split(line, parts, ",")
 
   cmd = trim(parts[length(parts)])
-  # Wrap bare commands with uwsm app --
+  # Wrap bare commands with the desired launch command.
   if (cmd !~ /^[\/\.]/ && cmd !~ /\.sh|\.py|bash|zsh/) {
-    parts[length(parts)] = "uwsm app -- " cmd
+    parts[length(parts)] = "${launcherCommand} " cmd
   }
 
   out = "bind=" parts[1]

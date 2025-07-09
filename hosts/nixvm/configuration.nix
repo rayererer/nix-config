@@ -3,7 +3,6 @@
 let
   cfg = config.myOs;
   userName = "rayer";
-  # userAttrs = helpers.users.userAttrs;
 in
 {
   imports = [ 

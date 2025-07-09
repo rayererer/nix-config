@@ -2,6 +2,8 @@
 
 ## TODO:
 
+ - [ ] Clean up UWSM stuff, perhaps make module in desktops/
+ - [x] Fix so that app2unit is optionally used instead of 'uwsm app --'
  - [x] Move stuff into services, and all around put modules into directories.
  - [x] Move ly out of services. # NVM, it is definitely a service.
  - [ ] Expand ssh module.
