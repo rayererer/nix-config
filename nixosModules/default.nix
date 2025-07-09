@@ -8,5 +8,6 @@
     ./networking.nix
     ./services
     ./desktops
+    ./vm.nix
   ];
 }

@@ -24,6 +24,7 @@ in
 
   myOs = {
 
+    vm.enable = true;
     flakes.enable = true;
 
     bootloaders = {
