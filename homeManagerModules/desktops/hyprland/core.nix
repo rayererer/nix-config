@@ -32,10 +32,15 @@ config = lib.mkIf cfg.enable {
 
      "$mainMod" = hyprCfg.mainModKey;
      "$terminal" = hyprCfg.terminal;
+
+     exec-once = [
+       "app2unit kitty"
+     ];
       
       bind = [
         "$mainMod,RETURN,exec,$terminal"
-        "$mainMod,Q,killactive"
+        "$mainMod,Q,killactive,"
+        "$mainMod,BACKSPACE,exit,"
       ];
     };
   };

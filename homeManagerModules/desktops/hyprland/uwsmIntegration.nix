@@ -57,7 +57,6 @@ config = lib.mkIf cfg.enable {
 configFile="$HOME/.config/hypr/hyprland.conf"
 outputFile="$HOME/.config/hypr/hyprland-uwsm.conf"
 tmpFile="$outputFile.tmp"
-uwsmStartFile="$HOME/.config/uwsm/start"
 
 # Skip if config missing or empty
 if [ ! -s "$configFile" ]; then
@@ -84,19 +83,8 @@ function rtrim(s)  { sub(/[ \t\r\n]+$/, "", s); return s }
 function trim(s)   { return rtrim(ltrim(s)) }
 
 /^exec-once\s*=/ {
-  sub(/^exec-once\s*=\s*/, "")
-  cmd = trim($0)
-
-  # Collect the app for uwsm start
-  print cmd >> appsTmpFile
-
-  # Remove this line from output by skipping print
-  next
-}
-
-/^bind\s*=\s*.*exec,/ {
   line = $0
-  sub(/^bind\s*=\s*/, "", line)
+  sub(/^exec-once\s*=\s*/, "", line)
   split(line, parts, ",")
 
   cmd = trim(parts[length(parts)])
@@ -113,12 +101,53 @@ function trim(s)   { return rtrim(ltrim(s)) }
   next
 }
 
+/^bind\s*=\s*.*exec,/ {
+  line = $0
+  sub(/^bind\s*=\s*/, "", line)
+  split(line, parts, ",")
+
+  if (trim(parts[3]) != "exec") {
+    print line
+    next
+  }
+
+  cmd = trim(parts[length(parts)])
+  # Wrap bare commands with the desired launch command.
+  if (cmd !~ /^[\/\.]/ && cmd !~ /\.sh|\.py|bash|zsh/) {
+    parts[length(parts)] = "${launcherCommand} " cmd
+  }
+
+  out = "bind=" parts[1]
+  for (i = 2; i <= length(parts); ++i) {
+    out = out "," parts[i]
+  }
+  print out
+  next
+}
+
+/^bind\s*=\s*.*exit,/ {
+  line = $0
+  sub(/^bind\s*=\s*/, "", line)
+  split(line, parts, ",")
+
+  if (trim(parts[3]) != "exit") {
+    print line
+    next
+  }
+
+  parts[3] = "exec"
+  parts[4] = "uwsm stop"
+
+  out = "bind=" parts[1]
+  for (i = 2; i <= length(parts); ++i) {
+    out = out "," parts[i]
+  }
+  print out
+  next
+}
+
 { print }
 ' "$configFile" > "$tmpFile"
-
-# Deduplicate and append collected apps to uwsm start file
-sort -u "$appsTmpFile" >> "$uwsmStartFile"
-rm "$appsTmpFile"
 
 mv "$tmpFile" "$outputFile"
     '';

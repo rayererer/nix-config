@@ -2,6 +2,8 @@
 
 ## TODO:
 
+ - [ ] Fix uwsm integration for hyprland to respect executing with rules. Also fix exec-once, and make the file logic more readable and less repetitive.
+ Also maybe completely rewrite and try to give permission to change normal hyprland config file.
  - [ ] Clean up UWSM stuff, perhaps make module in desktops/
  - [x] Fix so that app2unit is optionally used instead of 'uwsm app --'
  - [x] Move stuff into services, and all around put modules into directories.
