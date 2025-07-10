@@ -2,5 +2,6 @@
 
   imports = [
     ./nvf.nix
+    ./vimOptions
   ];
 }

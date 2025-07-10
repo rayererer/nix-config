@@ -19,10 +19,9 @@ options.my.cliPrograms.neovim = {
 config = lib.mkIf cfg.enable {
   programs.nvf = {
     enable = true;
-
-    settings = {
-      
-    };
   };
+
+  # TODO: Fix modularized enabling if needed here.
+  # For now all module files are imported by default.
 };
 }
