@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }: {
-
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./ly.nix
     ./greetd-tuigreet.nix

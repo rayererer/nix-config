@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }: {
-
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./bootloaders.nix
     ./biosIntegration.nix

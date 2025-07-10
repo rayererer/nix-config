@@ -1,9 +1,11 @@
-{ config, pkgs, lib, ... }: 
-
-let
-  hyprCfg = config.my.desktops.hyprland;
-in
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  hyprCfg = config.my.desktops.hyprland;
+in {
   imports = [
     ./hyprland.nix
     ./core.nix

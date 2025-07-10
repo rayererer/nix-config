@@ -1,12 +1,14 @@
-{ pkgs, lib, config, ... }:
-
 {
-config = {
-  programs.nvf.settings = {
-    vim.options = {
-      
-      scrolloff = 15;
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
+  config = {
+    programs.nvf.settings = {
+      vim.options = {
+        scrolloff = 15;
+      };
     };
   };
-};
 }

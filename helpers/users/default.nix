@@ -1,5 +1,8 @@
-{ lib, importHelpers }:
-
+{
+  lib,
+  importHelpers,
+}:
 importHelpers [
   ./userAttrs.nix
-] importHelpers
+]
+importHelpers

@@ -1,16 +1,19 @@
-{ pkgs, lib, config, ... }: {
-  
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   options = {
     myOs.services.ly.enable = lib.mkEnableOption "Enable Ly Display Manager.";
   };
 
   config = lib.mkIf config.myOs.services.ly.enable {
-
     # Force override of config file, it usually just contains default anyways.
     # Maybe dont do this since the ly service.enable gives a config file, atleast check it before
     # environment.etc."ly/config.ini".text = lib.mkForce ''
-      # allow_empty_password = false
-      # vi_mode = true
+    # allow_empty_password = false
+    # vi_mode = true
     # '';
 
     # This for fixing a Ly issue with certain wayland compositors (including Hyprland).

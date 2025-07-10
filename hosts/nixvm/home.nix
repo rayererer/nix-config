@@ -1,19 +1,18 @@
-{ pkgs, ... }: {
-
-  home.username = "rayer"; 
+{pkgs, ...}: {
+  home.username = "rayer";
   home.homeDirectory = "/home/rayer";
 
   my = {
     desktops = {
-
       enable = true;
 
-      hyprland = { 
+      hyprland = {
         enable = true;
-	monitors = [
-	  "homeVmSamsung"
-	  #"homeVmROG"
-	];
+
+        monitors = [
+          "homeVmSamsung"
+          #"homeVmROG"
+        ];
       };
     };
 
@@ -22,20 +21,19 @@
     };
 
     cliPrograms = {
-
       git = {
         enable = true;
         withGh = true;
       };
 
-      homeManagerCLI = {
-        # enable = true;
-      };
+      # homeManagerCLI.enable = true;
 
-      neovim = { 
+      nixFormatter.enable = true;
+
+      neovim = {
         enable = true;
         # makeDefault = true;
-	useNvf = true;
+        useNvf = true;
       };
 
       ripgrep = {

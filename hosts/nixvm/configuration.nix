@@ -1,28 +1,30 @@
-{ pkgs, lib, config, helpers, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  config,
+  helpers,
+  ...
+}: let
   cfg = config.myOs;
   userName = "rayer";
-in
-{
-  imports = [ 
+in {
+  imports = [
     ./hardware-configuration.nix
   ];
 
   networking.hostName = "nixvm"; # Define your hostname.
 
-  home-manager = lib.mkIf cfg.homeManager.enable { 
+  home-manager = lib.mkIf cfg.homeManager.enable {
     users."${userName}" = import ./home.nix;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${userName}" = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # "wheel" is sudo.
+    extraGroups = ["wheel"]; # "wheel" is sudo.
   };
 
   myOs = {
-
     flakes.enable = true;
 
     bootloaders = {
@@ -41,7 +43,7 @@ in
       vmGuest.enable = true;
     };
 
-    desktops.hyprland = { 
+    desktops.hyprland = {
       enable = true;
       withFlake = true;
     };
@@ -53,4 +55,3 @@ in
 
   system.stateVersion = "25.05"; # Don't change this.
 }
-
