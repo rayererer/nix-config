@@ -1,4 +1,4 @@
-# My Nix config for both NixOS and Home Manager
+# My Nix config for both NixOS and Home Manager (And basically everything)
 
 ## TODO:
 
