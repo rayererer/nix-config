@@ -2,6 +2,8 @@
 
 ## TODO:
 
+ - [ ] Look into impermeance and nuke on reboot.
+ - [ ] Fix secrets handling
  - [ ] Look into services/scopes and stuff for uwsm / app2unit.
  - [ ] Fix uwsm integration for hyprland to respect executing with rules. Also fix exec-once, and make the file logic more readable and less repetitive.
  Also maybe completely rewrite and try to give permission to change normal hyprland config file.
