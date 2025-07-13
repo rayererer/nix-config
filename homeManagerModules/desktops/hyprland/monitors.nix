@@ -9,7 +9,7 @@
   availableMonitors = {
     homeVmSamsung = "Virtual-1,2560x1440@240,auto,1";
     homeVmROG = "Virtual-2,2560x1440@144,auto,1";
-    homeSamsung = "DP-1,2560x1440@240,auto,1";
+    homeSamsung = "DP-3,2560x1440@240,auto,1";
     homeROG = "DP-2,2560x1440@144,auto,1";
   };
 in {
