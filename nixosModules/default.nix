@@ -7,6 +7,7 @@
     ./flakes.nix
     ./homeManager.nix
     ./locale.nix
+    ./graphics
     ./bootloaders
     ./services
     ./desktops

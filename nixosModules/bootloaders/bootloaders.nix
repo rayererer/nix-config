@@ -5,14 +5,14 @@
   ...
 }: let
   cfg = config.myOs.bootloaders;
-  allowedBootLoaders = ["grub" "systemd-boot"];
+  availableBootloaders = ["grub" "systemd-boot"];
   firmwareTypes = ["UEFI" "BIOS"];
 in {
   options.myOs = {
     bootloaders = {
       enable = lib.mkEnableOption "Enable bootloader stuff.";
       bootloader = lib.mkOption {
-        type = lib.types.nullOr (lib.types.enum allowedBootLoaders);
+        type = lib.types.nullOr (lib.types.enum availableBootloaders);
         default = null;
         example = "grub";
         description = ''

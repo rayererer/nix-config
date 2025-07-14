@@ -14,6 +14,8 @@ in {
 
   networking.hostName = "nixdesktop"; # Define your hostname.
 
+  nixpkgs.config.allowUnfree = true;
+
   home-manager = lib.mkIf cfg.homeManager.enable {
     users."${userName}" = import ./home.nix;
   };
@@ -35,6 +37,13 @@ in {
 
     homeManager.enable = true;
     locale.enable = true;
+
+    graphics = {
+      nvidia = {
+        enable = true;
+        driver = "proprietary";
+      };
+    };
 
     services = {
       ly.enable = true;

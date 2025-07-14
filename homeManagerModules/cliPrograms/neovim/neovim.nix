@@ -22,7 +22,7 @@ in {
         };
       }
 
-      # Maybe actually fix this:
+      # TODO: Maybe actually fix this:
       (lib.mkIf cfg.makeDefault {
         programs.neovim.defaultEditor = true;
         home.sessionVariables = {
