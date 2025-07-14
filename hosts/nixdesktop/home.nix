@@ -11,7 +11,7 @@
 
         monitors = [
           "homeSamsung"
-          "homeVmROG"
+          "homeROG"
         ];
       };
     };
