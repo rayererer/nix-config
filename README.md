@@ -2,6 +2,8 @@
 
 ## TODO:
 
+ - [ ] Add wayland integration for desktops and add the two env vars
+ referenced in the hyprland wiki there.
  - [ ] Look into impermeance and nuke on reboot.
  - [ ] Fix secrets handling
  - [ ] Look into services/scopes and stuff for uwsm / app2unit.
