@@ -33,7 +33,7 @@ in {
       if builtins.length cfg.desktops == 0
       then [
         ''
-                 No desktop has been selected even though the desktops module
+          No desktop has been selected even though the desktops module
           is enabled, this is probably not intended, please import a
           desktop using 'config.my.desktops.desktopNameHere.enable'.
           (source: 'homeManagerModules/desktops/desktops.nix')

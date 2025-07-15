@@ -8,5 +8,6 @@
     ./desktops.nix
     ./uwsmEnvVarHandler.nix
     ./hyprland
+    ./nvidiaIntegration.nix
   ];
 }

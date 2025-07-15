@@ -3,13 +3,13 @@
   # handling of env vars even with format 'VAR=weird=val' which should
   # give 'VAL = weird=val'.
   parseEnvString = str: let
-    idx = builtins.stringLength (lib.strings.takeWhile (c: c != "=") str);
+    matches = builtins.match "^([^=]+)=(.*)$" str;
   in
-    if idx == builtins.stringLength str
-    then throw "Invalid environment variable string '${str}': must contain '='"
+    if matches == null then throw 
+      "Invalid environment variable string '${str}': must contain '='"
     else {
-      name = builtins.substring 0 idx str;
-      value = builtins.substring (idx + 1) (builtins.stringLength str - idx - 1) str;
+      name = builtins.elemAt matches 0;
+      value = builtins.elemAt matches 1;
       description = null;
     };
 
