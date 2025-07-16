@@ -15,5 +15,6 @@ in {
     ./inlineEnvVarHandler.nix
     ./lyIntegration.nix
     ./appLauncher.nix
+    ./mouse.nix
   ];
 }

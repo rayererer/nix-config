@@ -64,6 +64,7 @@ in {
     # They are imported in './default.nix'
     my.desktops.hyprland.moduleCfg = {
       core.enable = true;
+      mouse.enable = true;
       appLauncher.enable = (cfg.appLauncher.default != null);
       monitors.enable = builtins.length cfg.monitors > 0;
       locale.enable = true;

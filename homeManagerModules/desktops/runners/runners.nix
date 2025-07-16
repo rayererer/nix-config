@@ -5,6 +5,9 @@
   ...
 }: let
   cfg = config.my.desktops.runners;
+
+  # The strings in this last must match the module names as (e.g.) launch
+  # commands get extrapolated from this value.
   availableRunners = ["fuzzel"];
 in {
   options.my.desktops.runners = {
