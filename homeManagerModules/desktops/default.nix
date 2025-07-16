@@ -11,5 +11,6 @@
     ./nvidiaIntegration.nix
     ./uwsmIntegration.nix
     ./app2unitIntegration.nix
+    ./runners
   ];
 }

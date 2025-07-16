@@ -6,8 +6,12 @@
     desktops = {
       enable = true;
 
+      runners.fuzzel.enable = true;
+
       hyprland = {
         enable = true;
+
+        appLauncher.default = "fuzzel";
 
         monitors = [
           "homeSamsung"

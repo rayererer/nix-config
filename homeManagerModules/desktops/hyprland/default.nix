@@ -14,5 +14,6 @@ in {
     ./envVarAggregator.nix
     ./inlineEnvVarHandler.nix
     ./lyIntegration.nix
+    ./appLauncher.nix
   ];
 }
