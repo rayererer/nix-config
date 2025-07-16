@@ -26,6 +26,17 @@ in {
       default = [];
       description = "A list of desktop agnostic Env Vars";
     };
+
+    appLaunchPrefix = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = ''
+        Prefix before app launch, default is an empty string, needed because
+        uwsm and app2unit each want own commands to launch apps with.
+        For changing this: add a space at the end as unnecessary spaces are usually fine
+        while to few are not good.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {

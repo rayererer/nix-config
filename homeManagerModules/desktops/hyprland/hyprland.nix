@@ -26,23 +26,28 @@ in {
     assertions = [
       {
         assertion = deskCfg.enable;
-        message = ''          Cannot set 'config.my.desktops.hyprland.enable' to true
-                            if 'config.my.desktops.enable' is false'';
+        message = ''
+          Cannot set 'config.my.desktops.hyprland.enable' to true
+          if 'config.my.desktops.enable' is false
+        '';
       }
       {
         assertion = osCfg.enable;
-        message = ''          Cannot set 'config.my.desktops.hyprland.enable' to true
-                            if 'osConfig.myOs.desktops.hyprland.enable' is false
-                            since system-level support is needed.'';
+        message = ''
+          Cannot set 'config.my.desktops.hyprland.enable' to true
+          if 'osConfig.myOs.desktops.hyprland.enable' is false
+          since system-level support is needed.
+        '';
       }
     ];
 
     warnings =
       if cfg.useUWSM != osCfg.useUWSM
       then [
-        ''          Manually setting 'config.my.desktops.hyprland.useUWSM' is
-                    not recommended as it follows 'config.myOs.desktops.hyprland.useUWSM',
-          	  overriding to true is especially discouraged.
+        ''
+          Manually setting 'config.my.desktops.hyprland.useUWSM' is
+          not recommended as it follows 'config.myOs.desktops.hyprland.useUWSM',
+          overriding to true is especially discouraged.
         ''
       ]
       else [];
@@ -53,6 +58,8 @@ in {
       portalPackage = null;
     };
 
+    my.desktops.uwsmIntegration.enable = cfg.useUWSM;
+
     # Enable the Hyprland modules here.
     # They are imported in './default.nix'
     my.desktops.hyprland.moduleCfg = {
@@ -60,7 +67,6 @@ in {
       monitors.enable = builtins.length cfg.monitors > 0;
       locale.enable = true;
       envVarAggregator.enable = true;
-      uwsmIntegration.enable = cfg.useUWSM;
       lyIntegration.enable = osConfig.myOs.services.ly.enable;
     };
   };

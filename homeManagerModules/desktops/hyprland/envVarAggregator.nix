@@ -20,15 +20,14 @@ in {
   };
 
   config = lib.mkIf cfg.moduleCfg.envVarAggregator.enable {
-    my.desktops.uwsmEnvVarHandler = lib.mkIf cfg.useUWSM {
-      enable = true;
-      uwsmCompositorEnvVarLists = [
-        {
-          compositorName = "hyprland";
-          envVarsList = cfg.envVars;
-        }
-      ];
-    };
+    # No need for this to be conditional since no handling will happen
+    # if the integration isn't enabled anyway.
+    my.desktops.uwsmEnvVarHandler.uwsmCompositorEnvVarLists = [
+      {
+        compositorName = "hyprland";
+        envVarsList = cfg.envVars;
+      }
+    ];
 
     my.desktops.hyprland.inlineEnvVarHandler = lib.mkIf (!cfg.useUWSM) {
       enable = true;

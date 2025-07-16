@@ -17,12 +17,10 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      
-      my.desktops.envVars = [
-        "LIBVA_DRIVER_NAME=nvidia"
-        "__GLX_VENDOR_LIBRARY_NAME=nvidia"
-      ];
-    };
+  config = lib.mkIf cfg.enable {
+    my.desktops.envVars = [
+      "LIBVA_DRIVER_NAME=nvidia"
+      "__GLX_VENDOR_LIBRARY_NAME=nvidia"
+    ];
+  };
 }

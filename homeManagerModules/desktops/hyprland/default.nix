@@ -14,6 +14,5 @@ in {
     ./envVarAggregator.nix
     ./inlineEnvVarHandler.nix
     ./lyIntegration.nix
-    ./uwsmIntegration.nix
   ];
 }

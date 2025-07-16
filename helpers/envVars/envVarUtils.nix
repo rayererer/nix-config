@@ -5,7 +5,9 @@
   parseEnvString = str: let
     matches = builtins.match "^([^=]+)=(.*)$" str;
   in
-    if matches == null then throw 
+    if matches == null
+    then
+      throw
       "Invalid environment variable string '${str}': must contain '='"
     else {
       name = builtins.elemAt matches 0;

@@ -2,7 +2,7 @@
 
 ## TODO:
 
- - [ ] Add wayland integration for desktops and add the two env vars
+ - [x] Add wayland integration for desktops and add the two env vars
  referenced in the hyprland wiki there.
  - [ ] Look into impermeance and nuke on reboot.
  - [ ] Fix secrets handling

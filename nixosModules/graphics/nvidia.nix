@@ -16,7 +16,7 @@ in {
         type = lib.types.enum availableDrivers;
         default = "nouveau";
         description = ''
-          Which Nvidia driver to use, 'nouveau' is default and setting 
+          Which Nvidia driver to use, 'nouveau' is default and setting
           'proprietary' requires allowing unfree software.
         '';
       };
@@ -26,12 +26,9 @@ in {
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       (lib.mkIf (cfg.driver == "proprietary") {
-
         services.xserver.videoDrivers = ["nvidia"];
 
         hardware.nvidia = {
-          
-
           modesetting.enable = true;
 
           # Required to set it, but can only be true for turing and later.
@@ -39,7 +36,7 @@ in {
 
           # Nvidia settings available via `nvidia-settings`.
           nvidiaSettings = true;
-          
+
           # TODO: consider switching to legacy since my graphics card
           # might soon not be supported anymore.
           # hardware.nvidia.package = config.boot.kernelPackages.legacy_SomeLegacyVersion;
