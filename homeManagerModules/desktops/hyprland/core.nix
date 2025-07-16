@@ -26,6 +26,18 @@ in {
       default = "SUPER";
     };
 
+    moveModKey = lib.mkOption {
+      type = lib.types.str;
+      description = "String of the key to use as the main mod key to move stuff around";
+      default = "SHIFT";
+    };
+
+    resizeModKey = lib.mkOption {
+      type = lib.types.str;
+      description = "String of the key to use as the main mod key to resize stuff";
+      default = "CTRL";
+    };
+
     terminal = lib.mkOption {
       type = lib.types.str;
       description = "Terminal used by default in Hyprland as a string";
@@ -37,7 +49,11 @@ in {
     wayland.windowManager.hyprland = {
       settings = {
         "$launchApp" = deskCfg.appLaunchPrefix;
+
         "$mainMod" = hyprCfg.mainModKey;
+        "$moveMod" = hyprCfg.moveModKey;
+        "$resizeMod" = hyprCfg.resizeModKey;
+
         "$terminal" = hyprCfg.terminal;
 
         bind = [

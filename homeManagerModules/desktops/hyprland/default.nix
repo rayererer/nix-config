@@ -16,5 +16,6 @@ in {
     ./lyIntegration.nix
     ./appLauncher.nix
     ./mouse.nix
+    ./monitorNavigation.nix
   ];
 }
