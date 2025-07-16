@@ -28,6 +28,7 @@
       git = {
         enable = true;
         withGh = true;
+        useDefaultCredentials = true;
       };
 
       nixFormatter.enable = true;

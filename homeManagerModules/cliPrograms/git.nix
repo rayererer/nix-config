@@ -13,21 +13,36 @@ in {
         Also download the GitHub CLI to e.g. verify for
         GitHub easier.
       '';
+      useDefaultCredentials = lib.mkEnableOption ''
+        Whether to use the default credentials including my GitHub noreply email.
+      '';
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    programs = {
-      git = {
-        enable = true;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        programs = {
+          git = {
+            enable = true;
 
-        extraConfig = {
-          init.defaultBranch = "main";
+            extraConfig = {
+              init.defaultBranch = "main";
+            };
+          };
+
+          gh = lib.mkIf cfg.withGh {
+            enable = true;
+          };
         };
-      };
-      gh = lib.mkIf cfg.withGh {
-        enable = true;
-      };
-    };
-  };
+      }
+
+      (lib.mkIf cfg.useDefaultCredentials {
+        programs.git = {
+          userName = "rayererer";
+          userEmail = "119081004+rayererer@users.noreply.github.com";
+        };
+      })
+    ]
+  );
 }
