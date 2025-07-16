@@ -1,5 +1,18 @@
 # My Nix config for both NixOS and Home Manager (And basically everything)
 
+## Overview
+
+This is (as stated in the title) my nix config for basically everything and is currently very much a work in progress, although
+I only have this OS installed on my desktop. The main concept is to modularize everything and only have to enable simple toggles
+/ set simple settings in the host specific configs. The goal is also for most stuff to be explicit, hence why I don't
+automatically enable stuff like git even though it is pretty much universal and I can't really imagine not wanting to have it on
+any host.
+
+For now you will have to look at the modules and files themselves (and the TODO list I suppose) to figure out what options are
+available and what has been done. Hopefully the file structure should be relatively self-explanatory though. 
+
+Feel free to open an issue if you are curious about anything.
+
 ## TODO:
 
  - [x] Add wayland integration for desktops and add the two env vars
@@ -16,7 +29,7 @@
  - [x] Move ly out of services. # NVM, it is definitely a service.
  - [ ] Expand ssh module.
  - [ ] Fix font stuff.
- - [ ] Add author info to git, and perhaps centralize it.
+ - [x] Add author info to git, and perhaps centralize it.
  - [x] Rename repo to nix-config.
  - [ ] Create a makeUser Helper. # Unclear if a good idea.
  - [x] Make defining hosts in flake super easy.
