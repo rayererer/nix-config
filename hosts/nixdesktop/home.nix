@@ -24,6 +24,10 @@
       zen.enable = true;
     };
 
+    guiPrograms = {
+      obsidian.enable = true;
+    };
+
     cliPrograms = {
       git = {
         enable = true;
