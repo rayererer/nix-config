@@ -15,6 +15,8 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
+ - [ ] Maybe fix helper for lists with defaults
+ - [ ] Fix so that if one runner installed it automatically becomes default.
  - [x] Add wayland integration for desktops and add the two env vars
  referenced in the hyprland wiki there.
  - [ ] Look into impermeance and nuke on reboot.
