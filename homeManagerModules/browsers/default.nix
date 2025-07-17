@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./browsers.nix
     ./zen.nix
   ];
 }

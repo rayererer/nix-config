@@ -6,7 +6,7 @@
 }: let
   deskCfg = config.my.desktops;
   hyprCfg = deskCfg.hyprland;
-  appLaunchCfg = hyprCfg.appLauncher;
+  hyprAppLaunchCfg = hyprCfg.appLauncher;
   cfg = hyprCfg.moduleCfg.appLauncher;
 in {
   options.my.desktops.hyprland = {
@@ -37,7 +37,7 @@ in {
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
-          "$mainMod, ${appLaunchCfg.keyBind}, exec, ${deskCfg.runners.${appLaunchCfg.default}.launchCommand}"
+          "$mainMod, ${hyprAppLaunchCfg.keyBind}, exec, ${deskCfg.runners.${hyprAppLaunchCfg.default}.launchCommand}"
         ];
       };
     };

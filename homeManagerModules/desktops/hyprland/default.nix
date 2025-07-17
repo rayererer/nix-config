@@ -7,6 +7,7 @@
   hyprCfg = config.my.desktops.hyprland;
 in {
   imports = [
+    ./browser.nix
     ./hyprland.nix
     ./core.nix
     ./monitors.nix
