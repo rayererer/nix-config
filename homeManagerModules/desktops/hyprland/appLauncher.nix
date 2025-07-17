@@ -36,7 +36,6 @@ in {
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = {
       settings = {
-
         bind = [
           "$mainMod, ${appLaunchCfg.keyBind}, exec, ${deskCfg.runners.${appLaunchCfg.default}.launchCommand}"
         ];

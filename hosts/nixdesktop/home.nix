@@ -2,6 +2,8 @@
   home.username = "rayer";
   home.homeDirectory = "/home/rayer";
 
+  nixpkgs.config.allowUnfree = true;
+
   my = {
     desktops = {
       enable = true;

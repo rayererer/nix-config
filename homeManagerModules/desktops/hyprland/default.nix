@@ -17,5 +17,7 @@ in {
     ./appLauncher.nix
     ./mouse.nix
     ./monitorNavigation.nix
+    ./directions.nix
+    ./windowNavigation.nix
   ];
 }
