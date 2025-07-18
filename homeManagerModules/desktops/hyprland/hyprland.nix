@@ -5,7 +5,8 @@
   osConfig,
   ...
 }: let
-  deskCfg = config.my.desktops;
+  myCfg = config.my;
+  deskCfg = myCfg.desktops;
   cfg = deskCfg.hyprland;
   osCfg = osConfig.myOs.desktops.hyprland;
 in {
@@ -68,7 +69,7 @@ in {
       windowNavigation.enable = true;
       monitorNavigation.enable = builtins.length cfg.monitors > 1;
       appLauncher.enable = cfg.appLauncher.default != null;
-      browser.enable = builtins.length deskCfg.browsers.browsers > 0;
+      browser.enable = builtins.length myCfg.browsers.browsers > 0;
       monitors.enable = builtins.length cfg.monitors > 0;
       locale.enable = true;
       envVarAggregator.enable = true;

@@ -10,7 +10,7 @@
   availableBrowsers = ["zen"];
 in {
   options.my.browsers = {
-    browsers = {
+    browsers = lib.mkOption {
       type = lib.types.listOf (lib.types.enum availableBrowsers);
       default = [];
       description = ''
@@ -18,7 +18,7 @@ in {
       '';
     };
 
-    default = {
+    default = lib.mkOption {
       type = lib.types.nullOr (lib.types.enum cfg.browsers);
       default =
         if (builtins.length cfg.browsers == 1)
