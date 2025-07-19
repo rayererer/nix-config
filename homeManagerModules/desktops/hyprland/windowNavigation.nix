@@ -69,7 +69,7 @@ in {
           {
             mods = "$mainMod $resizeMod";
             dispatcher = "resizeactive";
-            actions = ["-60 0" "60 0" "0 -60" "0 60"];
+            actions = ["-60 0" "0 60" "0 -60" "60 0"];
           };
       };
     };
