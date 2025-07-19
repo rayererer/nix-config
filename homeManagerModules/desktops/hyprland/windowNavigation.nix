@@ -68,7 +68,7 @@ in {
           forEveryDirection
           {
             mods = "$mainMod $resizeMod";
-            dispatcher = "swapwindow";
+            dispatcher = "resizeactive";
             actions = ["-60 0" "60 0" "0 -60" "0 60"];
           };
       };
