@@ -43,6 +43,12 @@
         enable = true;
         # makeDefault = true;
         useNvf = true;
+
+        nvf = {
+          languageHandling = {
+            lsp.enable = true;
+          };
+        };
       };
 
       ripgrep = {

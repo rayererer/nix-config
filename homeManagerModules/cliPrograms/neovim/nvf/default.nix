@@ -6,5 +6,6 @@
   imports = [
     ./nvf.nix
     ./vimOptions
+    ./languages
   ];
 }
