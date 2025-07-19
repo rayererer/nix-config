@@ -15,7 +15,7 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
- - [ ] Maybe fix helper for lists with defaults
+ - [ ] Maybe fix helper for lists with defaults (IDK)
  - [ ] Fix so that if one runner installed it automatically becomes default.
  - [x] Add wayland integration for desktops and add the two env vars
  referenced in the hyprland wiki there.
@@ -33,7 +33,7 @@ Feel free to open an issue if you are curious about anything.
  - [ ] Fix font stuff.
  - [x] Add author info to git, and perhaps centralize it.
  - [x] Rename repo to nix-config.
- - [ ] Create a makeUser Helper. # Unclear if a good idea.
+ - [x] Create a makeUser Helper. # Unclear if a good idea. (Probably won't)
  - [x] Make defining hosts in flake super easy.
 
 ## Rebuilding the system

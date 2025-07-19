@@ -36,7 +36,7 @@ in {
       if cfg.default == null
       then [
         ''
-          No default browser has been set despite their being browsers installed.
+          No default browser has been set despite there being browsers installed.
           If just one browser has been installed it should automatically become
           the default.
         ''
