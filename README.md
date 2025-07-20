@@ -16,10 +16,10 @@ Feel free to open an issue if you are curious about anything.
 ## TODO:
 
  - [ ] Maybe fix helper for lists with defaults (IDK)
- - [ ] Fix so that if one runner installed it automatically becomes default.
+ - [ ] Fix so that if one runner installed it automatically becomes default. (IDK)
  - [x] Add wayland integration for desktops and add the two env vars
  referenced in the hyprland wiki there.
- - [ ] Look into impermeance and nuke on reboot.
+ - [ ] Look into impermanence and nuke on reboot.
  - [ ] Fix secrets handling
  - [ ] Look into services/scopes and stuff for uwsm / app2unit.
  - [x] Fix uwsm integration for hyprland to respect executing with rules. Also fix exec-once, and make the file logic more readable and less repetitive.
