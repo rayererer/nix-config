@@ -45,6 +45,10 @@ in {
       };
     };
 
+    fonts = {
+      enableDefaultStack = true;
+    };
+
     services = {
       ly.enable = true;
       networking.enable = true;
@@ -55,10 +59,6 @@ in {
       enable = true;
       withFlake = true;
     };
-  };
-
-  console = {
-    # font = "Lat2-Terminus16";
   };
 
   system.stateVersion = "25.05"; # Don't change this.

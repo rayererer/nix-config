@@ -11,5 +11,6 @@
     ./bootloaders
     ./services
     ./desktops
+    ./fonts
   ];
 }
