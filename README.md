@@ -15,6 +15,8 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
+ - [ ] Add color and other stylistic stuff into config in some way, maybe use stylix.
+ - [ ] Fix monitor config for Hyprland (issue described in hyprland.nix).
  - [ ] Maybe fix helper for lists with defaults (IDK)
  - [ ] Fix so that if one runner installed it automatically becomes default. (IDK)
  - [x] Add wayland integration for desktops and add the two env vars
