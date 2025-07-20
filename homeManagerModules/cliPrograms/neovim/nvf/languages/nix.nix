@@ -18,17 +18,15 @@ in {
     };
 
     languageHandling = {
-      
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.nvf.settings = {
-        vim.languages.nix = {
-          enable = true;
-          format.type = "alejandra";
-        };
+  config = lib.mkIf cfg.enable {
+    programs.nvf.settings = {
+      vim.languages.nix = {
+        enable = true;
+        format.type = "alejandra";
       };
     };
+  };
 }

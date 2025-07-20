@@ -19,7 +19,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    my.desktops.runners.fuzzel.launchCommand =
-      "fuzzel --launch-prefix='app2unit --fuzzel-compat --'";
+    my.desktops.runners.fuzzel.launchCommand = "fuzzel --launch-prefix='app2unit --fuzzel-compat --'";
   };
 }

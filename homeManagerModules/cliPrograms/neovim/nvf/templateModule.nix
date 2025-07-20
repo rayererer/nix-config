@@ -13,10 +13,8 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.nvf.settings = {
-        
-      };
+  config = lib.mkIf cfg.enable {
+    programs.nvf.settings = {
     };
+  };
 }

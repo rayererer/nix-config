@@ -18,7 +18,7 @@ in {
         nerd-fonts.caskaydia-mono # Mono font, and nerd font. No ligatures.
 
         inter # Main text font.
-        
+
         noto-fonts # For coverage of basically all scripts.
 
         noto-fonts-cjk-sans # For asian languages.
@@ -26,7 +26,7 @@ in {
       ];
 
       fontconfig.defaultFonts = {
-        sansSerif = [ "Inter" "Noto Sans" ];
+        sansSerif = ["Inter" "Noto Sans"];
         serif = ["Noto Serif"];
         monospace = ["CaskaydiaMono Nerd Font"];
         emoji = ["Noto Color Emoji"];
