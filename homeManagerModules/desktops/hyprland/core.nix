@@ -37,12 +37,6 @@ in {
       description = "String of the key to use as the main mod key to resize stuff";
       default = "CTRL";
     };
-
-    terminal = lib.mkOption {
-      type = lib.types.str;
-      description = "Terminal used by default in Hyprland as a string";
-      default = "kitty";
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -54,10 +48,7 @@ in {
         "$moveMod" = hyprCfg.moveModKey;
         "$resizeMod" = hyprCfg.resizeModKey;
 
-        "$terminal" = hyprCfg.terminal;
-
         bind = [
-          "$mainMod, RETURN, exec, $launchApp $terminal"
           "$mainMod, Q, killactive,"
           "$mainMod, BACKSPACE, ${quitCommand}"
         ];

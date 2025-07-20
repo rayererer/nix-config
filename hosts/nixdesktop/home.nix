@@ -22,6 +22,10 @@
       };
     };
 
+    terminals = {
+      ghostty.enable = true;
+    };
+
     browsers = {
       zen.enable = true;
     };

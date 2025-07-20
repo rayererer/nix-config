@@ -9,5 +9,6 @@
     ./guiPrograms
     ./desktops
     ./browsers
+    ./terminals
   ];
 }

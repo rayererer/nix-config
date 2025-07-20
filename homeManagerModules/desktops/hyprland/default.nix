@@ -8,6 +8,7 @@
 in {
   imports = [
     ./browser.nix
+    ./terminal.nix
     ./hyprland.nix
     ./core.nix
     ./monitors.nix

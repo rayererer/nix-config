@@ -46,10 +46,6 @@ in {
           enable = true;
           withUWSM = cfg.useUWSM;
         };
-
-        environment.systemPackages = [
-          pkgs.kitty # Required for the default Hyprland config
-        ];
       }
     ]
   );
