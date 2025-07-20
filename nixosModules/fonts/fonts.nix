@@ -28,7 +28,7 @@ in {
       fontconfig.defaultFonts = {
         sansSerif = [ "Inter" "Noto Sans" ];
         serif = ["Noto Serif"];
-        monospace = ["CaskaydiaCove Nerd Font Mono"];
+        monospace = ["CaskaydiaMono Nerd Font"];
         emoji = ["Noto Color Emoji"];
       };
     };
