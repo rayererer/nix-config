@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
@@ -39,6 +44,7 @@
           ./hosts/${name}/configuration.nix
           ./nixosModules
           inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
         ];
       };
   in {
