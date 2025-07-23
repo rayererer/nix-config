@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  osConfig,
   ...
 }: let
   termCfg = config.my.terminals;
@@ -18,12 +17,14 @@ in {
     programs.ghostty = {
       enable = true;
 
-      settings = {
-        font-size = termCfg.fontSize;
+      # This is redundant with stylix, but keeping it for potential
+      # future reference.
+      # settings = {
+      # font-size = lib.mkIf termCfg.fontSize;
 
-        # Ghostty doesn't seem to use default by default.
-        font-family = builtins.elemAt osConfig.fonts.fontconfig.defaultFonts.monospace 0;
-      };
+      # # Ghostty doesn't seem to use default by default.
+      # font-family = builtins.elemAt osConfig.fonts.fontconfig.defaultFonts.monospace 0;
+      # };
     };
   };
 }

@@ -49,6 +49,14 @@ in {
       enableDefaultStack = true;
     };
 
+    stylix = {
+      enable = true;
+
+      colorSchemes = {
+        alacrittyCopy.enable = true;
+      };
+    };
+
     services = {
       ly.enable = true;
       networking.enable = true;

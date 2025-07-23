@@ -37,6 +37,22 @@ in {
         while to few are not good.
       '';
     };
+
+    fontSize = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 12;
+      description = ''
+        What font size to use in general desktop elements (points).
+      '';
+    };
+
+    popupFontSize = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 14;
+      description = ''
+        What font size to use in popups (e.g. runners) (points).
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -51,5 +67,8 @@ in {
         ''
       ]
       else [];
+
+    stylix.fonts.sizes.desktop = cfg.fontSize;
+    stylix.fonts.sizes.popups = cfg.popupFontSize;
   };
 }

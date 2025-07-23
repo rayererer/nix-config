@@ -12,5 +12,6 @@
     ./services
     ./desktops
     ./fonts
+    ./stylix
   ];
 }

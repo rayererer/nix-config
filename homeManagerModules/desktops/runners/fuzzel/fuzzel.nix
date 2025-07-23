@@ -2,9 +2,11 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }: let
-  cfg = config.my.desktops.runners.fuzzel;
+  deskCfg = config.my.desktops;
+  cfg = deskCfg.runners.fuzzel;
 in {
   options.my.desktops.runners = {
     fuzzel = {
@@ -24,6 +26,13 @@ in {
   config = lib.mkIf cfg.enable {
     my.desktops.runners.runners = ["fuzzel"];
 
-    programs.fuzzel.enable = true;
+    programs.fuzzel = {
+      enable = true;
+
+      settings.main.font =
+        lib.mkIf osConfig.stylix.enable
+        (lib.mkForce
+        "${config.stylix.fonts.monospace.name}:size=${toString config.stylix.fonts.sizes.popups}");
+    };
   };
 }

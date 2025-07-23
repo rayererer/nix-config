@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }: let
   termCfg = config.my.terminals;
@@ -15,18 +16,39 @@ in {
         default = "alacritty-copy";
         description = ''
           Which font to use, custom fonts are also defined in this module.
+          WARNING, stylix overrides this.
         '';
       };
     };
   };
 
-  config = lib.mkIf ghosttyCfg.enable {
+  config = {
     programs.ghostty = {
       settings = {
-        theme = cfg.theme;
+        theme = lib.mkIf (!osConfig.myOs.stylix.enable) cfg.theme;
       };
 
       themes = {
+        # Override to actually utilize lighter colors.
+        stylix.palette = with config.stylix.base16Scheme; lib.mkForce [
+          "0=#${base00}"
+          "1=#${base08}"
+          "2=#${base0B}"
+          "3=#${base0A}"
+          "4=#${base0D}"
+          "5=#${base0E}"
+          "6=#${base0C}"
+          "7=#${base05}"
+          "8=#${base03}"
+          "9=#${base12}" # From here
+          "10=#${base14}"
+          "11=#${base13}"
+          "12=#${base16}"
+          "13=#${base17}"
+          "14=#${base15}" # To here is the actual override.
+          "15=#${base07}"
+        ];
+
         alacritty-copy = {
           palette = [
             "0=#181818"
@@ -37,6 +59,7 @@ in {
             "5=#aa759f"
             "6=#75b5aa"
             "7=#d8d8d8"
+
             "8=#6b6b6b"
             "9=#c55555"
             "10=#aac474"
