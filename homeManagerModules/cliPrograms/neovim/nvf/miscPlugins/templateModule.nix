@@ -13,7 +13,6 @@ in {
     };
 
     miscPlugins.templateModuleNameHere = {
-      
     };
   };
 

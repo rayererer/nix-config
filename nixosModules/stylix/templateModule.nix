@@ -6,7 +6,7 @@
 }: let
   cfg = config.myOs.stylix.templateModuleNameHere;
 in {
-  options.myOs.stylix= {
+  options.myOs.stylix = {
     templateModuleNameHere = {
       enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };

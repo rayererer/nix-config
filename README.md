@@ -15,7 +15,9 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
- - [ ] Add color and other stylistic stuff into config in some way, maybe use stylix.
+ - [ ] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
+if not using qt).
+ - [x] Add color and other stylistic stuff into config in some way, maybe use stylix.
  - [ ] Fix monitor config for Hyprland (issue described in hyprland.nix).
  - [ ] Maybe fix helper for lists with defaults (IDK)
  - [ ] Fix so that if one runner installed it automatically becomes default. (IDK)

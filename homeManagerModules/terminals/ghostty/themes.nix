@@ -30,24 +30,25 @@ in {
 
       themes = {
         # Override to actually utilize lighter colors.
-        stylix.palette = with config.stylix.base16Scheme; lib.mkForce [
-          "0=#${base00}"
-          "1=#${base08}"
-          "2=#${base0B}"
-          "3=#${base0A}"
-          "4=#${base0D}"
-          "5=#${base0E}"
-          "6=#${base0C}"
-          "7=#${base05}"
-          "8=#${base03}"
-          "9=#${base12}" # From here
-          "10=#${base14}"
-          "11=#${base13}"
-          "12=#${base16}"
-          "13=#${base17}"
-          "14=#${base15}" # To here is the actual override.
-          "15=#${base07}"
-        ];
+        stylix.palette = with config.stylix.base16Scheme;
+          lib.mkForce [
+            "0=#${base00}"
+            "1=#${base08}"
+            "2=#${base0B}"
+            "3=#${base0A}"
+            "4=#${base0D}"
+            "5=#${base0E}"
+            "6=#${base0C}"
+            "7=#${base05}"
+            "8=#${base03}"
+            "9=#${base12}" # From here
+            "10=#${base14}"
+            "11=#${base13}"
+            "12=#${base16}"
+            "13=#${base17}"
+            "14=#${base15}" # To here is the actual override.
+            "15=#${base07}"
+          ];
 
         alacritty-copy = {
           palette = [

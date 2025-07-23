@@ -32,7 +32,7 @@ in {
       settings.main.font =
         lib.mkIf osConfig.stylix.enable
         (lib.mkForce
-        "${config.stylix.fonts.monospace.name}:size=${toString config.stylix.fonts.sizes.popups}");
+          "${config.stylix.fonts.monospace.name}:size=${toString config.stylix.fonts.sizes.popups}");
     };
   };
 }

@@ -17,8 +17,7 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      stylix.enable = true;
-    };
+  config = lib.mkIf cfg.enable {
+    stylix.enable = true;
+  };
 }
