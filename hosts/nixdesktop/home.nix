@@ -52,6 +52,10 @@
           languageHandling = {
             lsp.enable = true;
           };
+
+          miscPlugins = {
+            colorizer.enable = true;
+          };
         };
       };
 

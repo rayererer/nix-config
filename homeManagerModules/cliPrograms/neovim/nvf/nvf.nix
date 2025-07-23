@@ -6,6 +6,8 @@
   ...
 }: let
   nvimCfg = config.my.cliPrograms.neovim;
+  nvfCfg = nvimCfg.nvf;
+  miscPluginCfg = nvfCfg.miscPlugins;
   cfg = nvimCfg.moduleCfg.nvf;
 in {
   imports = [
@@ -23,12 +25,10 @@ in {
       enable = true;
     };
 
-    # TODO: Fix modularized enabling if needed here.
-    # For now all module files are imported by default.
     # Vim options is still just imported.
-
     my.cliPrograms.neovim.nvf.moduleCfg = {
       languageHandling.enable = true;
+      colorizer.enable = miscPluginCfg.colorizer.enable;
     };
   };
 }

@@ -7,5 +7,6 @@
     ./nvf.nix
     ./vimOptions
     ./languages
+    ./miscPlugins
   ];
 }
