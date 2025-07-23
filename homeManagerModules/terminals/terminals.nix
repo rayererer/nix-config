@@ -50,5 +50,7 @@ in {
         ''
       ]
       else [];
+
+    stylix.fonts.sizes.terminal = cfg.fontSize;
   };
 }

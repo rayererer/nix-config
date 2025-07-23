@@ -4,11 +4,11 @@
   config,
   ...
 }: let
-  cfg = config.myOs.stylix.colorSchemes.templateModuleNameHere;
+  cfg = config.myOs.stylix.templateModuleNameHere;
 in {
-  options.myOs.stylix.colorSchemes = {
+  options.myOs.stylix= {
     templateModuleNameHere = {
-      enable = lib.mkEnableOption "Enable the templateModuleNameHere color scheme.";
+      enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };
   };
 

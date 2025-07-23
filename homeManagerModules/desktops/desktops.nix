@@ -37,6 +37,14 @@ in {
         while to few are not good.
       '';
     };
+
+    fontSize = lib.mkOption {
+      type = lib.types.ints.positive;
+      default = 24;
+      description = ''
+        What font size to use in general desktop elements (points).
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -51,5 +59,7 @@ in {
         ''
       ]
       else [];
+
+    stylix.fonts.sizes.desktop = cfg.fontSize;
   };
 }

@@ -1,3 +1,5 @@
+# All stuff not directly and basically only related to stylix should be set
+# outside of stylix, (e.g. fonts).
 {
   pkgs,
   lib,
