@@ -26,6 +26,10 @@
       ghostty.enable = true;
     };
 
+    shells = {
+      fish.enable = true;
+    };
+
     browsers = {
       zen.enable = true;
     };

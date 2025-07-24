@@ -10,5 +10,6 @@
     ./desktops
     ./browsers
     ./terminals
+    ./shells
   ];
 }
