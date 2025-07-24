@@ -15,7 +15,9 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
- - [ ] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
+ - [ ] Handle options that need both os and home manager stuff better, (just read the home manager option).
+ (Fixing may only be needed in desktops module.)
+ - [x] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
 if not using qt).
  - [x] Add color and other stylistic stuff into config in some way, maybe use stylix.
  - [ ] Fix monitor config for Hyprland (issue described in hyprland.nix).
@@ -34,7 +36,7 @@ if not using qt).
  - [x] Move stuff into services, and all around put modules into directories.
  - [x] Move ly out of services. # NVM, it is definitely a service.
  - [ ] Expand ssh module.
- - [ ] Fix font stuff.
+ - [x] Fix font stuff.
  - [x] Add author info to git, and perhaps centralize it.
  - [x] Rename repo to nix-config.
  - [x] Create a makeUser Helper. # Unclear if a good idea. (Probably won't)
