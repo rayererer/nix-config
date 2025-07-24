@@ -28,6 +28,7 @@
 
     shells = {
       fish.enable = true;
+      prompts.starship.enable = true;
     };
 
     browsers = {

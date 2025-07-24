@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./prompts
     ./shells.nix
     ./fish.nix
   ];

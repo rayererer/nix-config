@@ -4,8 +4,8 @@
   config,
   ...
 }: let
-  termCfg = config.my.shells;
-  cfg = termCfg.fish;
+  shellCfg = config.my.shells;
+  cfg = shellCfg.fish;
 in {
   options.my.shells.fish = {
     enable = lib.mkEnableOption "Enable the fish shell.";
@@ -20,6 +20,8 @@ in {
       interactiveShellInit = ''
         # Vi mode
         fish_vi_key_bindings
+
+        set fish_greeting ""
       '';
     };
   };
