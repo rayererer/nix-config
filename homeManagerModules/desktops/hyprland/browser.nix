@@ -28,7 +28,7 @@ in {
     wayland.windowManager.hyprland = {
       settings = {
         bind = [
-          "$mainMod, ${hyprBrowserCfg.keyBind}, exec, ${browserCfg.${browserCfg.default}.launchCommand}"
+          "$mainMod, ${hyprBrowserCfg.keyBind}, exec, $launchApp ${browserCfg.${browserCfg.default}.launchCommand}"
         ];
       };
     };
