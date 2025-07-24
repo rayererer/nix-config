@@ -15,19 +15,9 @@
     shell = pkgs.${getShellForUser user};
   });
 
-  enableShellPrograms = lib.genAttrs (map (user: getShellForUser user) filteredUsers) (_: {
-    enable = true;
-  });
-
 in {
   config =
     {
-      #This causes infinite recursion.
-      #programs = enableShellPrograms;
-
-      #Not this.
-      #users.users = allUsersDefaultShells;
-      #And this also does not.
-      #programs.fish.enable = true;
+      users.users = allUsersDefaultShells;
     };
 }

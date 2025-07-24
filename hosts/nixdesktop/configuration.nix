@@ -26,6 +26,9 @@ in {
     extraGroups = ["networkmanager" "wheel"]; # "wheel" is sudo.
   };
 
+  # Enabling the shell manually since I cannot avoid recursion otherwise:
+  programs.fish.enable = true;
+
   myOs = {
     flakes.enable = true;
 
