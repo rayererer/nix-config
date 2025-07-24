@@ -19,5 +19,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     stylix.enable = true;
+
+    # Adds bloat, optional enabling in home manager in the desktops module.
+    stylix.targets.qt.enable = false;
   };
 }

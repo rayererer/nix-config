@@ -38,6 +38,11 @@ in {
       '';
     };
 
+    useQt = lib.mkEnableOption ''
+      Wheter qt apps will be used, determines if the qt stylix target should be
+      enabled and maybe more things in the future.
+    '';
+
     fontSize = lib.mkOption {
       type = lib.types.ints.positive;
       default = 12;
@@ -68,7 +73,13 @@ in {
       ]
       else [];
 
-    stylix.fonts.sizes.desktop = cfg.fontSize;
-    stylix.fonts.sizes.popups = cfg.popupFontSize;
+    stylix = {
+      targets.qt.enable = cfg.useQt;
+
+      fonts.sizes = {
+        desktop = cfg.fontSize;
+        popups = cfg.popupFontSize;
+      };
+    };
   };
 }
