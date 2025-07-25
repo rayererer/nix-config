@@ -14,6 +14,7 @@ in {
 
   networking.hostName = "nixdesktop"; # Define your hostname.
 
+  programs.appimage.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   home-manager = lib.mkIf cfg.homeManager.enable {
@@ -50,6 +51,10 @@ in {
 
     fonts = {
       enableDefaultStack = true;
+    };
+
+    gaming = {
+      steam.enable = true;
     };
 
     stylix = {

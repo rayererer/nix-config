@@ -37,6 +37,7 @@
 
     guiPrograms = {
       obsidian.enable = true;
+      vesktop.enable = true;
     };
 
     cliPrograms = {

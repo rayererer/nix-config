@@ -14,5 +14,6 @@
     ./desktops
     ./fonts
     ./stylix
+    ./gaming
   ];
 }

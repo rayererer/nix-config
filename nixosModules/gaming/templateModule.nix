@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.my.guiPrograms.templateModuleNameHere;
+  cfg = config.myOs.gaming.templateModuleNameHere;
 in {
-  options.my.guiPrograms = {
+  options.myOs.gaming = {
     templateModuleNameHere = {
       enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };
