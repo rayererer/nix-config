@@ -26,6 +26,11 @@
       ghostty.enable = true;
     };
 
+    shells = {
+      fish.enable = true;
+      prompts.starship.enable = true;
+    };
+
     browsers = {
       zen.enable = true;
     };
