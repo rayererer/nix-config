@@ -21,6 +21,7 @@ since I might want to use other discords than vesktop.
 (Fixing may only be needed in desktops module.)
 - [x] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
 - [ ] Make starship prompt from the pure preset and maybe adapt a bit, including transience.
+pure preset convertion is done, transience and adaption remaining.
 - [x] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
 if not using qt).
 - [x] Add color and other stylistic stuff into config in some way, maybe use stylix.
