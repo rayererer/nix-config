@@ -11,5 +11,6 @@
     ./browsers
     ./terminals
     ./shells
+    ./threeD
   ];
 }

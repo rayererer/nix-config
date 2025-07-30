@@ -35,6 +35,11 @@
       zen.enable = true;
     };
 
+    threeD = {
+      prusaSlicer.enable = true;
+      freeCAD.enable = true;
+    };
+
     guiPrograms = {
       obsidian.enable = true;
       vesktop.enable = true;
