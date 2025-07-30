@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.my.templateModuleNameHere;
+  cfg = config.my.cliPrograms.templateModuleNameHere;
 in {
-  options.my = {
+  options.my.cliPrograms = {
     templateModuleNameHere = {
       enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };

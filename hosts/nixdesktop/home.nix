@@ -47,6 +47,11 @@
         useDefaultCredentials = true;
       };
 
+      zoxide = {
+        enable = true;
+        replaceCd = true;
+      };
+
       nixFormatter.enable = true;
 
       neovim = {

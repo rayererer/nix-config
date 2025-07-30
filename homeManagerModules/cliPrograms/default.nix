@@ -9,5 +9,6 @@
     ./neovim
     ./ripgrep.nix
     ./nixFormatter.nix
+    ./zoxide.nix
   ];
 }
