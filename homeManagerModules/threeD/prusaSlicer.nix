@@ -12,10 +12,9 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      home.packages = [
-        pkgs.prusa-slicer
-      ];
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.prusa-slicer
+    ];
+  };
 }

@@ -15,6 +15,7 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
+- [ ] Fix more portable configuring of zen browser, including saving vimium config and zen mods.
 - [ ] Make discords directory and make it have multiple and include a default (basically like browser and terminal)
 since I might want to use other discords than vesktop.
 - [ ] Handle options that need both os and home manager stuff better, (just read the home manager option).

@@ -39,7 +39,10 @@ in {
 
           # TODO: consider switching to legacy since my graphics card
           # might soon not be supported anymore.
-          # hardware.nvidia.package = config.boot.kernelPackages.legacy_SomeLegacyVersion;
+          # package = config.boot.kernelPackages.nvidiaPackages.legacy_SomeLegacyBranch;
+
+          # package = config.boot.kernelPackages.nvidiaPackages.beta;
+          # package = config.boot.kernelPackages.nvidiaPackages.production;
         };
       })
     ]
