@@ -14,10 +14,8 @@
   allUsersDefaultShells = lib.genAttrs (map (user: user) filteredUsers) (user: {
     shell = pkgs.${getShellForUser user};
   });
-
 in {
-  config =
-    {
-      users.users = allUsersDefaultShells;
-    };
+  config = {
+    users.users = allUsersDefaultShells;
+  };
 }

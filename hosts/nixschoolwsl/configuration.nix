@@ -29,11 +29,10 @@ in {
   programs.fish.enable = true;
 
   myOs = {
-
     wsl = {
-  enable = true;
-  userName = userName;
-};
+      enable = true;
+      userName = userName;
+    };
 
     flakes.enable = true;
 
@@ -52,9 +51,9 @@ in {
       };
     };
 
-services = {
-    networking.enable = true;
-};
+    services = {
+      networking.enable = true;
+    };
   };
 
   system.stateVersion = "24.11"; # Don't change this.

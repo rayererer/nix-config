@@ -12,12 +12,11 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.steam = {
-        enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.steam = {
+      enable = true;
 
-        # Look at the NixOS Wiki for ports related to stuff.
-      };
+      # Look at the NixOS Wiki for ports related to stuff.
     };
+  };
 }

@@ -32,7 +32,7 @@ in {
     # Script to make desktop entry with correct Exec line for actuallly working on
     # wayland without segfault by setting env var. (Copies the original for everything else.)
     home.activation.freeCadDestkop = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      HOME_MANAGER_DESK_FILE="${pkgs.freecad}/share/applications/org.freecad.FreeCAD.desktop"        
+      HOME_MANAGER_DESK_FILE="${pkgs.freecad}/share/applications/org.freecad.FreeCAD.desktop"
       HOME_DESK_DIR="$HOME/.local/share/applications/"
 
       mkdir -p $HOME_DESK_DIR

@@ -17,14 +17,13 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.zoxide = {
-        enable = true;
-        
-        options = lib.mkIf cfg.replaceCd [
-          "--cmd cd"
-        ];
-      };
+  config = lib.mkIf cfg.enable {
+    programs.zoxide = {
+      enable = true;
+
+      options = lib.mkIf cfg.replaceCd [
+        "--cmd cd"
+      ];
     };
+  };
 }

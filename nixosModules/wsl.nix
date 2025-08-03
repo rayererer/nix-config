@@ -13,20 +13,19 @@ in {
       '';
 
       userName = lib.mkOption {
-  type = lib.types.str;
-  default = "nixos";
-  description = ''
-    Which username for the default user to use in WSL.
-  '';
-};
+        type = lib.types.str;
+        default = "nixos";
+        description = ''
+          Which username for the default user to use in WSL.
+        '';
+      };
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      wsl = {
-  enable = true;
-  defaultUser = cfg.userName;
-};
+  config = lib.mkIf cfg.enable {
+    wsl = {
+      enable = true;
+      defaultUser = cfg.userName;
     };
+  };
 }
