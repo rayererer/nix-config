@@ -52,6 +52,8 @@
         useDefaultCredentials = true;
       };
 
+      direnv.enable = true;
+
       zoxide = {
         enable = true;
         replaceCd = true;

@@ -10,5 +10,6 @@
     ./ripgrep.nix
     ./nixFormatter.nix
     ./zoxide.nix
+    ./direnv.nix
   ];
 }
