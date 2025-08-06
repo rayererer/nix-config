@@ -8,13 +8,17 @@
 }: let
   cfg = config.myOs.homeManager;
 in {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
   options.myOs.homeManager.enable = lib.mkEnableOption "Enable the home-manager integration module";
 
   config =
     lib.mkIf cfg.enable
     {
       home-manager.sharedModules = [
-        inputs.self.outputs.homeManagerModules.default
+        ../homeManagerModules
       ];
 
       home-manager.extraSpecialArgs = {

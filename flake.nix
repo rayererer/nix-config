@@ -4,6 +4,7 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     home-manager = {
@@ -44,15 +45,10 @@
         modules = [
           ./hosts/${name}/configuration.nix
           ./nixosModules
-          inputs.home-manager.nixosModules.home-manager
-          inputs.nixos-wsl.nixosModules.default
-          inputs.stylix.nixosModules.stylix
         ];
       };
   in {
     # Generate hosts by just putting the hostname in the list.
     nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm"] (name: makeHostConfig name);
-
-    homeManagerModules.default = ./homeManagerModules;
   };
 }

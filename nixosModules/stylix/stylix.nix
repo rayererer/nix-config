@@ -4,10 +4,15 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.myOs.stylix;
 in {
+  imports = [
+    inputs.stylix.nixosModules.stylix
+  ];
+
   options.myOs = {
     stylix = {
       enable = lib.mkEnableOption ''

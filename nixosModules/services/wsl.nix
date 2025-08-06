@@ -2,10 +2,15 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.myOs.services.wsl;
 in {
+  imports = [
+    inputs.nixos-wsl.nixosModules.default
+  ];
+
   options.myOs.services = {
     wsl = {
       enable = lib.mkEnableOption ''
