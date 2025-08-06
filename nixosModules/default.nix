@@ -8,7 +8,6 @@
     ./homeManager.nix
     ./locale.nix
     ./shells.nix
-    ./wsl.nix
     ./graphics
     ./bootloaders
     ./services

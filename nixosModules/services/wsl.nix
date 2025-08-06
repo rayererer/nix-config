@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.myOs.wsl;
+  cfg = config.myOs.services.wsl;
 in {
-  options.myOs = {
+  options.myOs.services = {
     wsl = {
       enable = lib.mkEnableOption ''
         Enable the wsl module for if this host runs in WSL.

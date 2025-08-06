@@ -8,11 +8,14 @@
 in {
   options.myOs.services = {
     vmGuest = {
-      enable = lib.mkEnableOption "Enable the module for if this is a Virtual Machine.";
+      isQemuKvm = lib.mkEnableOption ''
+        Enable the module for if this is a Virtual Machine that uses
+        QEMU/KVM. (Hyper-V doesn't seem to need manual config.)
+      '';
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.isQemuKvm {
     services.spice-vdagentd.enable = true;
     services.xserver.videoDrivers = ["virtio"];
   };

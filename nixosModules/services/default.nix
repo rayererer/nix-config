@@ -10,5 +10,6 @@
     ./sound.nix
     ./vmGuest.nix
     ./networking.nix
+    ./wsl.nix
   ];
 }

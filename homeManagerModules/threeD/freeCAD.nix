@@ -36,7 +36,7 @@ in {
       HOME_DESK_DIR="$HOME/.local/share/applications/"
 
       mkdir -p $HOME_DESK_DIR
-      if [ -f $HOME_MANAGER_DESK_FILE ]; then
+      if [ -f $HOME_MANAGER_DESK_FILE && ! -f $HOME_DESK_DIR/org.freecad.FreeCAD.desktop ]; then
         cp $HOME_MANAGER_DESK_FILE $HOME_DESK_DIR
         ${pkgs.gnused}/bin/sed -i 's|Exec=FreeCAD|Exec=env QT_QPA_PLATFORM=xcb FreeCAD|' "$HOME_DESK_DIR/org.freecad.FreeCAD.desktop"
       else

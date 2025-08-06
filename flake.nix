@@ -51,7 +51,7 @@
       };
   in {
     # Generate hosts by just putting the hostname in the list.
-    nixosConfigurations = lib.genAttrs ["nixvm" "nixdesktop" "nixschoolwsl"] (name: makeHostConfig name);
+    nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm"] (name: makeHostConfig name);
 
     homeManagerModules.default = ./homeManagerModules;
   };
