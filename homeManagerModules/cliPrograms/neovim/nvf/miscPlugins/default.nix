@@ -5,5 +5,6 @@
 }: {
   imports = [
     ./colorizer.nix
+    ./telescope.nix
   ];
 }

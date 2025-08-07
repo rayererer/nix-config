@@ -69,10 +69,12 @@
         nvf = {
           languageHandling = {
             lsp.enable = true;
+            languages = ["nix" "rust"];
           };
 
           miscPlugins = {
             colorizer.enable = true;
+            telescope.enable = true;
           };
         };
       };

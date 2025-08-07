@@ -29,6 +29,7 @@ in {
     my.cliPrograms.neovim.nvf.moduleCfg = {
       languageHandling.enable = true;
       colorizer.enable = miscPluginCfg.colorizer.enable;
+      telescope.enable = miscPluginCfg.telescope.enable;
     };
   };
 }

@@ -9,10 +9,11 @@
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.templateModuleNameHere = {
-      enable = lib.mkEnableOption "Enable templateModuleNameHere module.";
+      enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };
 
     miscPlugins.templateModuleNameHere = {
+      enable = lib.mkEnableOption "";
     };
   };
 
