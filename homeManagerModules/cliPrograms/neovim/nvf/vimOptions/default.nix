@@ -8,5 +8,6 @@
     ./search.nix
     ./lineNumbers.nix
     ./scroll.nix
+    ./diagnostics.nix
   ];
 }
