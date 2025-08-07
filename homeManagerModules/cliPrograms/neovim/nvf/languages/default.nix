@@ -7,5 +7,6 @@
     ./languageHandling.nix
     ./lsp.nix
     ./nix.nix
+    ./rust.nix
   ];
 }

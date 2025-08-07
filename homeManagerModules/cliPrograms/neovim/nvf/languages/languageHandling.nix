@@ -8,7 +8,7 @@
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
 
-  availableLanguages = ["nix"];
+  availableLanguages = ["nix" "rust"];
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {

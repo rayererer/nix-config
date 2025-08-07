@@ -21,9 +21,10 @@
   } @ inputs: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
+    fenixPackages = fenix.packages.${system};
 
     toolchain =
-      fenix.packages.${system}.default.toolchain; # For nightly
+      fenixPackages.default.toolchain;
   in {
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
