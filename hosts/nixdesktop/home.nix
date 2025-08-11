@@ -8,6 +8,8 @@
     desktops = {
       enable = true;
 
+      cursors.enable = true;
+
       runners.fuzzel.enable = true;
 
       hyprland = {

@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./desktops.nix
+    ./cursors.nix
     ./uwsmEnvVarHandler.nix
     ./hyprland
     ./nvidiaIntegration.nix
