@@ -5,6 +5,9 @@
   nixpkgs.config.allowUnfree = true;
 
   my = {
+    
+    games.minecraft.enable = true;
+
     desktops = {
       enable = true;
 
