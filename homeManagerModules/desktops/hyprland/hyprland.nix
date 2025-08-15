@@ -67,6 +67,7 @@ in {
       core.enable = true;
       mouse.enable = true;
       windowNavigation.enable = true;
+      windowControlling.enable = true;
       monitorNavigation.enable = builtins.length cfg.monitors > 1;
       appLauncher.enable = cfg.appLauncher.default != null;
       terminal.enable = myCfg.terminals.default != null;

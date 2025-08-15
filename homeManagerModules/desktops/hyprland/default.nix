@@ -21,5 +21,6 @@ in {
     ./monitorNavigation.nix
     ./directions.nix
     ./windowNavigation.nix
+    ./windowControlling.nix
   ];
 }

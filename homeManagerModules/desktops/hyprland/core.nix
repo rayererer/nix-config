@@ -52,11 +52,6 @@ in {
           "$mainMod, Q, killactive,"
           "$mainMod, BACKSPACE, ${quitCommand}"
         ];
-
-        bindm = [
-          "$mainMod, mouse:272, movewindow"
-          "$mainMod, mouse:273, resizewindow"
-        ];
       };
     };
   };

@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./games
     ./cliPrograms
     ./guiPrograms
     ./desktops
