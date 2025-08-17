@@ -10,7 +10,6 @@
 
   wallpapersDirName = "assets/wallpapers";
   wallpapersDir = ../../${wallpapersDirName};
-  # ${wallpapersDirName}
 in {
   options.my.desktops = {
     wallpapers = {
@@ -36,6 +35,7 @@ in {
       enable = true;
 
       settings = {
+        preload = "${wallpapersDir}/${cfg.wallpaper}";
         wallpaper = ", ${wallpapersDir}/${cfg.wallpaper}";
       };
     };
