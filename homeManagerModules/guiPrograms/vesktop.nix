@@ -22,8 +22,6 @@ in {
         minimizeToTray = false;
         hardwareAcceleration = true;
 
-        firstLaunch = false;
-
         discordBranch = "stable";
       };
     };

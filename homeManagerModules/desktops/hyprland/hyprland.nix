@@ -68,13 +68,11 @@ in {
       mouse.enable = true;
       windowNavigation.enable = true;
       windowControlling.enable = true;
-      monitorNavigation.enable = builtins.length cfg.monitors > 1;
       appLauncher.enable = cfg.appLauncher.default != null;
       terminal.enable = myCfg.terminals.default != null;
       browser.enable = myCfg.browsers.default != null;
-      # TODO: Should still enable this but not the bindings
-      # with just one monitor.
       monitors.enable = builtins.length cfg.monitors > 0;
+      monitorNavigation.enable = builtins.length cfg.monitors > 1;
       locale.enable = true;
       envVarAggregator.enable = true;
       lyIntegration.enable = osConfig.myOs.services.ly.enable;
