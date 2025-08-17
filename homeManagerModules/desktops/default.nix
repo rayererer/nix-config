@@ -7,6 +7,7 @@
   imports = [
     ./desktops.nix
     ./cursors.nix
+    ./wallpapers.nix
     ./uwsmEnvVarHandler.nix
     ./hyprland
     ./nvidiaIntegration.nix

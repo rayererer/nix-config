@@ -1,17 +1,20 @@
 {pkgs, ...}: {
-  home.username = "rayer";
-  home.homeDirectory = "/home/rayer";
+  home = {
+    username = "rayer";
+    homeDirectory = "/home/rayer";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
   my = {
-    
     games.minecraft.enable = true;
 
     desktops = {
       enable = true;
 
       cursors.enable = true;
+
+      wallpapers.enable = true;
 
       runners.fuzzel.enable = true;
 

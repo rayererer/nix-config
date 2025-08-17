@@ -10,7 +10,7 @@ in {
   options.my.desktops = {
     cursors = {
       enable = lib.mkEnableOption ''
-        Sets the cursor in its correc places, currently only got one cursor
+        Sets the cursor in its correct places, currently only got one cursor
         option to set though, and therefore no option for which one to set.
       '';
     };
