@@ -8,6 +8,7 @@
     ./homeManager.nix
     ./locale.nix
     ./shells.nix
+    ./systemMaintenance
     ./graphics
     ./bootloaders
     ./services

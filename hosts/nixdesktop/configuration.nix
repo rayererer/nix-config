@@ -48,6 +48,8 @@ in {
     homeManager.enable = true;
     locale.enable = true;
 
+    systemMaintenance.garbageCollection.enable = true;
+
     graphics = {
       nvidia = {
         enable = true;

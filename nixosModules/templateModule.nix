@@ -8,7 +8,7 @@
 in {
   options.myOs = {
     templateModuleNameHere = {
-      enable = lib.mkEnableOption "Enable templateModuleNameHere module.";
+      enable = lib.mkEnableOption "Enable the templateModuleNameHere module.";
     };
   };
 
