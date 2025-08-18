@@ -8,7 +8,7 @@
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
 
-  availableLanguages = ["nix" "rust"];
+  availableLanguages = ["nix" "rust" "ruby"];
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
@@ -50,7 +50,7 @@ in {
 
     my.cliPrograms.neovim.nvf.moduleCfg.languageHandling = {
       languages =
-        lib.genAttrs langHandCfg.languages (name: {enable = true;});
+        lib.genAttrs langHandCfg.languages (_name: {enable = true;});
 
       lsp.enable = langHandCfg.lsp.enable;
     };

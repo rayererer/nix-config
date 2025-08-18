@@ -5,8 +5,7 @@
 }: {
   imports = [
     ./languageHandling.nix
+    ./languages.nix
     ./lsp.nix
-    ./nix.nix
-    ./rust.nix
   ];
 }
