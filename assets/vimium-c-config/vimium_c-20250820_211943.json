@@ -1,0 +1,38 @@
+{
+	"name": "Vimium C",
+	"@time": "8/20/2025, 9:19:43 PM",
+	"time": 1755717583141,
+	"environment": {
+		"extension": "2.12.3",
+		"platform": "linux",
+		"firefox": 141
+	},
+	"keyLayout": 2,
+	"keyMappings": [
+		"#!no-check",
+		"# For navigating up and down through tabs using J and K",
+		"map J nextTab",
+		"map K previousTab",
+		"",
+		"# Remap going to mark to make it possible on my keyboard",
+		"# and like Vim",
+		"unmap `",
+		"map ' Marks.activate",
+		"",
+		"# Make moving tabs up and down a bit easier",
+		"unmap <<",
+		"unmap >>",
+		"",
+		"map < moveTabLeft # (Up)",
+		"map > moveTabRight # (Down)",
+		""
+	],
+	"vimSync": true,
+	"vomnibarOptions": {
+		"actions": "",
+		"maxMatches": 10,
+		"queryInterval": 333,
+		"sizes": "77,3,44,0.8,1944",
+		"styles": "dark"
+	}
+}
