@@ -23,6 +23,20 @@ in {
         ruby = {
           enable = lib.mkEnableOption "Enable the Ruby module.";
         };
+
+        html = {
+          enable = lib.mkEnableOption "Enable the HTML module.";
+        };
+
+        css = {
+          enable = lib.mkEnableOption "Enable the CSS module.";
+        };
+
+        ts = {
+          enable = lib.mkEnableOption ''
+            Enable the TypeScript/JavaScript module.
+          '';
+        };
       };
     };
 
@@ -43,6 +57,18 @@ in {
         };
 
         ruby = lib.mkIf cfg.ruby.enable {
+          enable = true;
+        };
+
+        html = lib.mkIf cfg.html.enable {
+          enable = true;
+        };
+
+        css = lib.mkIf cfg.css.enable {
+          enable = true;
+        };
+
+        ts = lib.mkIf cfg.ts.enable {
           enable = true;
         };
       };

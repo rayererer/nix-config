@@ -29,11 +29,6 @@ in {
   programs.fish.enable = true;
 
   myOs = {
-    wsl = {
-      enable = true;
-      userName = userName;
-    };
-
     flakes.enable = true;
 
     homeManager.enable = true;
@@ -53,6 +48,11 @@ in {
 
     services = {
       networking.enable = true;
+
+      wsl = {
+        enable = true;
+        userName = userName;
+      };
     };
   };
 

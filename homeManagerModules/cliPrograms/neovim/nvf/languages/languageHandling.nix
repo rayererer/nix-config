@@ -8,7 +8,7 @@
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
 
-  availableLanguages = ["nix" "rust" "ruby"];
+  availableLanguages = ["nix" "rust" "ruby" "html" "css" "ts"]; # ts is also for javascript
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
