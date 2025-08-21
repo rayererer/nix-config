@@ -32,10 +32,19 @@
         nvf = {
           languageHandling = {
             lsp.enable = true;
+            languages = [
+              "nix"
+              "rust"
+              "ruby"
+              "html"
+              "css"
+              "ts"
+            ];
           };
 
           miscPlugins = {
             colorizer.enable = true;
+            telescope.enable = true;
           };
         };
       };
