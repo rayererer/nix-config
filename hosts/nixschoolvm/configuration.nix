@@ -23,7 +23,7 @@ in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${userName}" = {
     isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"]; # "wheel" is sudo.
+    extraGroups = ["networkmanager" "wheel" "dialout"]; # "wheel" is sudo.
   };
 
   # Enabling the shell manually since I cannot avoid recursion otherwise:
@@ -40,6 +40,8 @@ in {
 
     homeManager.enable = true;
     locale.enable = true;
+
+    systemMaintenance.garbageCollection.enable = true;
 
     fonts = {
       enableDefaultStack = true;

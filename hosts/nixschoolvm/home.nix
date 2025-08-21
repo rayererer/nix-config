@@ -8,6 +8,10 @@
     desktops = {
       enable = true;
 
+      cursors.enable = true;
+
+      wallpapers.enable = true;
+
       runners.fuzzel.enable = true;
 
       hyprland = {
@@ -66,10 +70,12 @@
         nvf = {
           languageHandling = {
             lsp.enable = true;
+            languages = ["nix" "rust" "ruby"];
           };
 
           miscPlugins = {
             colorizer.enable = true;
+            telescope.enable = true;
           };
         };
       };
