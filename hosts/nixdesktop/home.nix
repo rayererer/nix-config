@@ -83,6 +83,7 @@
           miscPlugins = {
             colorizer.enable = true;
             telescope.enable = true;
+            nvimSurround.enable = true;
           };
         };
       };

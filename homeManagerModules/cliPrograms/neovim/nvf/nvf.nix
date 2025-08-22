@@ -30,6 +30,7 @@ in {
       languageHandling.enable = true;
       colorizer.enable = miscPluginCfg.colorizer.enable;
       telescope.enable = miscPluginCfg.telescope.enable;
+      nvimSurround.enable = miscPluginCfg.nvimSurround.enable;
     };
   };
 }
