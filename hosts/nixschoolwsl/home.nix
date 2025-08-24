@@ -26,8 +26,13 @@
 
       neovim = {
         enable = true;
-        # makeDefault = true;
+        makeDefault = true;
         useNvf = true;
+
+        nvimpager = {
+          enable = true;
+          makeDefault = true;
+        };
 
         nvf = {
           languageHandling = {

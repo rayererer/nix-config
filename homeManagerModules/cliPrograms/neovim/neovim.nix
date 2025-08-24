@@ -12,24 +12,14 @@ in {
     makeDefault = lib.mkEnableOption "Make Neovim the default editor.";
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        programs.neovim.enable = true;
+  config = lib.mkIf cfg.enable {
+    programs.neovim.enable = true;
 
-        my.cliPrograms.neovim.moduleCfg = {
-          nvf.enable = cfg.useNvf;
-        };
-      }
+    my.cliPrograms.neovim.moduleCfg = {
+      nvf.enable = cfg.useNvf;
+      nvimpager.enable = cfg.nvimpager.enable;
+    };
 
-      # TODO: Maybe actually fix this:
-      (lib.mkIf cfg.makeDefault {
-        programs.neovim.defaultEditor = true;
-        home.sessionVariables = {
-          EDITOR = "nvim";
-          VISUAL = "nvim";
-        };
-      })
-    ]
-  );
+    programs.neovim.defaultEditor = cfg.makeDefault;
+  };
 }
