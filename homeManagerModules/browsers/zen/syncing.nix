@@ -6,11 +6,13 @@
 }: let
   zenCfg = config.my.browsers.zen;
   cfg = zenCfg.syncing;
-  profilePath = "${config.home.homeDirectory}/.zen/${cfg.profile}";
+  zenPath = "${config.home.homeDirectory}/.zen";
+  profilePath = "${zenPath}/${cfg.profile}";
+  repoPath = "${zenPath}/custom-zen-syncing";
 
   versionedFiles = [
     "containers.json"
-    "users.js"
+    "user.js"
     "zen-keyboard-shortcuts"
   ];
 
@@ -18,53 +20,60 @@
     "sessionstore.jsonlz4"
   ];
 
-  generateCopyCommands = files:
+  generateUpdateCopyCommands = files:
     lib.concatMapStringsSep "\n" (file: ''
-      [[ -f "${profilePath}/${file}" ]] && cp "${profilePath}/${file}" "./${file}" || true
+      [[ -f "${profilePath}/${file}" ]] && cp -r "${profilePath}/${file}" "${repoPath}/${file}" || true
+    '')
+    files;
+
+  generateRetrieveCopyCommands = files:
+    lib.concatMapStringsSep "\n" (file: ''
+      [[ -f "${repoPath}/${file}" ]] && cp -r "${repoPath}/${file}" "${profilePath}/${file}" || true
     '')
     files;
 
   setupRepo = pkgs.writeShellScript "zen-sync-setupRepo" ''
     set -euo pipefail
 
-    TEMP_DIR=''${${pkgs.coreutils}/bin/mktemp-d)}
+    echo "[REPO SETUP] Setting up git repository in: ${repoPath}"
 
-    echo "[REPO SETUP] Setting up git repository in: $TEMP_DIR"
-
-    cd "$TEMP_DIR"
-
-    # Initialize or update git repo
-    if [[ ! -d ".git" ]]; then
-      ${pkgs.git}/bin/git init
-      ${pkgs.git}/bin/git remote add origin "${cfg.repoUrl}"
+    if [[ ! -d "${repoPath}" ]]; then
+      echo "[REPO SETUP] No directory found at ${repoPath} - creating it."
+      mkdir "${repoPath}"
     fi
 
-    # Try to fetch existing branches
-    ${pkgs.git}/bin/git fetch origin main 2>/dev/null || echo "[REPO SETUP] No main branch yet"
-    ${pkgs.git}/bin/git fetch origin unversioned-data 2>/dev/null || echo "[REPO SETUP] No unversioned data branch yet"
+    if [[ ! -d "${repoPath}/.git" ]]; then
+      echo "[REPO SETUP] Directory is not a git repo - cloning the remote."
+      ${pkgs.git}/bin/git clone "${cfg.repoUrl}" "${repoPath}"
+    fi
 
-    echo "[REPO SETUP] Git repository setup in: $TEMP_DIR"
-    echo "$TEMP_DIR"  # Return the temp directory path
+    echo "[REPO SETUP] Git repository setup done in: ${repoPath}"
   '';
 
   updateVersioned = pkgs.writeShellScript "zen-sync-updateVersioned" ''
     set -euo pipefail
 
-    WORK_DIR=''${1:?"Work directory required"}
-    cd "$WORK_DIR"
+    cd "${repoPath}"
 
     echo "[VERSIONED UPDATE] Updating versioned files in main branch"
 
     # Ensure we're on main branch
     ${pkgs.git}/bin/git checkout main 2>/dev/null || ${pkgs.git}/bin/git checkout -b main
 
-    ${generateCopyCommands versionedFiles}
+    ${generateUpdateCopyCommands versionedFiles}
 
-    # Commit if there are changes
+    # Commit and push if there are changes
     ${pkgs.git}/bin/git add -A
     if ! ${pkgs.git}/bin/git diff --cached --quiet; then
       ${pkgs.git}/bin/git commit -m "Update versioned config $(${pkgs.coreutils}/bin/date -Iseconds)"
       echo "[VERSIONED UPDATE] Committed versioned changes"
+
+      echo "[VERSIONED UPDATE] Pulling the versioned files."
+      ${pkgs.git}/bin/git pull || echo "[WARNING] Failed to pull main branch"
+
+      echo "[VERSIONED UPDATE] Pushing the versioned files."
+      ${pkgs.git}/bin/git push origin main || echo "[WARNING] Failed to push main branch"
+
     else
       echo "[VERSIONED UPDATE] No versioned changes to commit"
     fi
@@ -73,30 +82,33 @@
   updateUnversioned = pkgs.writeShellScript "zen-sync-updateUnversioned" ''
     set -euo pipefail
 
-    WORK_DIR=''${1:?"Work directory required"}
-    cd "$WORK_DIR"
+    cd "${repoPath}"
 
     echo "[UNVERSIONED UPDATE] Updating unversioned files on data branch"
 
     # Create/recreate orphan data branch (no history)
-    ${pkgs.git}/bin/git checkout --orphan data-new 2>/dev/null || true
+    ${pkgs.git}/bin/git checkout --orphan unversioned-data-new 2>/dev/null || true
     ${pkgs.git}/bin/git rm -rf . 2>/dev/null || true
 
     # Copy unversioned files
-    ${generateCopyCommands unversionedFiles}
+    ${generateUpdateCopyCommands unversionedFiles}
 
-    # Only commit if we have files
-    if ${pkgs.coreutils}/bin/find . -maxdepth 1 -type f | ${pkgs.gnugrep}/bin/grep -q .; then
+    # Only commit and push if we have files
+    if [[ ! -z "$( ls )" ]]; then
       ${pkgs.git}/bin/git add .
       ${pkgs.git}/bin/git commit -m "Data snapshot $(${pkgs.coreutils}/bin/date -Iseconds)"
 
-      # Replace the old data branch
-      ${pkgs.git}/bin/git branch -D data 2>/dev/null || true
-      ${pkgs.git}/bin/git branch -m data-new data
+      # Replace the old data branch and push
+      ${pkgs.git}/bin/git branch -D unversioned-data 2>/dev/null || true
+      ${pkgs.git}/bin/git branch -m unversioned-data-new unversioned-data
 
-      echo "[UNVERSIONED UPDATE] Updated data branch"
+    echo "[UNVERSIONED UPDATE] Updated unversioned data branch"
+
+    echo "[UNVERSIONED UPDATE] Force pushing the unversioned files."
+
+    ${pkgs.git}/bin/git push --force origin unversioned-data || echo "[WARNING] Failed to push unversioned-data branch"
     else
-      echo "[UNVERSIONED UPDATE] No unversioned files found"
+      echo "[UNVERSIONED PDATE] No unversioned files found: Not doing anything"
     fi
   '';
 
@@ -105,36 +117,46 @@
 
     echo "[UPDATE] Starting Zen browser sync update"
 
-    # Verify profile exists
     if [[ ! -d "${profilePath}" ]]; then
       echo "[ERROR] Zen profile not found at: ${profilePath}"
       exit 1
     fi
 
-    # Set up temporary git workspace
-    TEMP_DIR=$(${setupRepo})
-    trap "rm -rf $TEMP_DIR" EXIT
+    echo "[UPDATE] Ensuring repository is set up..."
+    ${setupRepo}
 
-    echo "[UPDATE] Working in temporary directory: $TEMP_DIR"
+    echo "[UPDATE] Updating the versioned files..."
+    ${updateVersioned} "${repoPath}"
 
-    # Update versioned files first
-    ${updateVersioned} "$TEMP_DIR"
-
-    # Push versioned changes
-    cd "$TEMP_DIR"
-    ${pkgs.git}/bin/git push origin main || echo "[WARNING] Failed to push main branch"
-
-    # Update unversioned files
-    ${updateUnversioned} "$TEMP_DIR"
-
-    # Push unversioned changes (force push for data branch)
-    ${pkgs.git}/bin/git push --force origin unversioned-data || echo "[WARNING] Failed to push unversioned-data branch"
+    echo "[UPDATE] Updating the unversioned files..."
+    ${updateUnversioned} "${repoPath}"
 
     echo "[UPDATE] Sync update completed successfully"
   '';
 
   retrieveVersioned =
     pkgs.writeShellScript "zen-sync-retrieveVersioned" ''
+      set -euo pipefail
+    
+      if [[ ! -d "${profilePath}" ]]; then
+        echo "[ERROR] Zen profile not found at: ${profilePath}"
+        exit 1
+      fi
+
+      # Copy for no risk of data loss in case of improper update before.
+      ${generateUpdateCopyCommands versionedFiles}
+
+      cd "${repoPath}"
+    
+      echo "[RETRIEVE VERSIONED] Retrieving versioned files from main branch"
+    
+      # Checkout main branch and pull latest
+      ${pkgs.git}/bin/git checkout main
+      ${pkgs.git}/bin/git pull origin main || echo "[WARNING] Could not pull main branch"
+      
+      ${generateRetrieveCopyCommands versionedFiles}
+      
+      echo "[RETRIEVE VERSIONED] Versioned files retrieved"
     '';
 
   retrieveUnversioned =
@@ -142,7 +164,25 @@
     '';
 
   syncRetrieve = pkgs.writeShellScript "zen-sync-update" ''
+    set -euo pipefail
 
+    echo "[RETRIEVE] Starting Zen browser sync retrieval"
+
+    if [[ ! -d "${profilePath}" ]]; then
+      echo "[ERROR] Zen profile not found at: ${profilePath}"
+      exit 1
+    fi
+
+    echo "[RETRIEVE] Ensuring repository is set up..."
+    ${setupRepo}
+
+    echo "[RETRIEVE] Updating the versioned files..."
+    ${retrieveVersioned} "${repoPath}"
+
+    echo "[RETRIEVE] Updating the unversioned files..."
+    ${retrieveUnversioned} "${repoPath}"
+
+    echo "[RETRIEVE] Sync update completed successfully"
   '';
 in {
   options.my.browsers.zen = {
@@ -179,6 +219,11 @@ in {
           if 'config.my.browsers.zen.enable' is false.
         '';
       }
+    ];
+
+    # For testing
+    home.packages = [
+      (pkgs.writeShellScriptBin "zen-sync-update" ''exec ${syncUpdate} "$@"'')
     ];
 
     systemd.user.services.zen-syncing-service = {

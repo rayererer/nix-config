@@ -40,7 +40,10 @@
     };
 
     browsers = {
-      zen.enable = true;
+      zen = {
+        enable = true;
+        syncing.profile = "i7eyurii.test";
+      };
     };
 
     threeD = {
