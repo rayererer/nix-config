@@ -150,7 +150,6 @@
     
       echo "[RETRIEVE VERSIONED] Retrieving versioned files from main branch"
     
-      # Checkout main branch and pull latest
       ${pkgs.git}/bin/git checkout main
       ${pkgs.git}/bin/git pull origin main || echo "[WARNING] Could not pull main branch"
       
@@ -161,6 +160,26 @@
 
   retrieveUnversioned =
     pkgs.writeShellScript "zen-sync-retrieveUnversioned" ''
+      set -euo pipefail
+    
+      if [[ ! -d "${profilePath}" ]]; then
+        echo "[ERROR] Zen profile not found at: ${profilePath}"
+        exit 1
+      fi
+
+      # Copy for no risk of data loss in case of improper update before.
+      ${generateRetrieveCopyCommands unversionedFiles}
+
+      cd "${repoPath}"
+    
+      echo "[RETRIEVE UNVERSIONED] Retrieving unversioned files from unversioned-data branch"
+    
+      ${pkgs.git}/bin/git checkout unversioned-data
+      ${pkgs.git}/bin/git pull origin unversioned-data || echo "[WARNING] Could not pull unversioned-data branch"
+      
+      ${generateRetrieveCopyCommands unversionedFiles}
+      
+      echo "[RETRIEVE UNVERSIONED] Unversioned files retrieved"
     '';
 
   syncRetrieve = pkgs.writeShellScript "zen-sync-update" ''
@@ -224,6 +243,7 @@ in {
     # For testing
     home.packages = [
       (pkgs.writeShellScriptBin "zen-sync-update" ''exec ${syncUpdate} "$@"'')
+      (pkgs.writeShellScriptBin "zen-sync-retrieve" ''exec ${syncRetrieve} "$@"'')
     ];
 
     systemd.user.services.zen-syncing-service = {

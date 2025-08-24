@@ -35,7 +35,10 @@
     };
 
     browsers = {
-      zen.enable = true;
+      zen = {
+        enable = true;
+        syncing.profile = "pdd2kkb0.test";
+      };
     };
 
     threeD = {
