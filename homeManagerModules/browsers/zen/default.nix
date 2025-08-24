@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./browsers.nix
-    ./zen
+    ./zen.nix
+    ./syncing.nix
   ];
 }
