@@ -12,8 +12,7 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      home.packages = [ pkgs.prismlauncher ];
-    };
+  config = lib.mkIf cfg.enable {
+    home.packages = [pkgs.prismlauncher];
+  };
 }

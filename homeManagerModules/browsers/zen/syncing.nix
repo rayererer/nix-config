@@ -70,67 +70,66 @@
     fi
   '';
 
-  updateUnversioned =
-    pkgs.writeShellScript "zen-sync-updateUnversioned" ''
+  updateUnversioned = pkgs.writeShellScript "zen-sync-updateUnversioned" ''
     set -euo pipefail
-    
+
     WORK_DIR=''${1:?"Work directory required"}
     cd "$WORK_DIR"
-    
+
     echo "[UNVERSIONED UPDATE] Updating unversioned files on data branch"
-    
+
     # Create/recreate orphan data branch (no history)
     ${pkgs.git}/bin/git checkout --orphan data-new 2>/dev/null || true
     ${pkgs.git}/bin/git rm -rf . 2>/dev/null || true
-    
+
     # Copy unversioned files
     ${generateCopyCommands unversionedFiles}
-    
+
     # Only commit if we have files
     if ${pkgs.coreutils}/bin/find . -maxdepth 1 -type f | ${pkgs.gnugrep}/bin/grep -q .; then
       ${pkgs.git}/bin/git add .
       ${pkgs.git}/bin/git commit -m "Data snapshot $(${pkgs.coreutils}/bin/date -Iseconds)"
-      
+
       # Replace the old data branch
       ${pkgs.git}/bin/git branch -D data 2>/dev/null || true
       ${pkgs.git}/bin/git branch -m data-new data
-      
+
       echo "[UNVERSIONED UPDATE] Updated data branch"
     else
       echo "[UNVERSIONED UPDATE] No unversioned files found"
     fi
-    '';
+  '';
 
   syncUpdate = pkgs.writeShellScript "zen-sync-update" ''
     set -euo pipefail
-    
+
     echo "[UPDATE] Starting Zen browser sync update"
-    
+
     # Verify profile exists
     if [[ ! -d "${profilePath}" ]]; then
       echo "[ERROR] Zen profile not found at: ${profilePath}"
       exit 1
     fi
-    
+
     # Set up temporary git workspace
     TEMP_DIR=$(${setupRepo})
     trap "rm -rf $TEMP_DIR" EXIT
-    
+
     echo "[UPDATE] Working in temporary directory: $TEMP_DIR"
-    
+
     # Update versioned files first
     ${updateVersioned} "$TEMP_DIR"
-    
+
     # Push versioned changes
     cd "$TEMP_DIR"
     ${pkgs.git}/bin/git push origin main || echo "[WARNING] Failed to push main branch"
-    
+
     # Update unversioned files
     ${updateUnversioned} "$TEMP_DIR"
-    
+
     # Push unversioned changes (force push for data branch)
     ${pkgs.git}/bin/git push --force origin unversioned-data || echo "[WARNING] Failed to push unversioned-data branch"
-    
+
     echo "[UPDATE] Sync update completed successfully"
   '';
 
@@ -170,20 +169,19 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.profile
-    != null {
-      assertions = [
-        {
-          assertion = zenCfg.enable;
-          message = ''
-            Cannot set 'config.my.browsers.zen.syncing.enable' to true
-            if 'config.my.browsers.zen.enable' is false.
-          '';
-        }
-      ];
-    };
+  config = lib.mkIf (cfg.profile
+    != null) {
+    assertions = [
+      {
+        assertion = zenCfg.enable;
+        message = ''
+          Cannot set 'config.my.browsers.zen.syncing.enable' to true
+          if 'config.my.browsers.zen.enable' is false.
+        '';
+      }
+    ];
 
-  systemd.user.services.zen-syncing-service = {
+    systemd.user.services.zen-syncing-service = {
+    };
   };
 }
