@@ -70,6 +70,8 @@
         replaceCd = true;
       };
 
+      fzf.enable = true;
+
       nixFormatter.enable = true;
 
       neovim = {

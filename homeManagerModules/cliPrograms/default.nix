@@ -11,5 +11,6 @@
     ./nixFormatter.nix
     ./zoxide.nix
     ./direnv.nix
+    ./fzf.nix
   ];
 }
