@@ -7,6 +7,8 @@
   nixpkgs.config.allowUnfree = true;
 
   my = {
+    testing.enable = true;
+
     games.minecraft.enable = true;
 
     desktops = {

@@ -13,5 +13,6 @@
     ./terminals
     ./shells
     ./threeD
+    ./testing.nix
   ];
 }
