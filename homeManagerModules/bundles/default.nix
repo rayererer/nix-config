@@ -6,5 +6,6 @@
 }: {
   imports = [
     ./bundles.nix
+    ./cliPrograms
   ];
 }

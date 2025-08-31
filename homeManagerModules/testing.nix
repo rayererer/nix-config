@@ -16,10 +16,14 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge
     (bundleUtils.mkBundleConfig
+      {
+        # Bundle testing here.
+      })
     {
-      my.cliPrograms.zoxide.enable = false;
-    });
+      # Normal config testing
+    }
+  );
 }

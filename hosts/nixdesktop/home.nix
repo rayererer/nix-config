@@ -59,23 +59,29 @@
     };
 
     cliPrograms = {
-      git = {
-        enable = true;
-        withGh = true;
-        useDefaultCredentials = true;
-      };
+      # Bundled now (git)
+      #git = {
+      #enable = true;
+      #withGh = true;
+      #useDefaultCredentials = true;
+      #};
 
-      direnv.enable = true;
+      # Bundled now (development)
+      #direnv.enable = true;
 
-      zoxide = {
-        enable = true;
-        replaceCd = true;
-      };
+      # Bundled now (miscTools)
+      #zoxide= {
+      #enable = true;
+      #replaceCd = true;
+      #};
 
-      fzf.enable = true;
+      # Bundled now (miscTools)
+      #fzf.enable = true;
 
-      nixFormatter.enable = true;
+      # Bundled now (miscTools)
+      #nixFormatter.enable = true;
 
+      # NOT bundled yet (neovim)
       neovim = {
         enable = true;
         makeDefault = true;
@@ -100,9 +106,10 @@
         };
       };
 
-      ripgrep = {
-        enable = true;
-      };
+      # Bundled now (miscTools)
+      #ripgrep = {
+      #enable = true;
+      #};
     };
   };
 
