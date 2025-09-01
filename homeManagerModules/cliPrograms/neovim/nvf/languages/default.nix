@@ -7,5 +7,6 @@
     ./languageHandling.nix
     ./languages.nix
     ./lsp.nix
+    ./arduinoDevelopment.nix
   ];
 }

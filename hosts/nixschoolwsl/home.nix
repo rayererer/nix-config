@@ -44,6 +44,7 @@
               "html"
               "css"
               "ts"
+              "arduino"
             ];
           };
 

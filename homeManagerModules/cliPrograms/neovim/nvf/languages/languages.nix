@@ -37,6 +37,20 @@ in {
             Enable the TypeScript/JavaScript module.
           '';
         };
+
+        clang = {
+          enable = lib.mkEnableOption ''
+            Enable the c/c++ module.
+          '';
+        };
+
+        arduino = {
+          enable = lib.mkEnableOption ''
+            Enable the arduino module, which makes working with arduino sketches
+            and projects easier. (Also enables the clang module as arduino uses
+            c++).
+          '';
+        };
       };
     };
 
@@ -71,7 +85,15 @@ in {
         ts = lib.mkIf cfg.ts.enable {
           enable = true;
         };
+
+        clang = lib.mkIf cfg.clang.enable or cfg.arduino.enable {
+          enable = true;
+        };
       };
+    };
+
+    my.cliPrograms.neovim.nvf.moduleCfg.customPlugins = {
+      arduinoDevelopment.enable = cfg.arduino.enable;
     };
   };
 }
