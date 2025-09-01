@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   home.username = "rayer";
   home.homeDirectory = "/home/rayer";
 
@@ -8,6 +8,15 @@
     shells = {
       fish.enable = true;
       prompts.starship.enable = true;
+    };
+
+    browsers = {
+      zen = {
+        enable = true;
+        noProgram = true;
+
+        zenPath = "C:\Users\\${builtins.readFile "${config.home.homeDirectory}"}\AppData\Roaming\zen\Profiles\5fe684un.test";
+      };
     };
 
     cliPrograms = {
