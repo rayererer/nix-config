@@ -34,12 +34,6 @@ in {
           your list if you add more languages.)
         '';
       };
-
-      lsp = {
-        enable = lib.mkEnableOption ''
-          Wheter to use to use lsp for configured languages.
-        '';
-      };
     };
   };
 

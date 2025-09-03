@@ -680,17 +680,14 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1756668885,
-        "narHash": "sha256-K2B+szngrw1tfzkrAs49HGkK5hlUGIKV0+2Z9ndnAuA=",
-        "owner": "notashelf",
-        "repo": "nvf",
-        "rev": "bf485ab9b6db5610ee93b90c94f1fd2afb4eb582",
-        "type": "github"
+        "lastModified": 1756891905,
+        "narHash": "sha256-UT/kCQEeOJ+qCyOdQLkZc+KbNOif1TNr432U8rGGuiU=",
+        "path": "/home/rayer/nvf-fork",
+        "type": "path"
       },
       "original": {
-        "owner": "notashelf",
-        "repo": "nvf",
-        "type": "github"
+        "path": "/home/rayer/nvf-fork",
+        "type": "path"
       }
     },
     "pre-commit-hooks": {
