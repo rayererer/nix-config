@@ -24,7 +24,18 @@
     };
 
     nvf = {
-      url = "github:notashelf/nvf/v0.8";
+      #url = "github:notashelf/nvf/v0.8";
+      #url = "github:notashelf/nvf";
+
+      # For the arduino language and some more stuff, only really want one
+      # commit but taking the entire fork is fine for now, going back when
+      # the pr gets approved.
+
+      #Using my own repo now:
+      url = "path:/home/rayer/nvf-fork";
+
+      #url = "github:imnotpoz/nvf/4a1fc26099bdf59d01bd28647a8dfbe2502271f5";
+      #url = "github:imnotpoz/nvf/be41631a84b638b854d22a489f54acbac8689e57";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -46,9 +46,7 @@ in {
 
         arduino = {
           enable = lib.mkEnableOption ''
-            Enable the arduino module, which makes working with arduino sketches
-            and projects easier. (Also enables the clang module as arduino uses
-            c++).
+            Enables the arduino module.
           '';
         };
       };
@@ -90,11 +88,12 @@ in {
           enable = true;
           dap.enable = true;
         };
-      };
-    };
 
-    my.cliPrograms.neovim.nvf.moduleCfg.customPlugins = {
-      arduinoDevelopment.enable = cfg.arduino.enable;
+        arduino = lib.mkIf cfg.arduino.enable {
+          enable = true;
+          lsp.fqbn = "arduino:avr:uno";
+        };
+      };
     };
   };
 }
