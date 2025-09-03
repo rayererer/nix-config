@@ -20,6 +20,11 @@ in {
     };
 
     languageHandling = {
+      lsp = {
+        enable = lib.mkEnableOption ''
+          Wheter to use lsp for configured languages.
+        '';
+      };
     };
   };
 
