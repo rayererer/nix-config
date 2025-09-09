@@ -33,6 +33,8 @@ in {
     # And "dialout" is for access to serial ports without root perms.
   };
 
+  nix.settings.trusted-users = ["${userName}"];
+
   # Enabling the shell manually since I cannot avoid recursion otherwise:
   programs.fish.enable = true;
 

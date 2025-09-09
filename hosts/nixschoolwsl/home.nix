@@ -17,6 +17,10 @@
         useDefaultCredentials = true;
       };
 
+      direnv.enable = true;
+
+      fzf.enable = true;
+
       zoxide = {
         enable = true;
         replaceCd = true;
