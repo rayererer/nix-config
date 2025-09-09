@@ -25,6 +25,8 @@ in {
     extraGroups = ["networkmanager" "wheel"]; # "wheel" is sudo.
   };
 
+  nix.settings.trusted-users = ["${userName}"];
+
   # Enabling the shell manually since I cannot avoid recursion otherwise:
   programs.fish.enable = true;
 
