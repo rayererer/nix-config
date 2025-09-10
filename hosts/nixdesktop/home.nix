@@ -58,7 +58,8 @@
       vesktop.enable = true;
     };
 
-    cliPrograms = {
+    # Bundled now (cliPrograms)
+    # cliPrograms = {
       # Bundled now (git)
       #git = {
       #enable = true;
@@ -81,36 +82,36 @@
       # Bundled now (miscTools)
       #nixFormatter.enable = true;
 
-      # NOT bundled yet (neovim)
-      neovim = {
-        enable = true;
-        makeDefault = true;
-        useNvf = true;
-
-        nvimpager = {
-          enable = true;
-          makeDefault = true;
-        };
-
-        nvf = {
-          languageHandling = {
-            lsp.enable = true;
-            languages = ["nix" "rust"];
-          };
-
-          miscPlugins = {
-            colorizer.enable = true;
-            telescope.enable = true;
-            nvimSurround.enable = true;
-          };
-        };
-      };
+      # Bundled now (neovim)
+      # neovim = {
+      #   enable = true;
+      #   makeDefault = true;
+      #   useNvf = true;
+      #
+      #   nvimpager = {
+      #     enable = true;
+      #     makeDefault = true;
+      #   };
+      #
+      #   nvf = {
+      #     languageHandling = {
+      #       lsp.enable = true;
+      #       languages = ["nix" "rust"];
+      #     };
+      #
+      #     miscPlugins = {
+      #       colorizer.enable = true;
+      #       telescope.enable = true;
+      #       nvimSurround.enable = true;
+      #     };
+      #   };
+      # };
 
       # Bundled now (miscTools)
       #ripgrep = {
       #enable = true;
       #};
-    };
+    # };
   };
 
   home.stateVersion = "25.05"; # Don't change this.
