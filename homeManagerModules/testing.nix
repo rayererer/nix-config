@@ -17,7 +17,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable (
-    lib.mkMerge
+    lib.mkMerge [
     (bundleUtils.mkBundleConfig
       {
         # Bundle testing here.
@@ -25,5 +25,5 @@ in {
     {
       # Normal config testing
     }
-  );
+  ]);
 }
