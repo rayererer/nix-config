@@ -17,6 +17,8 @@
         useDefaultCredentials = true;
       };
 
+      tldr.enable = true;
+
       direnv.enable = true;
 
       fzf.enable = true;
