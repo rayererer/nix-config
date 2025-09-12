@@ -16,18 +16,18 @@ Feel free to open an issue if you are curious about anything.
 ## TODO:
 
 - [ ] Fix so the secondary colors actually work in ghostty (they seem not to).
-- [ ] Fix more portable configuring of zen browser, including saving vimium config and zen mods.
+- [ ] Fix more portable configuring of zen browser, including saving vimium config and zen mods. (On my way in feature/zen-syncing)
 - [ ] Make discords directory and make it have multiple and include a default (basically like browser and terminal)
 since I might want to use other discords than vesktop.
 - [ ] Handle options that need both os and home manager stuff better, (just read the home manager option).
 (Fixing may only be needed in desktops module.)
 - [x] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
 - [ ] Make starship prompt from the pure preset and maybe adapt a bit, including transience.
-pure preset convertion is done, transience and adaption remaining.
+pure preset convertion is done, transience and adaption remaining but idk if I will do that.
 - [x] Maybe turn off auto enable for stylix, or do it some better way (don't need qt utils
 if not using qt).
 - [x] Add color and other stylistic stuff into config in some way, maybe use stylix.
-- [ ] Fix monitor config for Hyprland (issue described in hyprland.nix).
+- [x] Fix monitor config for Hyprland (issue described in hyprland.nix).
 - [ ] Maybe fix helper for lists with defaults (IDK)
 - [ ] Fix so that if one runner installed it automatically becomes default. (IDK)
 - [x] Add wayland integration for desktops and add the two env vars
