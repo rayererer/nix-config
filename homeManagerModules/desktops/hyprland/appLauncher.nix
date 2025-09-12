@@ -23,9 +23,13 @@ in {
 
       default = lib.mkOption {
         type = lib.types.nullOr (lib.types.enum deskCfg.runners.runners);
-        default = null;
+        default =
+          if (builtins.length deskCfg.runners.runners == 1)
+          then builtins.elemAt deskCfg.runners.runners 0
+          else null;
         description = ''
-          Set the default app launcher for Hyprland. The app launcher must
+          Set the default app launcher for Hyprland. If only one runner has been
+          installed, it will automatically become the default. The app launcher must
           have been added to the list of installed app launchers (runners), which you
           do by enabling them with 'desktops.runners.runnerYouWant.enable'.
         '';

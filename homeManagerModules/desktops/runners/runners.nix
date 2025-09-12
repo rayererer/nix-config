@@ -17,7 +17,7 @@ in {
       description = ''
         Which runners are installed, each runner module should add itself here.
         Setting a default runner for the desktop should also be handled by
-        its respective runners module.
+        its respective runners/app launcher module.
       '';
     };
   };

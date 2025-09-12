@@ -11,20 +11,21 @@
 
     games.minecraft.enable = true;
 
+    # Bundled now (desktops)
     desktops = {
-      enable = true;
-
-      cursors.enable = true;
-
-      wallpapers.enable = true;
-
-      runners.fuzzel.enable = true;
-
+      #   enable = true;
+      #
+      #   cursors.enable = true;
+      #
+      #   wallpapers.enable = true;
+      #
+      #   runners.fuzzel.enable = true;
+      #
       hyprland = {
-        enable = true;
-
-        appLauncher.default = "fuzzel";
-
+        #     enable = true;
+        #
+        #     appLauncher.default = "fuzzel";
+        #
         monitors = [
           "homeSamsung"
           "homeROG"

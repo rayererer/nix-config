@@ -5,8 +5,6 @@
   ...
 }: {
   imports = [
-    ./bundles.nix
-    ./cliPrograms
-    ./desktops
+    ./desktops.nix
   ];
 }
