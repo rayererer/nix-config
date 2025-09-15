@@ -11,6 +11,7 @@
 
     games.minecraft.enable = true;
 
+    # Packaged inside (basicDesktop)
     # Bundled now (desktops)
     desktops = {
       #   enable = true;
@@ -33,15 +34,19 @@
       };
     };
 
+    # Pacakged inside (basicDesktop)
     terminals = {
       ghostty.enable = true;
     };
 
-    shells = {
-      fish.enable = true;
-      prompts.starship.enable = true;
-    };
+    # Packaged inside (basics)
+    # Bundled now (shells)
+    # shells = {
+    #   fish.enable = true;
+    #   prompts.starship.enable = true;
+    # };
 
+    # Packaged inside (basicDesktop) - not syncing
     browsers = {
       zen = {
         enable = true;
@@ -49,16 +54,20 @@
       };
     };
 
-    threeD = {
-      prusaSlicer.enable = true;
-      freeCAD.enable = true;
-    };
+    # Bundled now (threeD)
+    # threeD = {
+    #   prusaSlicer.enable = true;
+    #   freeCAD.enable = true;
+    # };
 
+    # Packaged inside (generalDesktop)
     guiPrograms = {
       obsidian.enable = true;
       vesktop.enable = true;
     };
 
+    # Packaged inside (basics)
+    # Packaged now (cliPrograms)
     # Bundled now (cliPrograms)
     # cliPrograms = {
     # Bundled now (git)
