@@ -5,20 +5,22 @@
   helpers,
   ...
 }: let
-  cfg = config.my.bundles.bundlePackages.templateModuleNameHere;
+  cfg = config.myOs.bundles.bundlePackages.templateModule.nix;
   mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
 in {
-  options.my.bundles.bundlePackages = {
-    templateModuleNameHere = {
+  options.myOs.bundles.bundlePackages = {
+    templateModule.nix = {
       enable = lib.mkEnableOption ''
-        Enable the templateModuleNameHere bundle.
+        Enable the templateModule.nix bundle.
       '';
     };
   };
 
   config = lib.mkIf cfg.enable (mkBundleConfig {
-    my = {
-      
+    myOs = {
+      bundles = {
+
+      };
     };
   });
 }
