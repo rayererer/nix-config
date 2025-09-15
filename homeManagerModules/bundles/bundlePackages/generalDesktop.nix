@@ -22,7 +22,9 @@ in {
         obsidian.enable = true;
         vesktop.enable = true;
       };
+
       bundles = {
+        threeD.enable = true;
         bundlePackages = {
           basicDesktop.enable = true;
         };

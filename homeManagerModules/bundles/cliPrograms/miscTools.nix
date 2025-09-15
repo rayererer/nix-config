@@ -25,10 +25,9 @@ in {
         };
 
         ripgrep.enable = true;
-
         fzf.enable = true;
-
         nixFormatter.enable = true;
+        tldr.enable = true;
       };
     };
   });

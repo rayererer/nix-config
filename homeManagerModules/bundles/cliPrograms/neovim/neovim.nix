@@ -32,6 +32,7 @@ in {
           nvf = {
             languageHandling = {
               lsp.enable = true;
+              languages = ["nix"];
             };
 
             miscPlugins = {
