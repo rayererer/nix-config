@@ -37,6 +37,8 @@
 
     helpers = import ./helpers {inherit lib;};
 
+    shellTemplatesPath = ./shell-templates;
+
     # Helper function to extremely easily make new hosts.
     makeHostConfig = name:
       lib.nixosSystem {
@@ -50,5 +52,30 @@
   in {
     # Generate hosts by just putting the hostname in the list.
     nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm"] (name: makeHostConfig name);
+
+    templates = {
+      simple-rust = {
+        path = "${shellTemplatesPath}/simple-rust";
+        description = ''
+          The basics needed for Rust development.
+        '';
+      };
+
+      simple-ruby = {
+        path = "${shellTemplatesPath}/simple-ruby";
+        description = ''
+          The basics needed for Ruby development, taken from inscapist's template,
+          be sure to read the README on https://github.com/inscapist/ruby-nix and
+          probably create a README of my own.
+        '';
+      };
+
+      direnv-only = {
+        path = "${shellTemplatesPath}/direnv-only";
+        description = ''
+          Only contains a .envrc file with 'use flake' in it.
+        '';
+      };
+    };
   };
 }
