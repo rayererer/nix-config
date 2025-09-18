@@ -15,6 +15,8 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
+- [ ] Somehow use hyprshade or other blue-light filter app, could maybe just make script/picker for hyprshade, might not even need
+to download it outside of using it inside a nix shell.
 - [ ] Fix so the secondary colors actually work in ghostty (they seem not to).
 - [ ] Fix more portable configuring of zen browser, including saving vimium config and zen mods. (On my way in feature/zen-syncing)
 - [ ] Make discords directory and make it have multiple and include a default (basically like browser and terminal)
