@@ -29,6 +29,11 @@ in {
         enable = lib.mkEnableOption ''
           Wheter to use to use lsp for configured languages.
         '';
+
+        withCmpAndSnippets = lib.mkEnableOption ''
+          Also enable a completion and snippet engine alongside the LSP and
+          formatter.
+        '';
       };
     };
   };
@@ -52,7 +57,10 @@ in {
       languages =
         lib.genAttrs langHandCfg.languages (_name: {enable = true;});
 
-      lsp.enable = langHandCfg.lsp.enable;
+      lsp = {
+        enable = langHandCfg.lsp.enable;
+        withCmpAndSnippets = langHandCfg.lsp.withCmpAndSnippets;
+      };
     };
   };
 }

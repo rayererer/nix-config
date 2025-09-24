@@ -79,7 +79,11 @@
 
         nvf = {
           languageHandling = {
-            lsp.enable = true;
+            lsp = {
+              enable = true;
+              withCmpAndSnippets = true;
+            };
+
             languages = ["nix" "rust" "ruby"];
           };
 
