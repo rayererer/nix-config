@@ -12,6 +12,10 @@ in {
     moduleCfg.languageHandling = {
       lsp = {
         enable = lib.mkEnableOption "Enable the lsp module.";
+
+        withCmpAndSnippets = lib.mkEnableOption ''
+          Enable the cmp and snippets module.
+        '';
       };
     };
 
@@ -21,13 +25,20 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.nvf.settings = {
-      vim = {
-        lsp = {
-          enable = true;
-        };
+      vim = lib.mkMerge [
+        {
+          lsp = {
+            enable = true;
+          };
 
-        languages.enableFormat = true;
-      };
+          languages.enableFormat = true;
+        }
+        (lib.mkIf cfg.withCmpAndSnippets {
+          autocomplete.blink-cmp.enable = true;
+
+          snippets.luasnip.enable = true;
+        })
+      ];
     };
   };
 }
