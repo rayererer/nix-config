@@ -23,6 +23,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nvf = {
       enable = true;
+      defaultEditor = nvimCfg.makeDefault;
     };
 
     # Vim options is still just imported.
