@@ -85,7 +85,7 @@ in {
         '';
 
 
-        home.activation.hyprshadeSchedule = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        home.activation.hyprshadeSchedule = lib.hm.dag.entryAfter ["onFilesChange"] ''
           ${pkgs.hyprshade}/bin/hyprshade install
           ${pkgs.systemd}/bin/systemctl --user enable --now hyprshade.timer
         '';
