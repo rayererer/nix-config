@@ -21,6 +21,15 @@
       hyprland = {
         enable = true;
 
+        hyprshade = {
+          enable = true;
+
+          blueLightFilterTimes = {
+            start = "20:00:00";
+            end = "07:00:00";
+          };
+        };
+
         appLauncher.default = "fuzzel";
 
         monitors = [

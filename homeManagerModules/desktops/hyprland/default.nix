@@ -20,6 +20,7 @@ in {
     ./mouse.nix
     ./monitorNavigation.nix
     ./directions.nix
+    ./hyprshade.nix
     ./windowNavigation.nix
     ./windowControlling.nix
   ];

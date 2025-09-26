@@ -63,6 +63,9 @@ in {
 
     # Enable the Hyprland modules here.
     # They are imported in './default.nix'
+    #
+    # This is a dumb system, modules should have their enabling settings just
+    # inside themselves.
     my.desktops.hyprland.moduleCfg = {
       core.enable = true;
       mouse.enable = true;
