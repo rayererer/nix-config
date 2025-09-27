@@ -16,7 +16,7 @@ Feel free to open an issue if you are curious about anything.
 ## TODO:
 
 - [ ] Change from the weird module config structure of some stuff (neovim and hyprland e.g.), might be more useful for hyprland than neovim though.
-- [ ] Somehow use hyprshade or other blue-light filter app, could maybe just make script/picker for hyprshade, might not even need
+- [x] Somehow use hyprshade or other blue-light filter app, could maybe just make script/picker for hyprshade, might not even need
 to download it outside of using it inside a nix shell.
 - [ ] Fix so the secondary colors actually work in ghostty (they seem not to).
 - [ ] Fix more portable configuring of zen browser, including saving vimium config and zen mods. (On my way in feature/zen-syncing)
