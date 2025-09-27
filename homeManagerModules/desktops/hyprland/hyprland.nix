@@ -57,7 +57,7 @@ in {
       enable = true;
       package = null;
       portalPackage = null;
-    };
+   };
 
     my.desktops.uwsmIntegration.enable = cfg.useUWSM;
 

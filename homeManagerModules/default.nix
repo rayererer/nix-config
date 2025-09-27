@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    ./bundles
     ./games
     ./cliPrograms
     ./guiPrograms
@@ -13,5 +14,6 @@
     ./terminals
     ./shells
     ./threeD
+    ./testing.nix
   ];
 }

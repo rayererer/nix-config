@@ -1,104 +1,26 @@
 {pkgs, ...}: {
-  home.username = "rayer";
-  home.homeDirectory = "/home/rayer";
+  home = {
+    username = "rayer";
+    homeDirectory = "/home/rayer";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
   my = {
-    desktops = {
-      enable = true;
-
-      cursors.enable = true;
-
-      wallpapers.enable = true;
-
-      runners.fuzzel.enable = true;
-
-      hyprland = {
-        enable = true;
-
-        appLauncher.default = "fuzzel";
-
-        monitors = [
-          "schoolLaptop"
-        ];
-      };
+    bundles = {
+      bundlePackages.generalDesktop.enable = true;
     };
 
-    terminals = {
-      ghostty.enable = true;
-    };
+    desktops.hyprland.monitors = [
+      "schoolLaptop"
+    ];
 
-    shells = {
-      fish.enable = true;
-      prompts.starship.enable = true;
-    };
+    browsers.zen.syncing.profile = "pdd2kkb0.test";
 
-    browsers = {
-      zen = {
-        enable = true;
-        syncing.profile = "pdd2kkb0.test";
-      };
-    };
-
-    threeD = {
-      prusaSlicer.enable = true;
-      freeCAD.enable = true;
-    };
-
-    guiPrograms = {
-      obsidian.enable = true;
-      vesktop.enable = true;
-    };
-
-    cliPrograms = {
-      git = {
-        enable = true;
-        withGh = true;
-        useDefaultCredentials = true;
-      };
-
-      direnv.enable = true;
-
-      zoxide = {
-        enable = true;
-        replaceCd = true;
-      };
-
-      nixFormatter.enable = true;
-
-      neovim = {
-        enable = true;
-        makeDefault = true;
-        useNvf = true;
-
-        nvimpager = {
-          enable = true;
-          makeDefault = true;
-        };
-
-        nvf = {
-          languageHandling = {
-            lsp = {
-              enable = true;
-              withCmpAndSnippets = true;
-            };
-
-            languages = ["nix" "rust" "ruby"];
-          };
-
-          miscPlugins = {
-            colorizer.enable = true;
-            telescope.enable = true;
-            nvimSurround.enable = true;
-          };
-        };
-      };
-
-      ripgrep = {
-        enable = true;
-      };
-    };
+    cliPrograms.neovim.nvf.languageHandling.languages = [
+      "rust"
+      "ruby"
+    ];
   };
 
   home.stateVersion = "25.05"; # Don't change this.

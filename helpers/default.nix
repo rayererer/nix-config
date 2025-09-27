@@ -19,5 +19,6 @@ in
   importHelpers [
     ./envVars
     ./users
+    ./bundles
   ]
   importHelpers
