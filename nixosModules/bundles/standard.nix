@@ -6,7 +6,7 @@
   ...
 }: let
   cfg = config.myOs.bundles.standard;
-  mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
+  inherit (helpers.bundles.bundleUtils) mkBundleConfig;
 in {
   options.myOs.bundles = {
     standard = {
@@ -18,6 +18,15 @@ in {
           not necessary (those live in the basics bundle). An example is home-manager
           which gets enabled here. Currently this module contains quite a lot of
           stuff and this could get modularized in the future.
+        '';
+      };
+
+      homeManagerPath = lib.mkOption {
+        type = lib.types.path;
+        default = ../../hosts/${config.networking.hostName}/home.nix;
+        description = ''
+          The path to the main file of the home-manager config, most likely
+          (but not necessarily) named 'home.nix'.
         '';
       };
     };
@@ -37,6 +46,11 @@ in {
       systemMaintenance.garbageCollection.enable = true;
       fonts.enableDefaultStack = true;
       services.networking.enable = true;
+
+      homeManager = {
+        inherit (cfg) userName;
+        path = cfg.homeManagerPath;
+      };
 
       stylix = {
         enable = true;

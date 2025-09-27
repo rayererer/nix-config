@@ -16,8 +16,8 @@ in {
     device = "/dev/disk/by-uuid/574f5d42-3179-410c-9b5b-729a35f46c2f";
     fsType = "ext4";
   };
-  myOs = {
 
+  myOs = {
     bundles.bundlePackages.desktop = {
       hostName = "nixdesktop";
       isNvidia = true;
