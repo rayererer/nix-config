@@ -13,21 +13,10 @@
 
     games.minecraft.enable = true;
 
-    desktops.hyprland = {
-      hyprshade = {
-        enable = true;
-
-        blueLightFilterTimes = {
-          start = "20:00:00";
-          end = "07:00:00";
-        };
-      };
-
-      monitors = [
-        "homeSamsung"
-        "homeROG"
-      ];
-    };
+    desktops.hyprland.monitors = [
+      "homeSamsung"
+      "homeROG"
+    ];
 
     browsers.zen.syncing.profile = "i7eyurii.test";
 

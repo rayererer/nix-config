@@ -19,12 +19,23 @@ in {
   config = lib.mkIf cfg.enable (mkBundleConfig {
     my = {
       desktops = {
-
         enable = true;
         cursors.enable = true;
         wallpapers.enable = true;
         runners.fuzzel.enable = true;
-        hyprland.enable = true;
+
+        hyprland = {
+          enable = true;
+
+          hyprshade = {
+            enable = true;
+
+            blueLightFilterTimes = {
+              start = "20:00:00";
+              end = "07:00:00";
+            };
+          };
+        };
       };
     };
   });
