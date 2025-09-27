@@ -10,27 +10,23 @@
 in {
   networking.hostName = "nixschoolwsl"; # Define your hostname.
 
-  nixpkgs.hostPlatform = "x86_64-linux";
+  #Bundled now (wsl).
+  # nixpkgs.hostPlatform = "x86_64-linux";
 
-  programs.appimage.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   home-manager = lib.mkIf cfg.homeManager.enable {
     users."${userName}" = import ./home.nix;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${userName}" = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel"]; # "wheel" is sudo.
-  };
-
-  nix.settings.trusted-users = ["${userName}"];
+  nix.settings.trusted-users = [userName];
 
   # Enabling the shell manually since I cannot avoid recursion otherwise:
   programs.fish.enable = true;
 
   myOs = {
+    users.defaultUser = userName;
+
     flakes.enable = true;
 
     homeManager.enable = true;
@@ -51,10 +47,11 @@ in {
     services = {
       networking.enable = true;
 
-      wsl = {
-        enable = true;
-        userName = userName;
-      };
+      #Bundled now (wsl)
+      # wsl = {
+      #   enable = true;
+      #   inherit userName;
+      # };
     };
   };
 

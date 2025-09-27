@@ -8,83 +8,96 @@
   cfg = config.myOs;
   userName = "rayer";
 in {
-  imports = [
-    ./hardware-configuration.nix
-  ];
+  # Bundled now (basics)
+  # imports = [
+  #   ./hardware-configuration.nix
+  # ];
 
   fileSystems."/home/${userName}/secondary-drive" = {
     device = "/dev/disk/by-uuid/574f5d42-3179-410c-9b5b-729a35f46c2f";
     fsType = "ext4";
   };
 
-  networking.hostName = "nixdesktop"; # Define your hostname.
+  # Bundled now (basics)
+  # networking.hostName = "nixdesktop"; # Define your hostname.
 
-  programs.appimage.enable = true;
-  nixpkgs.config.allowUnfree = true;
+  #Bundled now (standard).
+  # nixpkgs.config.allowUnfree = true;
 
-  home-manager = lib.mkIf cfg.homeManager.enable {
-    users."${userName}" = import ./home.nix;
-  };
+  # Now changed.
+  # home-manager = lib.mkIf cfg.homeManager.enable {
+  #   users."${userName}" = import ./home.nix;
+  # };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${userName}" = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel" "dialout"]; # "wheel" is sudo.
-    # And "dialout" is for access to serial ports without root perms.
-  };
-
-  nix.settings.trusted-users = ["${userName}"];
+  #Bundled now (standard).
+  # nix.settings.trusted-users = [userName];
 
   # Enabling the shell manually since I cannot avoid recursion otherwise:
-  programs.fish.enable = true;
+  #Bundled now (standard).
+  # programs.fish.enable = true;
 
   myOs = {
-    flakes.enable = true;
+    #Bundled now (standard)
+    # users.defaultUser = userName;
 
-    bootloaders = {
-      enable = true;
-      firmwareType = "UEFI";
-      grub.enable = true;
-    };
+    # Bundled now (basics)
+    # flakes.enable = true;
 
-    homeManager.enable = true;
-    locale.enable = true;
+    # Bundled now (bootloaders)
+    # bootloaders = {
+    #   enable = true;
+    #   firmwareType = "UEFI";
+    #   grub.enable = true;
+    # };
 
-    systemMaintenance.garbageCollection.enable = true;
+    #Bundled now (standard)
+    # Now changed to include path and username but going to bundle it as well.
+    # homeManager.enable = true;
+    # locale.enable = true;
+    #
+    #Bundled now (standard)
+    # systemMaintenance.garbageCollection.enable = true;
 
-    graphics = {
-      nvidia = {
-        enable = true;
-        driver = "proprietary";
-      };
-    };
+    #Bundled now (nvidia)
+    # graphics = {
+    #   nvidia = {
+    #     enable = true;
+    #     driver = "proprietary";
+    #   };
+    # };
 
-    fonts = {
-      enableDefaultStack = true;
-    };
+    #Bundled now (standard)
+    # fonts = {
+    #   enableDefaultStack = true;
+    # };
 
     gaming = {
       steam.enable = true;
     };
 
-    stylix = {
-      enable = true;
+    # Bundled now (standard)
+    # stylix = {
+    #   enable = true;
+    #
+    #   colorSchemes = {
+    #     alacrittyCopy.enable = true;
+    #   };
+    # };
 
-      colorSchemes = {
-        alacrittyCopy.enable = true;
-      };
-    };
+    # services = {
+      #Bundled now (desktops)
+      # ly.enable = true;
+      #Bundled now (standard)
+      # networking.enable = true;
+      #Bundled now (desktops)
+      # sound.enable = true;
+    # };
 
-    services = {
-      ly.enable = true;
-      networking.enable = true;
-      sound.enable = true;
-    };
-
-    desktops.hyprland = {
-      enable = true;
-      withFlake = true;
-    };
+    #Bundled now (desktops)
+    # desktops.hyprland = {
+    #   enable = true;
+    #   withFlake = true;
+    # };
   };
 
   system.stateVersion = "25.05"; # Don't change this.

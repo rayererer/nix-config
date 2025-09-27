@@ -20,18 +20,14 @@ in {
     users."${userName}" = import ./home.nix;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users."${userName}" = {
-    isNormalUser = true;
-    extraGroups = ["networkmanager" "wheel" "dialout"]; # "wheel" is sudo.
-  };
-
   nix.settings.trusted-users = ["${userName}"];
 
   # Enabling the shell manually since I cannot avoid recursion otherwise:
   programs.fish.enable = true;
 
   myOs = {
+    users.defaultUser = userName;
+
     flakes.enable = true;
 
     bootloaders = {

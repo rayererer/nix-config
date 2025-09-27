@@ -1,8 +1,3 @@
-# I have determined this is probably unnecessary.
-# Just define the user in the configuration.nix
-# as those options are just as easy and adding a
-# layer of abstraction is probably just annoying
-# for this.
 {
   pkgs,
   lib,
@@ -10,18 +5,27 @@
   ...
 }: let
   userCfg = config.myOs.users;
+  userName = userCfg.defaultUser;
 in {
   options.myOs = {
     users = {
       defaultUser = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
-        description = "Enable templateModuleNameHere module.";
+        description = ''
+          The username of which a normal user with the my default settings will
+          be created.
+        '';
       };
     };
   };
 
-  config =
-    lib.mkIf (userCfg != null) {
+  config = lib.mkIf (userName != null) {
+    # Don't forget to set a password with 'passwd'
+    users.users."${userName}" = {
+      isNormalUser = true;
+      extraGroups = ["networkmanager" "wheel" "dialout"]; # "wheel" is sudo.
+      # And "dialout" is for access to serial ports without root perms.
     };
+  };
 }

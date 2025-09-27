@@ -16,5 +16,6 @@
     ./fonts
     ./stylix
     ./gaming
+    ./users
   ];
 }
