@@ -23,7 +23,7 @@ in {
         default = ../../hosts/${cfg.hostname}/hardware-configuration.nix;
         description = ''
           The path to the hardware-configuration file, if set to null, no hardware
-          configuration will be imported.
+          configuration will be imported. (WSL bundle handles that.)
         '';
       };
     };

@@ -28,6 +28,8 @@ in {
         enable = true;
         inherit (cfg) userName;
       };
+
+      bundles.basics.hardwareConfPath = null;
     };
   });
 }

@@ -5,13 +5,13 @@
   helpers,
   ...
 }: let
-  cfg = config.myOs.bundles.bundlePackages.templateModule.nix;
-  mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
+  cfg = config.myOs.bundles.bundlePackages.templateModuleNameHere;
+  inherit (helpers.bundles.bundleUtils) mkBundleConfig;
 in {
   options.myOs.bundles.bundlePackages = {
-    templateModule.nix = {
+    templateModuleNameHere = {
       enable = lib.mkEnableOption ''
-        Enable the templateModule.nix bundle.
+        Enable the templateModuleNameHere bundle.
       '';
     };
   };
