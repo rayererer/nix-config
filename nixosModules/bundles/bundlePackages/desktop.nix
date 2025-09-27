@@ -10,7 +10,7 @@
 in {
   options.myOs.bundles.bundlePackages = {
     desktop = {
-      hostname = lib.mkOption {
+      hostName = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = ''
@@ -24,7 +24,7 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.hostname != null) (mkBundleConfig {
+  config = lib.mkIf (cfg.hostName != null) (mkBundleConfig {
     myOs = {
       bundles = {
         nvidia.enable = cfg.isNvidia;
@@ -32,7 +32,7 @@ in {
         desktops.enable = true;
 
         bundlePackages = {
-          standard = {inherit (cfg) hostname;};
+          standard = {inherit (cfg) hostName;};
         };
       };
     };

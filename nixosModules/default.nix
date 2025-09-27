@@ -17,5 +17,6 @@
     ./stylix
     ./gaming
     ./users
+    ./bundles
   ];
 }

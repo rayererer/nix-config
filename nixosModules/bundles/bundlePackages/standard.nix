@@ -10,11 +10,11 @@
 in {
   options.myOs.bundles.bundlePackages = {
     standard = {
-      hostname = lib.mkOption {
+      hostName = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = ''
-          The hostname of the machine. If this is set, the package bundle will
+          The hostName of the machine. If this is set, the package bundle will
           get enabled.
         '';
       };
@@ -30,10 +30,10 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.hostname != null) (mkBundleConfig {
+  config = lib.mkIf (cfg.hostName != null) (mkBundleConfig {
     myOs = {
       bundles = {
-        basics = {inherit (cfg) hostname;};
+        basics = {inherit (cfg) hostName;};
         standard = {inherit (cfg) userName;};
       };
     };

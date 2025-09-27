@@ -8,10 +8,9 @@
   cfg = config.myOs;
   userName = "rayer";
 in {
-  # Bundled now (basics)
-  # imports = [
-  #   ./hardware-configuration.nix
-  # ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   fileSystems."/home/${userName}/secondary-drive" = {
     device = "/dev/disk/by-uuid/574f5d42-3179-410c-9b5b-729a35f46c2f";
@@ -19,7 +18,7 @@ in {
   };
 
   # Bundled now (basics)
-  # networking.hostName = "nixdesktop"; # Define your hostname.
+  # networking.hostName = "nixdesktop"; # Define your hostName.
 
   #Bundled now (standard).
   # nixpkgs.config.allowUnfree = true;
@@ -37,6 +36,11 @@ in {
   # programs.fish.enable = true;
 
   myOs = {
+
+    bundles.bundlePackages.desktop = {
+      hostName = "nixdesktop";
+      isNvidia = true;
+    };
     #Bundled now (standard)
     # users.defaultUser = userName;
 

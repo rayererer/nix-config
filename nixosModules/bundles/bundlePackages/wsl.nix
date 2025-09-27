@@ -5,28 +5,37 @@
   helpers,
   ...
 }: let
-  cfg = config.myOs.bundles.bundlePackages.wsl;
+  bundlePkgCfg = config.myOs.bundles.bundlePackages;
+  cfg = bundlePkgCfg.wsl;
   inherit (helpers.bundles.bundleUtils) mkBundleConfig;
 in {
   options.myOs.bundles.bundlePackages = {
     wsl = {
-      hostname = lib.mkOption {
+      hostName = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = ''
-          Enables the stuff I want on any WSL machine.
+          The hostName of the WSL machine.
+        '';
+      };
+
+      userName = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = bundlePkgCfg.standard.userName;
+        description = ''
+          The name of the default WSL user.
         '';
       };
     };
   };
 
-  config = lib.mkIf (cfg.hostname != null) (mkBundleConfig {
+  config = lib.mkIf (cfg.hostName != null && cfg.userName != null) (mkBundleConfig {
     myOs = {
       bundles = {
-        wsl.enable = true;
+        wsl = {inherit (cfg) userName;};
 
         bundlePackages = {
-          standard = {inherit (cfg) hostname;};
+          standard = {inherit (cfg) hostName;};
         };
       };
     };

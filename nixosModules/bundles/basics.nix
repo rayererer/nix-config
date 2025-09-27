@@ -6,35 +6,22 @@
   ...
 }: let
   cfg = config.myOs.bundles.basics;
-  mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
+  inherit (helpers.bundles.bundleUtils) mkBundleConfig;
 in {
   options.myOs.bundles = {
     basics = {
-      hostname = lib.mkOption {
+      hostName = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = ''
           This enables the most basic options which are required for the system.
         '';
       };
-
-      hardwareConfPath = lib.mkOption {
-        type = lib.types.nullOr lib.types.path;
-        default = ../../hosts/${cfg.hostname}/hardware-configuration.nix;
-        description = ''
-          The path to the hardware-configuration file, if set to null, no hardware
-          configuration will be imported. (WSL bundle handles that.)
-        '';
-      };
     };
   };
 
-  config = lib.mkIf (cfg.hostname != null) (mkBundleConfig {
-    imports = lib.mkIf (cfg.hardwareConfPath != null) [
-      cfg.hardwareConfPath  
-    ];
-
-    networking.hostname = cfg.hostname;
+  config = lib.mkIf (cfg.hostName != null) (mkBundleConfig {
+    networking = {inherit (cfg) hostName;};
 
     myOs = {
       flakes.enable = true;

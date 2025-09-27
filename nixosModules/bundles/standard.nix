@@ -10,12 +10,16 @@
 in {
   options.myOs.bundles = {
     standard = {
-      userName = lib.mkEnableOption ''
-        Enables things that I would generally want on any machine but that are
-        not necessary (those live in the basics bundle). An example is home-manager
-        which gets enabled here. Currently this module contains quite a lot of
-        stuff and this could get modularized in the future.
-      '';
+      userName = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = ''
+          Enables things that I would generally want on any machine but that are
+          not necessary (those live in the basics bundle). An example is home-manager
+          which gets enabled here. Currently this module contains quite a lot of
+          stuff and this could get modularized in the future.
+        '';
+      };
     };
   };
 

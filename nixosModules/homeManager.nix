@@ -35,20 +35,17 @@ in {
     '';
   };
 
-  config =
-    lib.mkIf cfg
-    != null
-    {
-      home-manager = {
-        sharedModules = [
-          ../homeManagerModules
-        ];
+  config = lib.mkIf (cfg != null) {
+    home-manager = {
+      sharedModules = [
+        ../homeManagerModules
+      ];
 
-        extraSpecialArgs = {
-          inherit inputs helpers;
-        };
-
-        users."${cfg.userName}" = import cfg.path;
+      extraSpecialArgs = {
+        inherit inputs helpers;
       };
+
+      users."${cfg.userName}" = import cfg.path;
     };
+  };
 }
