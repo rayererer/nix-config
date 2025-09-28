@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   home = {
     username = "rayer";
     homeDirectory = "/home/rayer";
