@@ -23,12 +23,30 @@ in {
           for example in keybindings.
         '';
       };
+
+      zenPath = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default =
+          if !cfg.noProgram
+          then "${config.home.homeDirectory}/.zen"
+          else null;
+        description = ''
+          The path to put the zen directory in, will be the standard if nothing
+          else is specified, mostly for if on windows but syncing with wsl.
+        '';
+      };
+
+      noProgram = lib.mkEnableOption ''
+        Set this if you don't want zen installed but might want other options
+        related to it. Make sure to also set Zen Path if you enable this and
+        want syncing.
+      '';
     };
   };
 
   config = lib.mkIf cfg.enable {
     my.browsers.browsers = ["zen"];
 
-    programs.zen-browser.enable = true;
+    programs.zen-browser.enable = !cfg.noProgram;
   };
 }
