@@ -6,7 +6,7 @@
 }: let
   zenCfg = config.my.browsers.zen;
   cfg = zenCfg.syncing;
-  zenPath = "${config.home.homeDirectory}/.zen";
+  zenPath = "${cfg.zenPath}";
   profilePath = "${zenPath}/${cfg.profile}";
   repoPath = "${zenPath}/custom-zen-syncing";
 
@@ -134,53 +134,51 @@
     echo "[UPDATE] Sync update completed successfully"
   '';
 
-  retrieveVersioned =
-    pkgs.writeShellScript "zen-sync-retrieveVersioned" ''
-      set -euo pipefail
-    
-      if [[ ! -d "${profilePath}" ]]; then
-        echo "[ERROR] Zen profile not found at: ${profilePath}"
-        exit 1
-      fi
+  retrieveVersioned = pkgs.writeShellScript "zen-sync-retrieveVersioned" ''
+    set -euo pipefail
 
-      # Copy for no risk of data loss in case of improper update before.
-      ${generateUpdateCopyCommands versionedFiles}
+    if [[ ! -d "${profilePath}" ]]; then
+      echo "[ERROR] Zen profile not found at: ${profilePath}"
+      exit 1
+    fi
 
-      cd "${repoPath}"
-    
-      echo "[RETRIEVE VERSIONED] Retrieving versioned files from main branch"
-    
-      ${pkgs.git}/bin/git checkout main
-      ${pkgs.git}/bin/git pull origin main || echo "[WARNING] Could not pull main branch"
-      
-      ${generateRetrieveCopyCommands versionedFiles}
-      
-      echo "[RETRIEVE VERSIONED] Versioned files retrieved"
-    '';
+    # Copy for no risk of data loss in case of improper update before.
+    ${generateUpdateCopyCommands versionedFiles}
 
-  retrieveUnversioned =
-    pkgs.writeShellScript "zen-sync-retrieveUnversioned" ''
-      set -euo pipefail
-    
-      if [[ ! -d "${profilePath}" ]]; then
-        echo "[ERROR] Zen profile not found at: ${profilePath}"
-        exit 1
-      fi
+    cd "${repoPath}"
 
-      # Copy for no risk of data loss in case of improper update before.
-      ${generateRetrieveCopyCommands unversionedFiles}
+    echo "[RETRIEVE VERSIONED] Retrieving versioned files from main branch"
 
-      cd "${repoPath}"
-    
-      echo "[RETRIEVE UNVERSIONED] Retrieving unversioned files from unversioned-data branch"
-    
-      ${pkgs.git}/bin/git checkout unversioned-data
-      ${pkgs.git}/bin/git pull origin unversioned-data || echo "[WARNING] Could not pull unversioned-data branch"
-      
-      ${generateRetrieveCopyCommands unversionedFiles}
-      
-      echo "[RETRIEVE UNVERSIONED] Unversioned files retrieved"
-    '';
+    ${pkgs.git}/bin/git checkout main
+    ${pkgs.git}/bin/git pull origin main || echo "[WARNING] Could not pull main branch"
+
+    ${generateRetrieveCopyCommands versionedFiles}
+
+    echo "[RETRIEVE VERSIONED] Versioned files retrieved"
+  '';
+
+  retrieveUnversioned = pkgs.writeShellScript "zen-sync-retrieveUnversioned" ''
+    set -euo pipefail
+
+    if [[ ! -d "${profilePath}" ]]; then
+      echo "[ERROR] Zen profile not found at: ${profilePath}"
+      exit 1
+    fi
+
+    # Copy for no risk of data loss in case of improper update before.
+    ${generateRetrieveCopyCommands unversionedFiles}
+
+    cd "${repoPath}"
+
+    echo "[RETRIEVE UNVERSIONED] Retrieving unversioned files from unversioned-data branch"
+
+    ${pkgs.git}/bin/git checkout unversioned-data
+    ${pkgs.git}/bin/git pull origin unversioned-data || echo "[WARNING] Could not pull unversioned-data branch"
+
+    ${generateRetrieveCopyCommands unversionedFiles}
+
+    echo "[RETRIEVE UNVERSIONED] Unversioned files retrieved"
+  '';
 
   syncRetrieve = pkgs.writeShellScript "zen-sync-update" ''
     set -euo pipefail
@@ -232,7 +230,15 @@ in {
     != null) {
     assertions = [
       {
-        assertion = zenCfg.enable;
+        assertion = zenCfg.zenPath != null;
+        message = ''
+          Zen path cannot be null if syncing is enabled, this should only
+          happen if you have enabled noProgram but have not set the zen path
+          option (and enabled syncing).
+        '';
+      }
+      {
+        assertion = zenCfg.enable; 
         message = ''
           Cannot set 'config.my.browsers.zen.syncing.enable' to true
           if 'config.my.browsers.zen.enable' is false.
@@ -240,7 +246,6 @@ in {
       }
     ];
 
-    # For testing
     home.packages = [
       (pkgs.writeShellScriptBin "zen-sync-update" ''exec ${syncUpdate} "$@"'')
       (pkgs.writeShellScriptBin "zen-sync-retrieve" ''exec ${syncRetrieve} "$@"'')
