@@ -52,7 +52,7 @@ Also maybe completely rewrite and try to give permission to change normal hyprla
 - [x] Create a makeUser Helper. # Unclear if a good idea. (Probably won't)
 - [x] Make defining hosts in flake super easy.
 
-## Rebuilding the system
+## Maintaining and rebuilding the system
 
 ```sh
 # Update
@@ -61,4 +61,13 @@ nix flake update
 # Rebuild ('#myhost' is not needed if computer hostname
 # is the same as flake hostname.)
 sudo nixos-rebuild switch --flake .#myhost
+```
+
+## Secrets
+```sh
+# To generate an age key for sops-nix
+nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt
+
+# To see the public key (just switchout -o for -y)
+nix shell nixpkgs#age -c age-keygen -y ~/.config/sops/age/keys.txt
 ```

@@ -17,7 +17,8 @@ in {
           Enables things that I would generally want on any machine but that are
           not necessary (those live in the basics bundle). An example is home-manager
           which gets enabled here. Currently this module contains quite a lot of
-          stuff and this could get modularized in the future.
+          stuff and this could get modularized in the future. Please make sure to
+          generate an age key for sops-nix, look at the readme.
         '';
       };
 
@@ -42,6 +43,7 @@ in {
 
     myOs = {
       users.defaultUser = cfg.userName;
+      sopsNix.ageKeyFile = "/home/${cfg.userName}/.config/sops/age/keys.txt";
       locale.enable = true;
       systemMaintenance.garbageCollection.enable = true;
       fonts.enableDefaultStack = true;
