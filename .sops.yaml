@@ -1,0 +1,7 @@
+keys:
+  - &schoolwsl age1kd5ja9enck430xfsgy4dze88yjtur3cxjnpm28msj5jwe06pne0s65jhkl
+creation_rules: 
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini|sops)$
+    key_groups:
+      - age:
+          - *schoolwsl
