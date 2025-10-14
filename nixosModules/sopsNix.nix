@@ -2,12 +2,13 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.myOs.sopsNix;
 in {
   imports = [
-    inputs.sops-nix.nixosModules.sops;
+    inputs.sops-nix.nixosModules.sops
   ];
 
   options.myOs = {
@@ -24,7 +25,7 @@ in {
   };
 
   config =
-    lib.mkIf cfg.ageKeyFile != null {
+    lib.mkIf (cfg.ageKeyFile != null) {
       sops = {
         age.keyFile = cfg.ageKeyFile;
 
