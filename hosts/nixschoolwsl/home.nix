@@ -19,6 +19,21 @@
       "ts"
       "arduino"
     ];
+<<<<<<< Updated upstream
+=======
+
+    browsers = {
+      zen = {
+        enable = true;
+        noProgram = true;
+
+        zenPath = "/mnt/c/Users/hello/AppData/Roaming/zen";
+        # ++ "${builtins.readFile "${config.home.homeDirectory}/windows_username"}"
+
+        syncing.profile = "5fe684un.test";
+      };
+    };
+>>>>>>> Stashed changes
   };
 
   home.stateVersion = "24.11"; # Don't change this.

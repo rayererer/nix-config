@@ -6,8 +6,8 @@
 }: let
   zenCfg = config.my.browsers.zen;
   cfg = zenCfg.syncing;
-  zenPath = "${config.home.homeDirectory}/.zen";
-  profilePath = "${zenPath}/${cfg.profile}";
+  zenPath = "${zenCfg.zenPath}";
+  profilePath = "${zenPath}/Profiles/${cfg.profile}";
   repoPath = "${zenPath}/custom-zen-syncing";
 
   versionedFiles = [
