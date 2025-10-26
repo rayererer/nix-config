@@ -13,5 +13,6 @@
     ./direnv.nix
     ./fzf.nix
     ./tldr.nix
+    ./zipping.nix
   ];
 }

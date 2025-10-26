@@ -15,8 +15,8 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
-- [ ] Add clipboard, (might be enough with just wl-clipboard package).
-- [ ] Add zip and unzip package.
+- [ ] Add clipboard, (might be enough with just wl-clipboard package) (It was not.).
+- [x] Add zip and unzip package.
 - [ ] Change from the weird module config structure of some stuff (neovim and hyprland e.g.), might be more useful for hyprland than neovim though.
 - [x] Somehow use hyprshade or other blue-light filter app, could maybe just make script/picker for hyprshade, might not even need
 to download it outside of using it inside a nix shell.

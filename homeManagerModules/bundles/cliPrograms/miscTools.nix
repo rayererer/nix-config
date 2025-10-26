@@ -28,6 +28,7 @@ in {
         fzf.enable = true;
         nixFormatter.enable = true;
         tldr.enable = true;
+        zipping.enable = true;
       };
     };
   });
