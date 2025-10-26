@@ -19,9 +19,6 @@
       "ts"
       "arduino"
     ];
-<<<<<<< Updated upstream
-=======
-
     browsers = {
       zen = {
         enable = true;
@@ -33,7 +30,6 @@
         syncing.profile = "5fe684un.test";
       };
     };
->>>>>>> Stashed changes
   };
 
   home.stateVersion = "24.11"; # Don't change this.
