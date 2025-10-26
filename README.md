@@ -15,6 +15,8 @@ Feel free to open an issue if you are curious about anything.
 
 ## TODO:
 
+- [ ] Add clipboard, (might be enough with just wl-clipboard package).
+- [ ] Add zip and unzip package.
 - [ ] Change from the weird module config structure of some stuff (neovim and hyprland e.g.), might be more useful for hyprland than neovim though.
 - [x] Somehow use hyprshade or other blue-light filter app, could maybe just make script/picker for hyprshade, might not even need
 to download it outside of using it inside a nix shell.
@@ -36,7 +38,7 @@ if not using qt).
 - [x] Add wayland integration for desktops and add the two env vars
  referenced in the hyprland wiki there.
 - [ ] Look into impermanence and nuke on reboot.
-- [ ] Fix secrets handling
+- [ ] Fix secrets handling (I have it now, but haven't used it yet)
 - [ ] Look into services/scopes and stuff for uwsm / app2unit.
 - [x] Fix uwsm integration for hyprland to respect executing with rules. Also fix exec-once, and make the file logic more readable and less repetitive.
 Also maybe completely rewrite and try to give permission to change normal hyprland config file.
