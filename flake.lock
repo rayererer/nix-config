@@ -680,14 +680,18 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1756891905,
-        "narHash": "sha256-UT/kCQEeOJ+qCyOdQLkZc+KbNOif1TNr432U8rGGuiU=",
-        "path": "/home/rayer/nvf-fork",
-        "type": "path"
+        "lastModified": 1760341165,
+        "narHash": "sha256-kzGIG+N2li4ieR9iZiQydgepGykekgMpys8WeyGd8Jk=",
+        "ref": "v0.8",
+        "rev": "b58c8989f17c0e9ca0d502e3b9f53a4649137c6c",
+        "revCount": 2676,
+        "type": "git",
+        "url": "file:///home/rayer/nvf-fork"
       },
       "original": {
-        "path": "/home/rayer/nvf-fork",
-        "type": "path"
+        "ref": "v0.8",
+        "type": "git",
+        "url": "file:///home/rayer/nvf-fork"
       }
     },
     "pre-commit-hooks": {
