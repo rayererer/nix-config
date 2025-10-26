@@ -32,7 +32,7 @@
       # the pr gets approved.
 
       #Using my own repo now:
-      url = "path:/home/rayer/nvf-fork";
+      url = "git+file:///home/rayer/nvf-fork?ref=v0.8";
 
       #url = "github:imnotpoz/nvf/4a1fc26099bdf59d01bd28647a8dfbe2502271f5";
       #url = "github:imnotpoz/nvf/be41631a84b638b854d22a489f54acbac8689e57";
