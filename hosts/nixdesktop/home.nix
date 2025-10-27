@@ -22,6 +22,7 @@
 
     cliPrograms.neovim.nvf.languageHandling.languages = [
       "rust"
+      "clang"
     ];
   };
 

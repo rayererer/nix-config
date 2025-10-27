@@ -37,6 +37,12 @@ in {
             Enable the TypeScript/JavaScript module.
           '';
         };
+
+        clang = {
+          enable = lib.mkEnableOption ''
+            Enable the C/C++ module.
+          '';
+        };
       };
     };
 
@@ -69,6 +75,10 @@ in {
         };
 
         ts = lib.mkIf cfg.ts.enable {
+          enable = true;
+        };
+
+        clang = lib.mkIf cfg.clang.enable {
           enable = true;
         };
       };
