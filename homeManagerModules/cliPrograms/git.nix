@@ -26,7 +26,7 @@ in {
           git = {
             enable = true;
 
-            extraConfig = {
+            settings = {
               init.defaultBranch = "main";
             };
           };
@@ -38,9 +38,9 @@ in {
       }
 
       (lib.mkIf cfg.useDefaultCredentials {
-        programs.git = {
-          userName = "rayererer";
-          userEmail = "119081004+rayererer@users.noreply.github.com";
+        programs.git.settings.user = {
+          name = "rayererer";
+          email = "119081004+rayererer@users.noreply.github.com";
         };
       })
     ]
