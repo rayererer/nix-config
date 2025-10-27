@@ -17,6 +17,7 @@
       "html"
       "css"
       "ts"
+      "clang"
     ];
   };
 
