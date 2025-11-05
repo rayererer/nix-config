@@ -16,6 +16,10 @@ in {
         withCmpAndSnippets = lib.mkEnableOption ''
           Enable the cmp and snippets module.
         '';
+
+        withDapUI = lib.mkEnableOption ''
+          Enable the DAP UI module.
+        '';
       };
     };
 
@@ -37,6 +41,9 @@ in {
           autocomplete.blink-cmp.enable = true;
 
           snippets.luasnip.enable = true;
+        })
+        (lib.mkIf cfg.withDapUI {
+          debugger.nvim-dap.ui.enable = true;
         })
       ];
     };

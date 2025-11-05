@@ -27,12 +27,17 @@ in {
 
       lsp = {
         enable = lib.mkEnableOption ''
-          Wheter to use to use lsp for configured languages.
+          Whether to use to use lsp for configured languages.
         '';
 
         withCmpAndSnippets = lib.mkEnableOption ''
           Also enable a completion and snippet engine alongside the LSP and
           formatter.
+        '';
+
+        withDapUI = lib.mkEnableOption ''
+          Enable the DAP UI (will only do something if the DAP itself is enabled
+          for the current language.
         '';
       };
     };
@@ -41,15 +46,15 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nvf.settings = {
       vim.languages = {
-        enableTreesitter = true;
-        enableExtraDiagnostics = true;
+          enableTreesitter = true;
+          enableExtraDiagnostics = true;
 
-        # Moved to lsp since it seems just unnecessary to have without being able
-        # to actually use the command from the lsp.
-        # enableFormat = true;
+          # Moved to lsp since it seems just unnecessary to have without being able
+          # to actually use the command from the lsp.
+          # enableFormat = true;
 
-        # Should probably enable Debuggers in their specific language modules.
-        # enableDAP = true;
+          # Should probably enable Debuggers in their specific language modules.
+          # enableDAP = true;
       };
     };
 
@@ -60,6 +65,7 @@ in {
       lsp = {
         enable = langHandCfg.lsp.enable;
         withCmpAndSnippets = langHandCfg.lsp.withCmpAndSnippets;
+        withDapUI = langHandCfg.lsp.withDapUI;
       };
     };
   };

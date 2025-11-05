@@ -34,6 +34,7 @@ in {
               lsp = {
                 enable = true;
                 withCmpAndSnippets = true;
+                withDapUI = true;
               };
 
               languages = ["nix"];

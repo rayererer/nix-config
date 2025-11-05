@@ -80,6 +80,7 @@ in {
 
         clang = lib.mkIf cfg.clang.enable {
           enable = true;
+          dap.enable = true;
         };
       };
     };
