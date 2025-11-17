@@ -8,7 +8,16 @@
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
 
-  availableLanguages = ["nix" "rust" "ruby" "html" "css" "ts" "clang"]; # ts is also for javascript
+  availableLanguages = [
+    "nix"
+    "rust"
+    "ruby"
+    "html"
+    "css"
+    "ts" # ts is also for javascript
+    "clang" # for c and c++
+    "arduino"
+  ];
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
@@ -21,7 +30,8 @@ in {
         default = ["nix"];
         description = ''
           A list of which language servers to eanble with NVF, (default is  ["nix"],
-          since this is written in nix after all.)
+          since this is written in nix after all, but be sure to include it in
+          your list if you add more languages.)
         '';
       };
 

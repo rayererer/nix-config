@@ -40,7 +40,15 @@ in {
 
         clang = {
           enable = lib.mkEnableOption ''
-            Enable the C/C++ module.
+            Enable the c/c++ module.
+          '';
+        };
+
+        arduino = {
+          enable = lib.mkEnableOption ''
+            Enable the arduino module, which makes working with arduino sketches
+            and projects easier. (Also enables the clang module as arduino uses
+            c++).
           '';
         };
       };
@@ -83,6 +91,10 @@ in {
           dap.enable = true;
         };
       };
+    };
+
+    my.cliPrograms.neovim.nvf.moduleCfg.customPlugins = {
+      arduinoDevelopment.enable = cfg.arduino.enable;
     };
   };
 }
