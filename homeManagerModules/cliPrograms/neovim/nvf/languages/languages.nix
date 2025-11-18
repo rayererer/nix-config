@@ -58,41 +58,50 @@ in {
 
   config = lib.mkIf (builtins.length langHandCfg.languages > 0) {
     programs.nvf.settings = {
-      vim.languages = {
-        nix = lib.mkIf cfg.nix.enable {
-          enable = true;
-          format.type = "alejandra";
+      vim = {
+        languages = {
+          nix = lib.mkIf cfg.nix.enable {
+            enable = true;
+            format.type = "alejandra";
+          };
+
+          rust = lib.mkIf cfg.rust.enable {
+            enable = true;
+          };
+
+          ruby = lib.mkIf cfg.ruby.enable {
+            enable = true;
+          };
+
+          html = lib.mkIf cfg.html.enable {
+            enable = true;
+          };
+
+          css = lib.mkIf cfg.css.enable {
+            enable = true;
+          };
+
+          ts = lib.mkIf cfg.ts.enable {
+            enable = true;
+          };
+
+          clang = lib.mkIf cfg.clang.enable {
+            enable = true;
+            dap.enable = true;
+          };
+
+          markdown = lib.mkIf cfg.markdown.enable {
+            enable = true;
+            # extensions.markview-nvim = {
+            #   enable = true;
+            #   setupOpts = {
+            #     preview = { enable = false; };
+            #   };
+            # };
+          };
         };
 
-        rust = lib.mkIf cfg.rust.enable {
-          enable = true;
-        };
-
-        ruby = lib.mkIf cfg.ruby.enable {
-          enable = true;
-        };
-
-        html = lib.mkIf cfg.html.enable {
-          enable = true;
-        };
-
-        css = lib.mkIf cfg.css.enable {
-          enable = true;
-        };
-
-        ts = lib.mkIf cfg.ts.enable {
-          enable = true;
-        };
-
-        clang = lib.mkIf cfg.clang.enable {
-          enable = true;
-          dap.enable = true;
-        };
-
-        markdown = lib.mkIf cfg.markdown.enable {
-          enable = true;
-          extensions.markview-nvim.enable = true;
-        };
+        utility.preview.markdownPreview.enable = cfg.markdown.enable;
       };
     };
   };
