@@ -43,6 +43,12 @@ in {
             Enable the C/C++ module.
           '';
         };
+
+        markdown = {
+          enable = lib.mkEnableOption ''
+            Enable the markdown module.
+          '';
+        };
       };
     };
 
@@ -81,6 +87,11 @@ in {
         clang = lib.mkIf cfg.clang.enable {
           enable = true;
           dap.enable = true;
+        };
+
+        markdown = lib.mkIf cfg.markdown.enable {
+          enable = true;
+          extensions.markview-nvim.enable = true;
         };
       };
     };

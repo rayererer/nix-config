@@ -18,6 +18,7 @@
       "css"
       "ts"
       "clang"
+      "markdown"
     ];
   };
 
