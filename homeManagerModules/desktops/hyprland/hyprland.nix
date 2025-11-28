@@ -71,6 +71,7 @@ in {
       mouse.enable = true;
       windowNavigation.enable = true;
       windowControlling.enable = true;
+      workspaceHandling.enable = true;
       appLauncher.enable = cfg.appLauncher.default != null;
       terminal.enable = myCfg.terminals.default != null;
       browser.enable = myCfg.browsers.default != null;

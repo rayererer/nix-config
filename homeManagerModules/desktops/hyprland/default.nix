@@ -23,5 +23,6 @@ in {
     ./hyprshade.nix
     ./windowNavigation.nix
     ./windowControlling.nix
+    ./workspaceHandling.nix
   ];
 }
