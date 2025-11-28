@@ -16,6 +16,10 @@ in {
     programs.steam = {
       enable = true;
 
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+
       # Look at the NixOS Wiki for ports related to stuff.
     };
   };
