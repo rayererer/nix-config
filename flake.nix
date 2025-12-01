@@ -75,9 +75,11 @@
         '';
       };
 
-      simple-cpp = {
-        path = "${shellTemplatesPath}/simple-cpp";
+      simple-c = {
+        path = "${shellTemplatesPath}/simple-c";
         description = ''
+          The basics needed for c/c++ development.
+
           This is taken from the dev-templates git repo and modified with alias
           for easier running and compiling. Original file:
           https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
