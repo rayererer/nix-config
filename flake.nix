@@ -75,6 +75,15 @@
         '';
       };
 
+      simple-cpp = {
+        path = "${shellTemplatesPath}/simple-cpp";
+        description = ''
+          This is taken from the dev-templates git repo and modified with alias
+          for easier running and compiling. Original file:
+          https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
+        '';
+      };
+
       direnv-only = {
         path = "${shellTemplatesPath}/direnv-only";
         description = ''
