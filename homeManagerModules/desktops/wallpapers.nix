@@ -35,8 +35,12 @@ in {
       enable = true;
 
       settings = {
-        preload = "${wallpapersDir}/${cfg.wallpaper}";
-        wallpaper = ", ${wallpapersDir}/${cfg.wallpaper}";
+        wallpaper = [
+          {
+            monitor = "";
+            path = "${wallpapersDir}/${cfg.wallpaper}";
+          }
+        ];
       };
     };
   };
