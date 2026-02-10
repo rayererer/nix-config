@@ -4,8 +4,6 @@
     homeDirectory = "/home/rayer";
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   my = {
     bundles = {
       bundlePackages.wsl.enable = true;
