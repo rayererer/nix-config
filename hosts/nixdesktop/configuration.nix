@@ -26,6 +26,11 @@ in {
     gaming = {
       steam.enable = true;
     };
+    #
+    # desktops.niri = {
+    #   enable = true;
+    #   useUnstable = true;
+    # };
   };
 
   system.stateVersion = "25.05"; # Don't change this.

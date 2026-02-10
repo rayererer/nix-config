@@ -34,6 +34,8 @@
     };
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   outputs = {nixpkgs, ...} @ inputs: let

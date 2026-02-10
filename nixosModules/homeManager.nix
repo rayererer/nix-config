@@ -45,6 +45,9 @@ in {
         inherit inputs helpers;
       };
 
+      useGlobalPkgs = true;
+      useUserPackages = true;
+
       users."${cfg.userName}" = import cfg.path;
     };
   };
