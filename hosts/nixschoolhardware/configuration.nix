@@ -18,7 +18,11 @@ in {
       isNvidia = true;
     };
 
-    dualBoot.enable = true;
+    services = {
+      dualBoot.enable = true;
+      backlightControl.enable = true;
+    };
+
   };
 
   system.stateVersion = "25.11"; # Don't change this.

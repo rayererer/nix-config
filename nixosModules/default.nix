@@ -9,7 +9,6 @@
     ./locale.nix
     ./shells.nix
     ./sopsNix.nix
-    ./dualBoot.nix
     ./systemMaintenance
     ./graphics
     ./bootloaders

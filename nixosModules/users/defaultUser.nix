@@ -24,7 +24,7 @@ in {
     # Don't forget to set a password with 'passwd'
     users.users."${userName}" = {
       isNormalUser = true;
-      extraGroups = ["networkmanager" "wheel" "dialout"]; # "wheel" is sudo.
+      extraGroups = ["networkmanager" "wheel" "dialout" "video"]; # "wheel" is sudo.
       # And "dialout" is for access to serial ports without root perms.
     };
   };

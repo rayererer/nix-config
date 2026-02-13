@@ -15,7 +15,7 @@ in {
         type = lib.types.str;
         default = "alacritty-copy";
         description = ''
-          Which font to use, custom fonts are also defined in this module.
+          Which theme to use, custom themes are also defined in this module.
           WARNING, stylix overrides this.
         '';
       };

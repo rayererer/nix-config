@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.myOs.dualBoot;
+  cfg = config.myOs.services.dualBoot;
 in {
-  options.myOs = {
+  options.myOs.services = {
     dualBoot = {
       enable = lib.mkEnableOption "Enable settings for dual booting.";
     };

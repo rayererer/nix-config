@@ -11,5 +11,7 @@
     ./vmGuest.nix
     ./networking.nix
     ./wsl.nix
+    ./dualBoot.nix
+    ./backlightControl.nix
   ];
 }
