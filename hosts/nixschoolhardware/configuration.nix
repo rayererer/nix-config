@@ -21,6 +21,8 @@ in {
     services = {
       dualBoot.enable = true;
       backlightControl.enable = true;
+
+      sound.laptopControls.enable = true;
     };
 
   };

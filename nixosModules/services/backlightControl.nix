@@ -24,11 +24,11 @@ in {
 
       bindings = [
         {
-          keys = [ "BRIGHTNESSDOWN" ];
+          keys = ["BRIGHTNESSDOWN"];
           cmd = "${lightBin} -U 5";
         }
         {
-          keys = [ "BRIGHTNESSUP" ];
+          keys = ["BRIGHTNESSUP"];
           cmd = "${lightBin} -A 5";
         }
       ];
