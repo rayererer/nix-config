@@ -58,7 +58,7 @@
       };
   in {
     # Generate hosts by just putting the hostname in the list.
-    nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm"] (name: makeHostConfig name);
+    nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm" "nixschoolhardware"] (name: makeHostConfig name);
 
     templates = {
       simple-rust = {

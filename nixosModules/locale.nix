@@ -8,7 +8,7 @@
 in {
   options.myOs = {
     locale = {
-      enable = lib.mkEnableOption "Enable templateModuleNameHere module.";
+      enable = lib.mkEnableOption "Enable my locale settings.";
     };
   };
 
