@@ -4,10 +4,12 @@
   config,
   helpers,
   ...
-}: let
+}:
+let
   cfg = config.my.bundles.cliPrograms.neovim;
-  mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
-in {
+  inherit (helpers.bundles.bundleUtils) mkBundleConfig;
+in
+{
   options.my.bundles.cliPrograms = {
     neovim = {
       enable = lib.mkEnableOption ''
@@ -16,38 +18,42 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (mkBundleConfig {
-    my = {
-      cliPrograms = {
-        neovim = {
-          enable = true;
-          makeDefault = true;
-          useNvf = true;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      { my.cliPrograms.neovim.nvf.languageHandling.languages = [ "nix" ]; }
 
-          nvimpager = {
-            enable = true;
-            makeDefault = true;
-          };
+      (mkBundleConfig {
+        my = {
+          cliPrograms = {
+            neovim = {
+              enable = true;
+              makeDefault = true;
+              useNvf = true;
 
-          nvf = {
-            languageHandling = {
-              lsp = {
+              nvimpager = {
                 enable = true;
-                withCmpAndSnippets = true;
-                withDapUI = true;
+                makeDefault = true;
               };
 
-              languages = ["nix"];
-            };
+              nvf = {
+                languageHandling = {
+                  lsp = {
+                    enable = true;
+                    withCmpAndSnippets = true;
+                    withDapUI = true;
+                  };
+                };
 
-            miscPlugins = {
-              colorizer.enable = true;
-              telescope.enable = true;
-              nvimSurround.enable = true;
+                miscPlugins = {
+                  colorizer.enable = true;
+                  telescope.enable = true;
+                  nvimSurround.enable = true;
+                };
+              };
             };
           };
         };
-      };
-    };
-  });
+      })
+    ]
+  );
 }
