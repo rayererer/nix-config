@@ -1,5 +1,11 @@
 MIT License
 
+EXCEPTION: The contents of the following directories are NOT covered by this 
+license and retain their original licenses/copyrights:
+  - assets/
+
+For the rest of this repository:
+
 Copyright (c) 2025 rayererer
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
