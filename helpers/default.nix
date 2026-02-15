@@ -20,5 +20,6 @@ in
     ./envVars
     ./users
     ./bundles
+    ./quickshell
   ]
   importHelpers
