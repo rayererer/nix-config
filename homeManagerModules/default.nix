@@ -10,6 +10,7 @@
     ./cliPrograms
     ./guiPrograms
     ./desktops
+    ./widgets
     ./browsers
     ./terminals
     ./shells

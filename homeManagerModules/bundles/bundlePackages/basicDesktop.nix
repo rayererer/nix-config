@@ -20,6 +20,7 @@ in {
     my = {
       terminals.ghostty.enable = true;
       browsers.zen.enable = true;
+      widgets.quickshell.enable = true;
       bundles = {
         desktops.enable = true;
         bundlePackages = {

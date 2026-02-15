@@ -3,12 +3,14 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   nvfCfg = config.my.cliPrograms.neovim.nvf;
   langHandCfg = nvfCfg.languageHandling;
   langHandModCfg = nvfCfg.moduleCfg.languageHandling;
   cfg = langHandModCfg.languages;
-in {
+in
+{
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
       languages = {
@@ -49,6 +51,12 @@ in {
             Enable the markdown module.
           '';
         };
+
+        qml = {
+          enable = lib.mkEnableOption ''
+            Enable the qml module.
+          '';
+        };
       };
     };
 
@@ -62,7 +70,6 @@ in {
         languages = {
           nix = lib.mkIf cfg.nix.enable {
             enable = true;
-            format.type = "alejandra";
           };
 
           rust = lib.mkIf cfg.rust.enable {
@@ -99,7 +106,16 @@ in {
             #   };
             # };
           };
+
+          qml = lib.mkIf cfg.qml.enable {
+            enable = true;
+          };
         };
+
+        lsp.servers.qmlls.cmd = lib.mkIf cfg.qml.enable (lib.mkForce [
+          "${pkgs.kdePackages.qtdeclarative}/bin/qmlls"
+          "-E"
+        ]);
 
         utility.preview.markdownPreview.enable = cfg.markdown.enable;
       };

@@ -4,10 +4,12 @@
   config,
   helpers,
   ...
-}: let
+}:
+let
   cfg = config.my.testing;
   bundleUtils = helpers.bundles.bundleUtils;
-in {
+in
+{
   options.my = {
     testing = {
       enable = lib.mkEnableOption ''
@@ -18,12 +20,12 @@ in {
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-    (bundleUtils.mkBundleConfig
-      {
+      (bundleUtils.mkBundleConfig {
         # Bundle testing here.
       })
-    {
-      # Normal config testing
-    }
-  ]);
+      {
+        # Normal config testing
+      }
+    ]
+  );
 }

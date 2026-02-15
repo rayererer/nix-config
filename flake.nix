@@ -33,67 +33,81 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
 
     niri.url = "github:sodiboo/niri-flake";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: let
-    # system = "x86_64-linux";
-    lib = nixpkgs.lib;
+  outputs =
+    { nixpkgs, ... }@inputs:
+    let
+      # system = "x86_64-linux";
+      inherit (nixpkgs) lib;
 
-    helpers = import ./helpers {inherit lib;};
+      helpers = import ./helpers { inherit lib; };
 
-    shellTemplatesPath = ./shell-templates;
+      shellTemplatesPath = ./shell-templates;
 
-    # Helper function to extremely easily make new hosts.
-    makeHostConfig = name:
-      lib.nixosSystem {
-        specialArgs = {inherit inputs helpers;};
+      # Helper function to extremely easily make new hosts.
+      makeHostConfig =
+        name:
+        lib.nixosSystem {
+          specialArgs = { inherit inputs helpers; };
 
-        modules = [
-          ./hosts/${name}/configuration.nix
-          ./nixosModules
-        ];
-      };
-  in {
-    # Generate hosts by just putting the hostname in the list.
-    nixosConfigurations = lib.genAttrs ["nixdesktop" "nixschoolwsl" "nixschoolvm" "nixschoolhardware"] (name: makeHostConfig name);
+          modules = [
+            ./hosts/${name}/configuration.nix
+            ./nixosModules
+          ];
+        };
+    in
+    {
+      # Generate hosts by just putting the hostname in the list.
+      nixosConfigurations = lib.genAttrs [
+        "nixdesktop"
+        "nixschoolwsl"
+        "nixschoolvm"
+        "nixschoolhardware"
+      ] (name: makeHostConfig name);
 
-    templates = {
-      simple-rust = {
-        path = "${shellTemplatesPath}/simple-rust";
-        description = ''
-          The basics needed for Rust development.
-        '';
-      };
+      templates = {
+        simple-rust = {
+          path = "${shellTemplatesPath}/simple-rust";
+          description = ''
+            The basics needed for Rust development.
+          '';
+        };
 
-      simple-ruby = {
-        path = "${shellTemplatesPath}/simple-ruby";
-        description = ''
-          The basics needed for Ruby development, taken from inscapist's template,
-          be sure to read the README on https://github.com/inscapist/ruby-nix and
-          probably create a README of my own.
-        '';
-      };
+        simple-ruby = {
+          path = "${shellTemplatesPath}/simple-ruby";
+          description = ''
+            The basics needed for Ruby development, taken from inscapist's template,
+            be sure to read the README on https://github.com/inscapist/ruby-nix and
+            probably create a README of my own.
+          '';
+        };
 
-      simple-c = {
-        path = "${shellTemplatesPath}/simple-c";
-        description = ''
-          The basics needed for c/c++ development.
+        simple-c = {
+          path = "${shellTemplatesPath}/simple-c";
+          description = ''
+            The basics needed for c/c++ development.
 
-          This is taken from the dev-templates git repo and modified with alias
-          for easier running and compiling. Original file:
-          https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
-        '';
-      };
+            This is taken from the dev-templates git repo and modified with alias
+            for easier running and compiling. Original file:
+            https://github.com/the-nix-way/dev-templates/blob/main/c-cpp/flake.nix
+          '';
+        };
 
-      direnv-only = {
-        path = "${shellTemplatesPath}/direnv-only";
-        description = ''
-          Only contains a .envrc file with 'use flake' in it.
-        '';
+        direnv-only = {
+          path = "${shellTemplatesPath}/direnv-only";
+          description = ''
+            Only contains a .envrc file with 'use flake' in it.
+          '';
+        };
       };
     };
-  };
 }
