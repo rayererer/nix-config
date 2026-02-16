@@ -37,7 +37,7 @@ let
 
           OUT_PATH=$out/containers/${capitalizedName}.qml
 
-          echo "''${TEMPLATE//\{\{COMPONENTS\}\}/$COMPONENTS}" > $OUT_PATH
+          echo "''${TEMPLATE//\/\/ \{\{COMPONENTS\}\}/$COMPONENTS}" > $OUT_PATH
         ''
       ) containers
     );

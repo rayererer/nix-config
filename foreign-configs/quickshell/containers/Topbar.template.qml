@@ -17,16 +17,21 @@ Scope {
                 left: true
                 right: true
             }
+            //
+            // implicitHeight: 0
 
             color: "transparent"
 
             exclusionMode: ExclusionMode.Ignore
 
             RowLayout {
-                anchors.fill: parent
-                anchors.margins: 8
+                anchors {
+                    fill: parent
 
-                {{COMPONENTS}}
+                    margins: 8
+                }
+
+                // {{COMPONENTS}}
             }
         }
     }
