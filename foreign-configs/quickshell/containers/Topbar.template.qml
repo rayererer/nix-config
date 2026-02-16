@@ -1,8 +1,8 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
 import "../components"
-import "../singletons"
 
 Scope {
     id: root
@@ -20,18 +20,22 @@ Scope {
                 right: true
             }
 
+            WlrLayershell.layer: WlrLayer.Background
+
             color: "transparent"
             exclusionMode: ExclusionMode.Ignore
 
             RowLayout {
+                id: row
+
                 anchors {
-                    fill: parent
+                    horizontalCenter: parent.horizontalCenter
+                    top: parent.top
+                    topMargin: 3
                 }
 
                 // {{COMPONENTS_BEGIN}}
-                Clock {
-                    time: Time.time
-                }
+                Clock {}
                 Battery {}
                 // {{COMPONENTS_END}}
             }

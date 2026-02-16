@@ -54,6 +54,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = builtins.length (builtins.attrNames cfg.containers) != 0;
+        message = ''
+          Quickshell has been enabled but no containers have been.
+        '';
+      }
+    ];
 
     xdg.configFile."quickshell".source = quickshellConfig;
 

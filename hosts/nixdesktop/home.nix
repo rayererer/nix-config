@@ -6,6 +6,8 @@
 
   my = {
 
+    testing.enable = true;
+
     bundles = {
       bundlePackages.generalDesktop.enable = true;
     };
