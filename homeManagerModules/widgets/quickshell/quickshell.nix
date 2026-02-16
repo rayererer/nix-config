@@ -54,6 +54,8 @@ in
 
     xdg.configFile."quickshell".source = quickshellConfig;
 
+    qt.enable = true;
+
     # This ensures that the lsp resolves things correctly.
     home.packages = [
       pkgs.kdePackages.qtdeclarative

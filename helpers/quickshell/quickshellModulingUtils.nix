@@ -32,7 +32,7 @@ let
         ''
           # Process ${capitalizedName} template
           TEMPLATE="import \"../components\" 
-          $(cat ${containerPath}/${capitalizedName}.template.qml)"
+                    $(cat ${containerPath}/${capitalizedName}.template.qml)"
           COMPONENTS="${componentList}"
 
           OUT_PATH=$out/containers/${capitalizedName}.qml
