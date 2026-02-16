@@ -53,6 +53,12 @@ in
 
     xdg.configFile."quickshell".source = quickshellConfig;
 
+    qt.enable = true;
+
+    home.packages = [
+      pkgs.kdePackages.qtdeclarative
+    ];
+
     programs.quickshell = {
       enable = true;
 
