@@ -31,9 +31,13 @@ let
         in
         ''
           # Process ${capitalizedName} template
-          TEMPLATE=$(cat ${containerPath}/${capitalizedName}.template.qml)
+          TEMPLATE="import \"../components\" 
+          $(cat ${containerPath}/${capitalizedName}.template.qml)"
           COMPONENTS="${componentList}"
-          echo "''${TEMPLATE//\{\{COMPONENTS\}\}/$COMPONENTS}" > $out/${capitalizedName}.qml
+
+          OUT_PATH=$out/containers/${capitalizedName}.qml
+
+          echo "''${TEMPLATE//\{\{COMPONENTS\}\}/$COMPONENTS}" > $OUT_PATH
         ''
       ) containers
     );
@@ -43,6 +47,7 @@ let
   # Returns: QML string for shell.qml
   generateShellQml = containers: ''
     import Quickshell
+    import "containers"
 
     Scope {
       ${lib.concatMapStringsSep "\n  " (

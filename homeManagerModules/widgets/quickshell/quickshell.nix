@@ -19,6 +19,7 @@ let
       allComponents = qsHelpers.getAllComponents cfg.containers;
     in
     pkgs.runCommand "quickshell-config" { } ''
+      mkdir -p $out/containers
       mkdir -p $out/components
 
       ${qsHelpers.generateComponentCopyCommands componentPath allComponents}
@@ -53,8 +54,7 @@ in
 
     xdg.configFile."quickshell".source = quickshellConfig;
 
-    qt.enable = true;
-
+    # This ensures that the lsp resolves things correctly.
     home.packages = [
       pkgs.kdePackages.qtdeclarative
     ];
