@@ -23,21 +23,53 @@ let
     containerPath: containers:
     lib.concatStringsSep "\n    " (
       lib.mapAttrsToList (
-        name: components:
+        name: enabledComponents:
         let
-          # Capitalize container name: topbar -> Topbar
           capitalizedName = lib.toUpper (lib.substring 0 1 name) + lib.substring 1 (-1) name;
-          componentList = lib.concatMapStringsSep "\n    " (comp: "${comp} { }") components;
         in
         ''
           # Process ${capitalizedName} template
-          TEMPLATE="import \"../components\" 
-                    $(cat ${containerPath}/${capitalizedName}.template.qml)"
-          COMPONENTS="${componentList}"
+          TEMPLATE=$(cat ${containerPath}/${capitalizedName}.template.qml)
 
-          OUT_PATH=$out/containers/${capitalizedName}.qml
+          # Extract the section between markers
+          BEFORE=$(echo "$TEMPLATE" | sed -n '1,/\/\/ {{COMPONENTS_BEGIN}}/p' | sed '$d')
+          COMPONENTS_SECTION=$(echo "$TEMPLATE" | sed -n '/\/\/ {{COMPONENTS_BEGIN}}/,/\/\/ {{COMPONENTS_END}}/p' | sed '1d;$d')
+          AFTER=$(echo "$TEMPLATE" | sed -n '/\/\/ {{COMPONENTS_END}}/,$p' | sed '1d')
 
-          echo "''${TEMPLATE//\/\/ \{\{COMPONENTS\}\}/$COMPONENTS}" > $OUT_PATH
+          # Parse each component block and filter
+          FILTERED_COMPONENTS=""
+          CURRENT_COMPONENT=""
+          BRACE_COUNT=0
+
+          while IFS= read -r line; do
+            # Check if line starts a component (matches enabled list)
+            ${lib.concatMapStringsSep "\n          " (comp: ''
+              if [[ "$line" =~ ^[[:space:]]*${comp}[[:space:]]*\{ ]]; then
+                CURRENT_COMPONENT="${comp}"
+                BRACE_COUNT=1
+                FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
+                continue
+              fi
+            '') enabledComponents}
+            
+            # If we're inside an enabled component, track braces
+            if [[ -n "$CURRENT_COMPONENT" ]]; then
+              FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
+              BRACE_COUNT=$((BRACE_COUNT + $(echo "$line" | tr -cd '{' | wc -c)))
+              BRACE_COUNT=$((BRACE_COUNT - $(echo "$line" | tr -cd '}' | wc -c)))
+              
+              if [[ $BRACE_COUNT -eq 0 ]]; then
+                CURRENT_COMPONENT=""
+              fi
+            fi
+          done <<< "$COMPONENTS_SECTION"
+
+          # Combine and write
+          {
+            echo "$BEFORE"
+            echo "$FILTERED_COMPONENTS"
+            echo "$AFTER"
+          } > $out/containers/${capitalizedName}.qml
         ''
       ) containers
     );

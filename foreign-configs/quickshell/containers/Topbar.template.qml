@@ -1,6 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import "../components"
+import "../singletons"
 
 Scope {
     id: root
@@ -21,7 +23,6 @@ Scope {
             // implicitHeight: 0
 
             color: "transparent"
-
             exclusionMode: ExclusionMode.Ignore
 
             RowLayout {
@@ -31,7 +32,12 @@ Scope {
                     margins: 8
                 }
 
-                // {{COMPONENTS}}
+                // {{COMPONENTS_BEGIN}}
+                Clock {
+                    time: Time.time
+                }
+                Battery {}
+                // {{COMPONENTS_END}}
             }
         }
     }

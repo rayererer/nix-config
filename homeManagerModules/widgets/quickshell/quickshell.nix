@@ -11,6 +11,7 @@ let
   quickShellDir = ../../../foreign-configs/quickshell;
   componentPath = lib.path.append quickShellDir "components";
   containerPath = lib.path.append quickShellDir "containers";
+  singletonPath = lib.path.append quickShellDir "singletons";
 
   qsHelpers = helpers.quickshell.quickshellModulingUtils;
 
@@ -21,6 +22,8 @@ let
     pkgs.runCommand "quickshell-config" { } ''
       mkdir -p $out/containers
       mkdir -p $out/components
+      mkdir -p $out/singletons
+      cp -r ${singletonPath}/* $out/singletons/
 
       ${qsHelpers.generateComponentCopyCommands componentPath allComponents}
 
@@ -54,25 +57,14 @@ in
 
     xdg.configFile."quickshell".source = quickshellConfig;
 
-    qt.enable = true;
-
-    # This ensures that the lsp resolves things correctly.
+    # These ensure that the lsp resolves things correctly.
+    qt.enable = true; # Adds ENV variable
     home.packages = [
-      pkgs.kdePackages.qtdeclarative
+      pkgs.kdePackages.qtdeclarative # Fixes QtQuick import
     ];
 
     programs.quickshell = {
       enable = true;
-
-      # I don't want to build every time and found no cache.
-      # package = inputs.quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
-
-      # configs = {
-      #   main = lib.path.append quickShellDir "main";
-      #   # default = quickShellDir;
-      # };
-      #
-      # activeConfig = "main";
 
       systemd = {
         enable = true;
