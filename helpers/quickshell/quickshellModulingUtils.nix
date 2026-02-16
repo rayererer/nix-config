@@ -16,6 +16,8 @@ let
     '') components;
 
   # Generate shell script lines to create container files from templates
+  # The parts between // {{COMPONENTS_BEGIN}} and // {{COMPONENTS_END}} will be
+  # checked and components not activated in nix will be removed from the file.
   # containerPath: path to container template directory
   # containers: attrset of { containerName = [components]; }
   # Returns: string of template processing commands

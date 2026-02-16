@@ -19,8 +19,6 @@ Scope {
                 left: true
                 right: true
             }
-            //
-            // implicitHeight: 0
 
             color: "transparent"
             exclusionMode: ExclusionMode.Ignore
@@ -28,8 +26,6 @@ Scope {
             RowLayout {
                 anchors {
                     fill: parent
-
-                    margins: 8
                 }
 
                 // {{COMPONENTS_BEGIN}}
