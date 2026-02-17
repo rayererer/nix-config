@@ -44,26 +44,63 @@ let
           BRACE_COUNT=0
 
           while IFS= read -r line; do
-            # Check if line starts a component (matches enabled list)
+            # Check if line starts an enabled component
+            MATCHED_ENABLED=false
             ${lib.concatMapStringsSep "\n          " (comp: ''
               if [[ "$line" =~ ^[[:space:]]*${comp}[[:space:]]*\{ ]]; then
-                CURRENT_COMPONENT="${comp}"
-                BRACE_COUNT=1
-                FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
-                continue
+                MATCHED_ENABLED=true
+                OPEN=$(echo "$line" | tr -cd '{' | wc -c)
+                CLOSE=$(echo "$line" | tr -cd '}' | wc -c)
+                if [[ $OPEN -eq $CLOSE ]]; then
+                  # Single line component, include it
+                  FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
+                else
+                  # Multi line component, start tracking
+                  CURRENT_COMPONENT="${comp}"
+                  BRACE_COUNT=$((OPEN - CLOSE))
+                  FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
+                fi
               fi
             '') enabledComponents}
-            
-            # If we're inside an enabled component, track braces
+
+            if [[ "$MATCHED_ENABLED" == "true" ]]; then
+              continue
+            fi
+
+            # If we're inside an enabled component, track braces and include
             if [[ -n "$CURRENT_COMPONENT" ]]; then
               FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
               BRACE_COUNT=$((BRACE_COUNT + $(echo "$line" | tr -cd '{' | wc -c)))
               BRACE_COUNT=$((BRACE_COUNT - $(echo "$line" | tr -cd '}' | wc -c)))
-              
               if [[ $BRACE_COUNT -eq 0 ]]; then
                 CURRENT_COMPONENT=""
               fi
+              continue
             fi
+
+            # If we're inside a disabled component, track braces but skip
+            if [[ -n "$DISABLED_COMPONENT" ]]; then
+              BRACE_COUNT=$((BRACE_COUNT + $(echo "$line" | tr -cd '{' | wc -c)))
+              BRACE_COUNT=$((BRACE_COUNT - $(echo "$line" | tr -cd '}' | wc -c)))
+              if [[ $BRACE_COUNT -eq 0 ]]; then
+                DISABLED_COMPONENT=""
+              fi
+              continue
+            fi
+
+            # Check if line starts a disabled component
+            if [[ "$line" =~ ^[[:space:]]*[A-Z][a-zA-Z]*[[:space:]]*\{ ]]; then
+              OPEN=$(echo "$line" | tr -cd '{' | wc -c)
+              CLOSE=$(echo "$line" | tr -cd '}' | wc -c)
+              if [[ $OPEN -ne $CLOSE ]]; then
+                # Multi line disabled component, start tracking
+                DISABLED_COMPONENT="disabled"
+                BRACE_COUNT=$((OPEN - CLOSE))
+              fi
+              # Single line disabled component, just skip it
+              continue
+            fi
+
           done <<< "$COMPONENTS_SECTION"
 
           # Combine and write

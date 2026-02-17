@@ -1,5 +1,5 @@
-
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home = {
     username = "rayer";
     homeDirectory = "/home/rayer";
@@ -7,11 +7,11 @@
 
   my = {
 
-    testing.enable = true;
-
     bundles = {
       bundlePackages.generalDesktop.enable = true;
     };
+
+    widgets.quickshell.containers.topbar = [ "Battery" ];
 
     desktops.hyprland.monitors = [
       "schoolHard"

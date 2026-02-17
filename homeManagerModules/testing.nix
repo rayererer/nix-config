@@ -25,12 +25,6 @@ in
       })
       {
         # Normal config testing
-        my.widgets.quickshell.containers = {
-          topbar = [
-            "Clock"
-            "Battery"
-          ];
-        };
       }
     ]
   );
