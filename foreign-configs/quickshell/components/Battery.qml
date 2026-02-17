@@ -1,8 +1,8 @@
-// components/Battery.qml
-import Quickshell
 import QtQuick
+import "../singletons"
 
 Text {
-    text: "🔋"
-    color: "white"
+    id: root
+
+    text: BatteryService.percentage + "%"
 }

@@ -27,6 +27,7 @@ Scope {
 
             RowLayout {
                 id: row
+                spacing: 10
 
                 anchors {
                     horizontalCenter: parent.horizontalCenter

@@ -6,15 +6,15 @@ Text {
     property bool showSeconds: false
 
     function precisionUpdate() {
-        showSeconds ? Time.requireSecondPrecision(root) : Time.releaseSecondPrecision(root);
+        showSeconds ? TimeService.requireSecondPrecision(root) : TimeService.releaseSecondPrecision(root);
     }
 
     Component.onCompleted: precisionUpdate()
     onShowSecondsChanged: precisionUpdate()
 
-    Component.onDestruction: Time.releaseSecondPrecision(root)
+    Component.onDestruction: TimeService.releaseSecondPrecision(root)
 
     text: {
-        showSeconds ? Time.time : Time.time.slice(0, -3);
+        showSeconds ? TimeService.time : TimeService.time.slice(0, -3);
     }
 }
