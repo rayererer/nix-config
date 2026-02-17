@@ -1,9 +1,16 @@
 import QtQuick
 import "../singletons"
 
-Text {
+Row {
     id: root
+    property string suffix: BatteryService.isCharging ? "󱐋" : " "
+    Text {
 
-    property string prefix: BatteryService.isCharging ? "󰂄" : " "
-    text: prefix + BatteryService.percentage + "%"
+        text: BatteryService.percentage + "%"
+    }
+
+    Text {
+        font.family: "monospace"
+        text: root.suffix
+    }
 }
