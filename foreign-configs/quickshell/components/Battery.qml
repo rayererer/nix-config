@@ -5,5 +5,5 @@ Text {
     id: root
 
     property string prefix: BatteryService.isCharging ? "󰂄" : " "
-    text: BatteryService.testString
+    text: prefix + BatteryService.percentage + "%"
 }
