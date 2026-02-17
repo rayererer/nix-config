@@ -4,5 +4,6 @@ import "../singletons"
 Text {
     id: root
 
-    text: BatteryService.percentage + "%"
+    property string prefix: BatteryService.isCharging ? "󰂄" : " "
+    text: BatteryService.testString
 }
