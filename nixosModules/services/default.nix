@@ -13,5 +13,6 @@
     ./wsl.nix
     ./dualBoot.nix
     ./backlightControl.nix
+    ./bluetooth.nix
   ];
 }

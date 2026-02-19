@@ -23,6 +23,7 @@ in {
       backlightControl.enable = true;
 
       sound.laptopControls.enable = true;
+      bluetooth.enable = true;
     };
 
   };
