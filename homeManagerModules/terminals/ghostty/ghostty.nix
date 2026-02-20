@@ -3,16 +3,27 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   termCfg = config.my.terminals;
   cfg = termCfg.ghostty;
-in {
+in
+{
   options.my.terminals.ghostty = {
     enable = lib.mkEnableOption "Enable the ghostty terminal.";
   };
 
   config = lib.mkIf cfg.enable {
-    my.terminals.terminals = ["ghostty"];
+    my.terminals.terminals = [ "ghostty" ];
+
+    i18n.inputMethod = {
+      enable = true;
+      type = "fcitx5";
+
+      fcitx5.addons = [
+        pkgs.fcitx5-gtk
+      ];
+    };
 
     programs.ghostty = {
       enable = true;
