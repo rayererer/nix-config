@@ -16,13 +16,12 @@ in
   config = lib.mkIf cfg.enable {
     my.terminals.terminals = [ "ghostty" ];
 
-    i18n.inputMethod = {
-      enable = true;
-      type = "fcitx5";
-
-      fcitx5.addons = [
-        pkgs.fcitx5-gtk
-      ];
+    # "Naive" fix for being able to use ~ and accents on characters in ghostty.
+    # See (https://github.com/ghostty-org/ghostty/discussions/8899)
+    # Using fcitx5 might be a "better" solution, but it adds more bloat, and
+    # this works.
+    home.sessionVariables = {
+      GTK_IM_MODULE = "simple";
     };
 
     programs.ghostty = {
