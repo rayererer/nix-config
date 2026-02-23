@@ -24,5 +24,6 @@ in {
     ./windowNavigation.nix
     ./windowControlling.nix
     ./workspaceHandling.nix
+    ./appearance.nix
   ];
 }

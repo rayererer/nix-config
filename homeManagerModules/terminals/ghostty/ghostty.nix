@@ -20,9 +20,9 @@ in
     # See (https://github.com/ghostty-org/ghostty/discussions/8899)
     # Using fcitx5 might be a "better" solution, but it adds more bloat, and
     # this works.
-    home.sessionVariables = {
-      GTK_IM_MODULE = "simple";
-    };
+    my.desktops.envVars = [
+      "GTK_IM_MODULE=simple"
+    ];
 
     programs.ghostty = {
       enable = true;

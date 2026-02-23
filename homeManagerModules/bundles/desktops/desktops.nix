@@ -4,14 +4,16 @@
   config,
   helpers,
   ...
-}: let
+}:
+let
   cfg = config.my.bundles.desktops;
-  mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
-in {
+  inherit (helpers.bundles.bundleUtils) mkBundleConfig;
+in
+{
   options.my.bundles = {
     desktops = {
       enable = lib.mkEnableOption ''
-        Enable the templateModuleNameHere bundle.
+        Enable the desktops bundle.
       '';
     };
   };
@@ -26,6 +28,8 @@ in {
 
         hyprland = {
           enable = true;
+
+          noBordersOrGaps = true;
 
           hyprshade = {
             enable = true;
