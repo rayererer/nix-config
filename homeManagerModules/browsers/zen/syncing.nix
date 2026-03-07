@@ -3,10 +3,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   zenCfg = config.my.browsers.zen;
   cfg = zenCfg.syncing;
-  zenPath = "${cfg.zenPath}";
+  zenPath = "${zenCfg.zenPath}";
   profilePath = "${zenPath}/${cfg.profile}";
   repoPath = "${zenPath}/custom-zen-syncing";
 
@@ -20,17 +21,17 @@
     "sessionstore.jsonlz4"
   ];
 
-  generateUpdateCopyCommands = files:
+  generateUpdateCopyCommands =
+    files:
     lib.concatMapStringsSep "\n" (file: ''
       [[ -f "${profilePath}/${file}" ]] && cp -r "${profilePath}/${file}" "${repoPath}/${file}" || true
-    '')
-    files;
+    '') files;
 
-  generateRetrieveCopyCommands = files:
+  generateRetrieveCopyCommands =
+    files:
     lib.concatMapStringsSep "\n" (file: ''
       [[ -f "${repoPath}/${file}" ]] && cp -r "${repoPath}/${file}" "${profilePath}/${file}" || true
-    '')
-    files;
+    '') files;
 
   setupRepo = pkgs.writeShellScript "zen-sync-setupRepo" ''
     set -euo pipefail
@@ -141,9 +142,9 @@
       echo "[ERROR] Zen profile not found at: ${profilePath}"
       exit 1
     fi
-
-    # Copy for no risk of data loss in case of improper update before.
-    ${generateUpdateCopyCommands versionedFiles}
+    #
+    # # Copy for no risk of data loss in case of improper update before.
+    # ${generateUpdateCopyCommands versionedFiles}
 
     cd "${repoPath}"
 
@@ -201,7 +202,8 @@
 
     echo "[RETRIEVE] Sync update completed successfully"
   '';
-in {
+in
+{
   options.my.browsers.zen = {
     syncing = {
       profile = lib.mkOption {
@@ -226,8 +228,7 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.profile
-    != null) {
+  config = lib.mkIf (cfg.profile != null) {
     assertions = [
       {
         assertion = zenCfg.zenPath != null;
@@ -238,7 +239,7 @@ in {
         '';
       }
       {
-        assertion = zenCfg.enable; 
+        assertion = zenCfg.enable;
         message = ''
           Cannot set 'config.my.browsers.zen.syncing.enable' to true
           if 'config.my.browsers.zen.enable' is false.

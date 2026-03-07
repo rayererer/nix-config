@@ -17,6 +17,8 @@
       "schoolHard"
     ];
 
+    browsers.zen.syncing.profile = "aj9w5lvm.SyncTesting";
+
     cliPrograms.neovim.nvf.languageHandling.languages = [
       "rust"
       "ruby"
