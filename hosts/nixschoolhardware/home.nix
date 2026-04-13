@@ -6,10 +6,13 @@
   };
 
   my = {
+    guiPrograms.aseprite.enable = true;
 
     bundles = {
       bundlePackages.generalDesktop.enable = true;
     };
+
+    games.minecraft.enable = true;
 
     widgets.quickshell.containers.topbar = [ "Battery" ];
 
