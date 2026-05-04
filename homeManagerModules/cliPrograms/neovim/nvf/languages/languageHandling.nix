@@ -3,13 +3,26 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   nvfCfg = config.my.cliPrograms.neovim.nvf;
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
 
-  availableLanguages = ["nix" "rust" "ruby" "html" "css" "ts" "clang" "markdown" "qml"]; # ts is also for javascript
-in {
+  availableLanguages = [
+    "nix"
+    "rust"
+    "ruby"
+    "html"
+    "css"
+    "ts"
+    "clang"
+    "markdown"
+    "qml"
+    "python"
+  ]; # ts is also for javascript
+in
+{
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
       enable = lib.mkEnableOption "Enable the languages module.";
@@ -18,7 +31,7 @@ in {
     languageHandling = {
       languages = lib.mkOption {
         type = lib.types.listOf (lib.types.enum availableLanguages);
-        default = ["nix"];
+        default = [ "nix" ];
         description = ''
           A list of which language servers to eanble with NVF, (default is  ["nix"],
           since this is written in nix after all.)
@@ -46,21 +59,22 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nvf.settings = {
       vim.languages = {
-          enableTreesitter = true;
-          enableExtraDiagnostics = true;
+        enableTreesitter = true;
+        enableExtraDiagnostics = true;
 
-          # Moved to lsp since it seems just unnecessary to have without being able
-          # to actually use the command from the lsp.
-          # enableFormat = true;
+        # Moved to lsp since it seems just unnecessary to have without being able
+        # to actually use the command from the lsp.
+        # enableFormat = true;
 
-          # Should probably enable Debuggers in their specific language modules.
-          # enableDAP = true;
+        # Should probably enable Debuggers in their specific language modules.
+        # enableDAP = true;
       };
     };
 
     my.cliPrograms.neovim.nvf.moduleCfg.languageHandling = {
-      languages =
-        lib.genAttrs langHandCfg.languages (_name: {enable = true;});
+      languages = lib.genAttrs langHandCfg.languages (_name: {
+        enable = true;
+      });
 
       lsp = {
         enable = langHandCfg.lsp.enable;

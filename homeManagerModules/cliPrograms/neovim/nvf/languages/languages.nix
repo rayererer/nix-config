@@ -57,6 +57,11 @@ in
             Enable the qml module.
           '';
         };
+        python = {
+          enable = lib.mkEnableOption ''
+            Enable the python module.
+          '';
+        };
       };
     };
 
@@ -110,12 +115,18 @@ in
           qml = lib.mkIf cfg.qml.enable {
             enable = true;
           };
+
+          python = lib.mkIf cfg.python.enable {
+            enable = true;
+          };
         };
 
-        lsp.servers.qmlls.cmd = lib.mkIf cfg.qml.enable (lib.mkForce [
-          "${pkgs.kdePackages.qtdeclarative}/bin/qmlls"
-          "-E"
-        ]);
+        lsp.servers.qmlls.cmd = lib.mkIf cfg.qml.enable (
+          lib.mkForce [
+            "${pkgs.kdePackages.qtdeclarative}/bin/qmlls"
+            "-E"
+          ]
+        );
 
         utility.preview.markdownPreview.enable = cfg.markdown.enable;
       };

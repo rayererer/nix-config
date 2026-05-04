@@ -28,6 +28,7 @@
       "ts"
       "clang"
       "markdown"
+      "python"
     ];
   };
 
