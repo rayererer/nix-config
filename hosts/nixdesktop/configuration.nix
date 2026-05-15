@@ -4,10 +4,12 @@
   config,
   helpers,
   ...
-}: let
+}:
+let
   cfg = config.myOs;
   userName = "rayer";
-in {
+in
+{
   imports = [
     ./hardware-configuration.nix
   ];
@@ -16,6 +18,8 @@ in {
     device = "/dev/disk/by-uuid/574f5d42-3179-410c-9b5b-729a35f46c2f";
     fsType = "ext4";
   };
+
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
   myOs = {
     bundles.bundlePackages.desktop = {
