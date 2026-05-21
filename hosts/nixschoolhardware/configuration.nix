@@ -18,6 +18,10 @@ in {
       isNvidia = true;
     };
 
+    gaming = {
+      steam.enable = true;
+    };
+
     services = {
       dualBoot.enable = true;
       backlightControl.enable = true;
