@@ -4,12 +4,10 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.my.testing;
   bundleUtils = helpers.bundles.bundleUtils;
-in
-{
+in {
   options.my = {
     testing = {
       enable = lib.mkEnableOption ''

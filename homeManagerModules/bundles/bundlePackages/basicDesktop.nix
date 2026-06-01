@@ -4,12 +4,10 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.my.bundles.bundlePackages.basicDesktop;
   mkBundleConfig = helpers.bundles.bundleUtils.mkBundleConfig;
-in
-{
+in {
   options.my.bundles.bundlePackages = {
     basicDesktop = {
       enable = lib.mkEnableOption ''
@@ -20,7 +18,7 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      { my.widgets.quickshell.containers.topbar = [ "Clock" ]; }
+      {my.widgets.quickshell.containers.topbar = ["Clock"];}
 
       (mkBundleConfig {
         my = {

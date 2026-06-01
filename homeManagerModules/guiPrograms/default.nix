@@ -8,5 +8,6 @@
     ./obsidian.nix
     ./vesktop.nix
     ./aseprite.nix
+    ./godot.nix
   ];
 }

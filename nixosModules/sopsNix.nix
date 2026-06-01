@@ -13,7 +13,7 @@ in {
 
   options.myOs = {
     sopsNix = {
-      ageKeyFile = lib.mkOption { 
+      ageKeyFile = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
         description = ''
@@ -24,13 +24,12 @@ in {
     };
   };
 
-  config =
-    lib.mkIf (cfg.ageKeyFile != null) {
-      sops = {
-        age.keyFile = cfg.ageKeyFile;
+  config = lib.mkIf (cfg.ageKeyFile != null) {
+    sops = {
+      age.keyFile = cfg.ageKeyFile;
 
-        defaultSopsFile = ../secrets/secrets.yaml;
-        defaultSopsFormat = "yaml";
-      };
+      defaultSopsFile = ../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
     };
+  };
 }

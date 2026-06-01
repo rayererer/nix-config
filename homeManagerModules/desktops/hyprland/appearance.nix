@@ -3,12 +3,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   hyprCfg = config.my.desktops.hyprland;
   cfg = hyprCfg.moduleCfg.appearance;
-in
-{
+in {
   options.my.desktops.hyprland = {
     moduleCfg.appearance = {
       enable = lib.mkEnableOption "Enable the appearance module.";

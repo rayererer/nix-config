@@ -3,11 +3,9 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.myOs.services.bluetooth;
-in
-{
+in {
   options.myOs.services = {
     bluetooth = {
       enable = lib.mkEnableOption "Enable the bluetooth service.";

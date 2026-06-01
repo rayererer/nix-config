@@ -3,14 +3,12 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   nvfCfg = config.my.cliPrograms.neovim.nvf;
   langHandCfg = nvfCfg.languageHandling;
   langHandModCfg = nvfCfg.moduleCfg.languageHandling;
   cfg = langHandModCfg.languages;
-in
-{
+in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
       languages = {

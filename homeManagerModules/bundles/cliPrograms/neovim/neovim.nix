@@ -4,12 +4,10 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.my.bundles.cliPrograms.neovim;
   inherit (helpers.bundles.bundleUtils) mkBundleConfig;
-in
-{
+in {
   options.my.bundles.cliPrograms = {
     neovim = {
       enable = lib.mkEnableOption ''
@@ -20,7 +18,7 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      { my.cliPrograms.neovim.nvf.languageHandling.languages = [ "nix" ]; }
+      {my.cliPrograms.neovim.nvf.languageHandling.languages = ["nix"];}
 
       (mkBundleConfig {
         my = {

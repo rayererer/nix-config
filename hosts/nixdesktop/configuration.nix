@@ -4,12 +4,10 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.myOs;
   userName = "rayer";
-in
-{
+in {
   imports = [
     ./hardware-configuration.nix
   ];

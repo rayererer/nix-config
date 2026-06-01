@@ -14,10 +14,9 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      programs.fzf = {
-        enable = true;
-      };
+  config = lib.mkIf cfg.enable {
+    programs.fzf = {
+      enable = true;
     };
+  };
 }

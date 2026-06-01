@@ -19,7 +19,6 @@ in {
   config = lib.mkIf cfg.enable (mkBundleConfig {
     my = {
       cliPrograms = {
-
       };
     };
   });

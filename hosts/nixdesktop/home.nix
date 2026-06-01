@@ -5,7 +5,6 @@
   };
 
   my = {
-
     bundles = {
       bundlePackages.generalDesktop.enable = true;
     };

@@ -21,16 +21,14 @@ in {
       makeDefault = lib.mkEnableOption ''
         Make nvimpager the default pager, using the 'PAGER' environment variable.
       '';
-
     };
   };
 
-  config =
-    lib.mkIf cfg.enable {
-      home.packages = [pkgs.nvimpager];
+  config = lib.mkIf cfg.enable {
+    home.packages = [pkgs.nvimpager];
 
-      home.sessionVariables = lib.mkIf pagerCfg.makeDefault {
-        PAGER = "nvimpager";
-      };
+    home.sessionVariables = lib.mkIf pagerCfg.makeDefault {
+      PAGER = "nvimpager";
     };
+  };
 }

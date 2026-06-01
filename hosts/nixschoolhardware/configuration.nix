@@ -29,7 +29,6 @@ in {
       sound.laptopControls.enable = true;
       bluetooth.enable = true;
     };
-
   };
 
   system.stateVersion = "25.11"; # Don't change this.

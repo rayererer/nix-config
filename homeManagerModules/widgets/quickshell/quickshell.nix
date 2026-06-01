@@ -5,8 +5,7 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.my.widgets.quickshell;
   quickShellDir = ../../../foreign-configs/quickshell;
   componentPath = lib.path.append quickShellDir "components";
@@ -15,11 +14,10 @@ let
 
   qsHelpers = helpers.quickshell.quickshellModulingUtils;
 
-  quickshellConfig =
-    let
-      allComponents = qsHelpers.getAllComponents cfg.containers;
-    in
-    pkgs.runCommand "quickshell-config" { } ''
+  quickshellConfig = let
+    allComponents = qsHelpers.getAllComponents cfg.containers;
+  in
+    pkgs.runCommand "quickshell-config" {} ''
       mkdir -p $out/containers
       mkdir -p $out/components
       mkdir -p $out/singletons
@@ -31,14 +29,13 @@ let
 
       ${qsHelpers.generateShellQmlFile cfg.containers}
     '';
-in
-{
+in {
   options.my.widgets.quickshell = {
     enable = lib.mkEnableOption "Enable the use of quickshell.";
 
     containers = lib.mkOption {
       type = lib.types.attrsOf (lib.types.listOf lib.types.str);
-      default = { };
+      default = {};
       description = "Which containers to use with the components specified in them as lists";
       example = {
         topbar = [
@@ -80,6 +77,6 @@ in
       };
     };
 
-    my.cliPrograms.neovim.nvf.languageHandling.languages = [ "qml" ];
+    my.cliPrograms.neovim.nvf.languageHandling.languages = ["qml"];
   };
 }

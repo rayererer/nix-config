@@ -4,12 +4,10 @@
   config,
   helpers,
   ...
-}:
-let
+}: let
   cfg = config.my.bundles.desktops;
   inherit (helpers.bundles.bundleUtils) mkBundleConfig;
-in
-{
+in {
   options.my.bundles = {
     desktops = {
       enable = lib.mkEnableOption ''

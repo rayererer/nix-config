@@ -3,12 +3,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   brightnessBin = "${pkgs.brightnessctl}/bin/brightnessctl";
   cfg = config.myOs.services.backlightControl;
-in
-{
+in {
   options.myOs.services = {
     backlightControl = {
       enable = lib.mkEnableOption ''
@@ -28,11 +26,11 @@ in
 
       bindings = [
         {
-          keys = [ "BRIGHTNESSDOWN" ];
+          keys = ["BRIGHTNESSDOWN"];
           cmd = "${brightnessBin} set 5%-";
         }
         {
-          keys = [ "BRIGHTNESSUP" ];
+          keys = ["BRIGHTNESSUP"];
           cmd = "${brightnessBin} set 5%+";
         }
       ];

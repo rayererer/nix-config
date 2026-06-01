@@ -3,18 +3,16 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   termCfg = config.my.terminals;
   cfg = termCfg.ghostty;
-in
-{
+in {
   options.my.terminals.ghostty = {
     enable = lib.mkEnableOption "Enable the ghostty terminal.";
   };
 
   config = lib.mkIf cfg.enable {
-    my.terminals.terminals = [ "ghostty" ];
+    my.terminals.terminals = ["ghostty"];
 
     # "Naive" fix for being able to use ~ and accents on characters in ghostty.
     # See (https://github.com/ghostty-org/ghostty/discussions/8899)

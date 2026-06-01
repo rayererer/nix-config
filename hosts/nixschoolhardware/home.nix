@@ -1,12 +1,14 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home = {
     username = "rayer";
     homeDirectory = "/home/rayer";
   };
 
   my = {
-    guiPrograms.aseprite.enable = true;
+    guiPrograms = {
+      aseprite.enable = true;
+      godot.enable = true;
+    };
 
     bundles = {
       bundlePackages.generalDesktop.enable = true;
@@ -14,7 +16,7 @@
 
     games.minecraft.enable = true;
 
-    widgets.quickshell.containers.topbar = [ "Battery" ];
+    widgets.quickshell.containers.topbar = ["Battery"];
 
     desktops.hyprland.monitors = [
       "schoolHard"

@@ -1,6 +1,4 @@
-{ lib, ... }:
-let
-
+{lib, ...}: let
   # Get all unique components from a containers attribute set
   # Example: { topbar = ["Clock"]; dropdown = ["Clock" "Battery"]; } -> ["Clock" "Battery"]
   getAllComponents = containers: lib.unique (lib.flatten (lib.attrValues containers));
@@ -9,11 +7,11 @@ let
   # componentPath: path to component source directory
   # components: list of component names
   # Returns: string of cp commands
-  generateComponentCopyCommands =
-    componentPath: components:
+  generateComponentCopyCommands = componentPath: components:
     lib.concatMapStringsSep "\n    " (comp: ''
       cp ${componentPath}/${comp}.qml $out/components/
-    '') components;
+    '')
+    components;
 
   # Generate shell script lines to create container files from templates
   # The parts between // {{COMPONENTS_BEGIN}} and // {{COMPONENTS_END}} will be
@@ -21,15 +19,12 @@ let
   # containerPath: path to container template directory
   # containers: attrset of { containerName = [components]; }
   # Returns: string of template processing commands
-  generateContainerFilesFromTemplates =
-    containerPath: containers:
+  generateContainerFilesFromTemplates = containerPath: containers:
     lib.concatStringsSep "\n    " (
       lib.mapAttrsToList (
-        name: enabledComponents:
-        let
+        name: enabledComponents: let
           capitalizedName = lib.toUpper (lib.substring 0 1 name) + lib.substring 1 (-1) name;
-        in
-        ''
+        in ''
           # Process ${capitalizedName} template
           TEMPLATE=$(cat ${containerPath}/${capitalizedName}.template.qml)
 
@@ -61,7 +56,8 @@ let
                   FILTERED_COMPONENTS="$FILTERED_COMPONENTS$line"$'\n'
                 fi
               fi
-            '') enabledComponents}
+            '')
+            enabledComponents}
 
             if [[ "$MATCHED_ENABLED" == "true" ]]; then
               continue
@@ -110,7 +106,8 @@ let
             echo "$AFTER"
           } > $out/containers/${capitalizedName}.qml
         ''
-      ) containers
+      )
+      containers
     );
 
   # Generate the main shell.qml entry point that QuickShell looks for
@@ -122,13 +119,12 @@ let
 
     Scope {
       ${lib.concatMapStringsSep "\n  " (
-        name:
-        # Capitalize first letter: topbar -> Topbar
-        let
-          capitalizedName = lib.toUpper (lib.substring 0 1 name) + lib.substring 1 (-1) name;
-        in
-        "${capitalizedName} { }"
-      ) (lib.attrNames containers)}
+      name:
+      # Capitalize first letter: topbar -> Topbar
+      let
+        capitalizedName = lib.toUpper (lib.substring 0 1 name) + lib.substring 1 (-1) name;
+      in "${capitalizedName} { }"
+    ) (lib.attrNames containers)}
     }
   '';
 
@@ -140,8 +136,7 @@ let
     ${generateShellQml containers}
     EOF
   '';
-in
-{
+in {
   inherit
     getAllComponents
     generateComponentCopyCommands

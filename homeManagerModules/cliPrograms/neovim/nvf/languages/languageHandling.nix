@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   nvfCfg = config.my.cliPrograms.neovim.nvf;
   langHandCfg = nvfCfg.languageHandling;
   cfg = nvfCfg.moduleCfg.languageHandling;
@@ -21,8 +20,7 @@ let
     "qml"
     "python"
   ]; # ts is also for javascript
-in
-{
+in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {
       enable = lib.mkEnableOption "Enable the languages module.";
@@ -31,7 +29,7 @@ in
     languageHandling = {
       languages = lib.mkOption {
         type = lib.types.listOf (lib.types.enum availableLanguages);
-        default = [ "nix" ];
+        default = ["nix"];
         description = ''
           A list of which language servers to eanble with NVF, (default is  ["nix"],
           since this is written in nix after all.)
