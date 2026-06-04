@@ -14,12 +14,12 @@
     "ruby"
     "html"
     "css"
-    "ts"
+    "typescript"
     "clang"
     "markdown"
     "qml"
     "python"
-  ]; # ts is also for javascript
+  ]; # typescript is also for javascript
 in {
   options.my.cliPrograms.neovim.nvf = {
     moduleCfg.languageHandling = {

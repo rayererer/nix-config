@@ -33,9 +33,24 @@ in {
         {
           lsp = {
             enable = true;
+
+            # See (1) below.
+            mappings.format = null;
           };
 
           languages.enableFormat = true;
+
+          # (1) This is a fix so that for example python formatting works,
+          # it makes it so that the issue of not finding lsp protocol works
+          # by always using conform.
+          keymaps = [
+            {
+              key = "<leader>lf";
+              mode = ["n"];
+              action = "<cmd>lua require('conform').format({ lsp_format = 'fallback' })<cr>";
+              desc = "Format using conform.";
+            }
+          ];
         }
         (lib.mkIf cfg.withCmpAndSnippets {
           autocomplete.blink-cmp.enable = true;

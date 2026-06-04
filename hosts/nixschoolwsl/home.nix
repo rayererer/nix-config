@@ -14,7 +14,7 @@
       "ruby"
       "html"
       "css"
-      "ts"
+      "typescript"
       "clang"
       "markdown"
     ];

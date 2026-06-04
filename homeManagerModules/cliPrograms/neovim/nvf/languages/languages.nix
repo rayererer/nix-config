@@ -32,7 +32,7 @@ in {
           enable = lib.mkEnableOption "Enable the CSS module.";
         };
 
-        ts = {
+        typescript = {
           enable = lib.mkEnableOption ''
             Enable the TypeScript/JavaScript module.
           '';
@@ -91,7 +91,7 @@ in {
             enable = true;
           };
 
-          ts = lib.mkIf cfg.ts.enable {
+          typescript = lib.mkIf cfg.typescript.enable {
             enable = true;
           };
 
@@ -116,6 +116,8 @@ in {
 
           python = lib.mkIf cfg.python.enable {
             enable = true;
+
+            format.type = ["ruff"];
           };
         };
 
