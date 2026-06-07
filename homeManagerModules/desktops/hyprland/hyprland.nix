@@ -57,6 +57,10 @@ in {
       enable = true;
       package = null;
       portalPackage = null;
+
+      # This is set to use old config language since I think the config breaks
+      # otherwise, although migrating is probably a good idea.
+      configType = "hyprlang";
     };
 
     my.desktops.uwsmIntegration.enable = cfg.useUWSM;

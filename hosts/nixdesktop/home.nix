@@ -22,6 +22,7 @@
       "rust"
       "clang"
       "markdown"
+      "python"
     ];
   };
 

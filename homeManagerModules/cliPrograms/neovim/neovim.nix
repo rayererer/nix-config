@@ -13,13 +13,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.neovim.enable = true;
+    programs.neovim = {
+      enable = true;
+
+      defaultEditor = cfg.makeDefault;
+
+      withRuby = false;
+      withPython3 = false;
+    };
 
     my.cliPrograms.neovim.moduleCfg = {
       nvf.enable = cfg.useNvf;
       nvimpager.enable = cfg.nvimpager.enable;
     };
-
-    programs.neovim.defaultEditor = cfg.makeDefault;
   };
 }
