@@ -19,6 +19,13 @@ in {
         Key to use for setting windows in fullscreen.
       '';
     };
+    floatingKey = lib.mkOption {
+      type = lib.types.str;
+      default = "V";
+      description = ''
+        Key to use for toggling floating on windows.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,6 +33,7 @@ in {
       settings = {
         bind = [
           "$mainMod, ${hyprCfg.fullscreenKey}, fullscreen"
+          "$mainMod, ${hyprCfg.floatingKey}, togglefloating"
         ];
 
         bindm = [
