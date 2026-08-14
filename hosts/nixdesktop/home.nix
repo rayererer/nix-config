@@ -9,7 +9,10 @@
       bundlePackages.generalDesktop.enable = true;
     };
 
-    games.minecraft.enable = true;
+    games = {
+      heroic.enable = true;
+      minecraft.enable = true;
+    };
 
     desktops.hyprland.monitors = [
       "homeSamsung"
