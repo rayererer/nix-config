@@ -14,5 +14,6 @@
     ./dualBoot.nix
     ./backlightControl.nix
     ./bluetooth.nix
+    ./airplay.nix
   ];
 }

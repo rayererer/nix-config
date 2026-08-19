@@ -28,6 +28,8 @@ in {
 
       sound.laptopControls.enable = true;
       bluetooth.enable = true;
+
+      airplay.enable = true;
     };
   };
 
