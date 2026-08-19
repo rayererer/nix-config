@@ -14,7 +14,10 @@
       bundlePackages.generalDesktop.enable = true;
     };
 
-    games.minecraft.enable = true;
+    games = {
+      minecraft.enable = true;
+      heroic.enable = true;
+    };
 
     widgets.quickshell.containers.topbar = ["Battery"];
 
