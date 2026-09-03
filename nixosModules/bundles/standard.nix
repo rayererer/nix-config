@@ -33,34 +33,38 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.userName != null) (mkBundleConfig {
-    nixpkgs.config.allowUnfree = true;
+  config = lib.mkIf (cfg.userName != null) (
+    lib.mkMerge [
+      {nix.settings.trusted-users = [cfg.userName];}
 
-    nix.settings.trusted-users = [cfg.userName];
+      (mkBundleConfig {
+        nixpkgs.config.allowUnfree = true;
 
-    # Enabling the shell manually since I cannot avoid recursion otherwise:
-    programs.fish.enable = true;
+        # Enabling the shell manually since I cannot avoid recursion otherwise:
+        programs.fish.enable = true;
 
-    myOs = {
-      users.defaultUser = cfg.userName;
-      sopsNix.ageKeyFile = "/home/${cfg.userName}/.config/sops/age/keys.txt";
-      locale.enable = true;
-      systemMaintenance.garbageCollection.enable = true;
-      fonts.enableDefaultStack = true;
-      services.networking.enable = true;
+        myOs = {
+          users.defaultUser = cfg.userName;
+          sopsNix.ageKeyFile = "/home/${cfg.userName}/.config/sops/age/keys.txt";
+          locale.enable = true;
+          systemMaintenance.garbageCollection.enable = true;
+          fonts.enableDefaultStack = true;
+          services.networking.enable = true;
 
-      homeManager = {
-        inherit (cfg) userName;
-        path = cfg.homeManagerPath;
-      };
+          homeManager = {
+            inherit (cfg) userName;
+            path = cfg.homeManagerPath;
+          };
 
-      stylix = {
-        enable = true;
+          stylix = {
+            enable = true;
 
-        colorSchemes = {
-          alacrittyCopy.enable = true;
+            colorSchemes = {
+              alacrittyCopy.enable = true;
+            };
+          };
         };
-      };
-    };
-  });
+      })
+    ]
+  );
 }
