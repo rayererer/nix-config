@@ -15,5 +15,6 @@
     ./backlightControl.nix
     ./bluetooth.nix
     ./airplay.nix
+    ./distrobox.nix
   ];
 }

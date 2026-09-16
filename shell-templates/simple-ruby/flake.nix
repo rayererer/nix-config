@@ -52,6 +52,7 @@
           # Running bundix would regenerate `gemset.nix`
           bundixcli = bundix.packages.${system}.default;
 
+          # This for example fixes so that rake actually works
           # Use these instead of the original `bundle <mutate>` commands
           bundleLock = pkgs.writeShellScriptBin "bundle-lock" ''
             export BUNDLE_PATH=vendor/bundle
