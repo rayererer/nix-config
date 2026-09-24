@@ -18,6 +18,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.pointerCursor = {
+      enable = true;
+
       gtk.enable = true;
       x11.enable = true;
       name = "Notwaita-Black";
